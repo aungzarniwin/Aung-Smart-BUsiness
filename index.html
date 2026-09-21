@@ -1,639 +1,691 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#111827">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AUNG SMART BUSINESS ERP V5</title>
 
 <style>
 :root{
-  --bg:#f5f7fb;
-  --surface:#ffffff;
-  --surface2:#f8fafc;
-  --border:#e5e7eb;
-  --text:#111827;
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --text:#17202a;
   --muted:#6b7280;
+  --line:#e5e7eb;
   --primary:#111827;
-  --primary2:#374151;
-  --success:#15803d;
-  --warning:#b45309;
+  --accent:#16a34a;
   --danger:#dc2626;
-  --info:#0369a1;
-  --sidebar:#111827;
-  --sidebarText:#d1d5db;
+  --warning:#d97706;
+  --sidebar:260px;
   --radius:16px;
-  --shadow:0 8px 28px rgba(15,23,42,.07);
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+
 body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Myanmar",sans-serif;
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:var(--bg);
   color:var(--text);
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
 
-.app{
-  min-height:100vh;
-  display:flex;
+button,input,select,textarea{
+  font:inherit;
 }
 
-.sidebar{
-  width:260px;
-  background:var(--sidebar);
-  color:white;
-  position:fixed;
-  inset:0 auto 0 0;
-  z-index:50;
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* LOGIN */
+
+.login-screen{
+  min-height:100vh;
   display:flex;
-  flex-direction:column;
-  transition:.25s ease;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at top right,#dbeafe 0,transparent 35%),
+    linear-gradient(135deg,#f8fafc,#eef2f7);
+}
+
+.login-card{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  padding:32px;
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
 }
 
 .brand{
-  padding:22px 20px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.brand-title{
-  font-size:18px;
+  font-size:22px;
   font-weight:800;
-  letter-spacing:.2px;
-}
-.brand-sub{
-  font-size:11px;
-  color:#9ca3af;
-  margin-top:5px;
+  letter-spacing:-.5px;
 }
 
-.nav{
-  padding:14px 10px;
-  overflow:auto;
-  flex:1;
+.brand-sub{
+  color:var(--muted);
+  margin-top:6px;
+  margin-bottom:28px;
 }
-.nav-section{
-  color:#6b7280;
-  font-size:10px;
-  font-weight:800;
-  text-transform:uppercase;
-  padding:14px 11px 7px;
-  letter-spacing:.8px;
+
+.field{
+  margin-bottom:15px;
 }
-.nav-btn{
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.field input,
+.field select,
+.field textarea{
   width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:12px 13px;
+  outline:none;
+  background:#fff;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:#111827;
+  box-shadow:0 0 0 3px rgba(17,24,39,.06);
+}
+
+.btn{
   border:0;
-  background:transparent;
-  color:var(--sidebarText);
-  padding:11px 12px;
-  margin:2px 0;
+  border-radius:11px;
+  padding:11px 15px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-primary{
+  background:#111827;
+  color:#fff;
+}
+
+.btn-success{
+  background:#16a34a;
+  color:#fff;
+}
+
+.btn-danger{
+  background:#dc2626;
+  color:#fff;
+}
+
+.btn-light{
+  background:#f3f4f6;
+  color:#111827;
+}
+
+.btn-block{
+  width:100%;
+}
+
+.message{
+  margin-top:12px;
+  padding:10px 12px;
   border-radius:10px;
+  font-size:13px;
+}
+
+.message.error{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+.message.success{
+  background:#f0fdf4;
+  color:#15803d;
+}
+
+/* APP */
+
+.app{
+  min-height:100vh;
+}
+
+.sidebar{
+  position:fixed;
+  inset:0 auto 0 0;
+  width:var(--sidebar);
+  background:#111827;
+  color:#fff;
+  padding:20px 14px;
+  z-index:50;
+  overflow-y:auto;
+}
+
+.sidebar-brand{
+  padding:10px 12px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:15px;
+}
+
+.sidebar-brand strong{
+  display:block;
+  font-size:17px;
+}
+
+.sidebar-brand span{
+  color:#9ca3af;
+  font-size:11px;
+}
+
+.nav-item{
+  width:100%;
   display:flex;
   align-items:center;
   gap:11px;
+  background:transparent;
+  color:#cbd5e1;
+  border:0;
+  padding:11px 12px;
+  border-radius:10px;
   text-align:left;
-  font-size:13px;
-}
-.nav-btn:hover{background:#1f2937;color:white}
-.nav-btn.active{
-  background:#374151;
-  color:white;
-  font-weight:700;
-}
-.nav-icon{
-  width:20px;
-  text-align:center;
-  font-size:15px;
+  margin:3px 0;
 }
 
-.sidebar-bottom{
-  padding:12px;
-  border-top:1px solid rgba(255,255,255,.08);
+.nav-item:hover{
+  background:#1f2937;
+  color:#fff;
 }
-.user-mini{
+
+.nav-item.active{
+  background:#fff;
+  color:#111827;
+}
+
+.main{
+  margin-left:var(--sidebar);
+  min-height:100vh;
+}
+
+.topbar{
+  height:70px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.menu-btn{
+  display:none;
+  border:0;
+  background:#f3f4f6;
+  border-radius:10px;
+  width:42px;
+  height:42px;
+}
+
+.user-box{
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px;
-  border-radius:12px;
-  background:#1f2937;
 }
+
 .avatar{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  background:#4b5563;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#111827;
+  color:#fff;
   display:grid;
   place-items:center;
   font-weight:800;
 }
-.user-name{font-size:12px;font-weight:700}
-.user-role{font-size:10px;color:#9ca3af}
-
-.main{
-  margin-left:260px;
-  min-width:0;
-  flex:1;
-}
-
-.topbar{
-  height:68px;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 24px;
-  position:sticky;
-  top:0;
-  z-index:30;
-}
-.top-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.page-title{
-  font-size:18px;
-  font-weight:800;
-}
-.company-label{
-  color:var(--muted);
-  font-size:12px;
-}
-.mobile-menu{
-  display:none;
-  border:1px solid var(--border);
-  background:white;
-  width:38px;
-  height:38px;
-  border-radius:10px;
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.icon-btn{
-  border:1px solid var(--border);
-  background:white;
-  width:38px;
-  height:38px;
-  border-radius:10px;
-}
-.icon-btn:hover{background:var(--surface2)}
 
 .content{
-  padding:24px;
-  max-width:1600px;
+  padding:25px;
+  max-width:1500px;
   margin:auto;
 }
-
-.page{display:none}
-.page.active{display:block}
 
 .page-head{
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
   gap:15px;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
-.page-head h1{
+
+.page-title{
   margin:0;
-  font-size:24px;
+  font-size:27px;
+  letter-spacing:-.8px;
 }
-.page-head p{
-  margin:5px 0 0;
+
+.page-sub{
   color:var(--muted);
-  font-size:13px;
+  margin-top:5px;
+  font-size:14px;
 }
 
-.actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
+/* DASHBOARD */
 
-.btn{
-  border:0;
-  border-radius:10px;
-  padding:10px 15px;
-  font-weight:700;
-  font-size:13px;
-  transition:.15s;
-}
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:var(--primary);color:white}
-.btn-secondary{background:white;border:1px solid var(--border);color:var(--text)}
-.btn-success{background:#166534;color:white}
-.btn-danger{background:#b91c1c;color:white}
-.btn-warning{background:#d97706;color:white}
-.btn-small{padding:7px 10px;font-size:11px}
-
-.cards{
+.stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:15px;
+  margin-bottom:20px;
 }
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
+
+.stat{
+  background:#fff;
+  border:1px solid var(--line);
   border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  padding:20px;
 }
-.stat-card{padding:18px}
-.stat-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+
 .stat-label{
-  font-size:12px;
   color:var(--muted);
-  font-weight:600;
+  font-size:13px;
 }
-.stat-icon{
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-  background:#f3f4f6;
-}
+
 .stat-value{
-  margin-top:10px;
-  font-size:23px;
-  font-weight:850;
-}
-.stat-meta{
-  margin-top:6px;
-  font-size:11px;
-  color:var(--muted);
-}
-
-.grid-2{
-  display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:16px;
-  margin-top:16px;
-}
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-top:16px;
-}
-
-.panel{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.panel-head{
-  padding:16px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid var(--border);
-}
-.panel-title{
-  font-size:14px;
+  font-size:25px;
   font-weight:800;
+  margin-top:8px;
 }
-.panel-body{padding:18px}
 
-.progress{
-  height:10px;
-  background:#e5e7eb;
-  border-radius:999px;
-  overflow:hidden;
+/* CARD */
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+  margin-bottom:20px;
 }
-.progress-bar{
-  height:100%;
-  background:#111827;
-  border-radius:999px;
-  transition:.3s;
-}
-.progress-row{
+
+.card-title{
+  font-size:16px;
+  font-weight:800;
   margin-bottom:15px;
 }
-.progress-info{
+
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:11px 13px;
+}
+
+/* PRODUCT */
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.product-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+  transition:.2s;
+}
+
+.product-card:hover{
+  box-shadow:0 10px 30px rgba(0,0,0,.07);
+  transform:translateY(-2px);
+}
+
+.product-image{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#f3f4f6;
+  display:block;
+}
+
+.product-image.empty{
+  display:grid;
+  place-items:center;
+  color:#9ca3af;
+  font-size:45px;
+}
+
+.product-body{
+  padding:15px;
+}
+
+.product-name{
+  font-weight:800;
+  font-size:16px;
+}
+
+.product-sku{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.product-meta{
   display:flex;
   justify-content:space-between;
-  margin-bottom:7px;
+  margin-top:13px;
+  gap:8px;
+}
+
+.product-price{
+  font-weight:800;
+}
+
+.stock{
+  font-size:12px;
+  padding:5px 8px;
+  border-radius:20px;
+  background:#ecfdf5;
+  color:#15803d;
+}
+
+.stock.low{
+  background:#fff7ed;
+  color:#c2410c;
+}
+
+.product-actions{
+  display:flex;
+  gap:8px;
+  margin-top:13px;
+}
+
+.product-actions .btn{
+  flex:1;
+  padding:8px;
   font-size:12px;
 }
-.progress-info span:last-child{font-weight:800}
+
+/* TABLE */
 
 .table-wrap{
   overflow:auto;
 }
+
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:650px;
+  min-width:700px;
 }
+
 th,td{
-  padding:12px 14px;
-  border-bottom:1px solid var(--border);
   text-align:left;
-  font-size:12px;
-  white-space:nowrap;
+  padding:12px 10px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
 }
+
 th{
   color:var(--muted);
-  background:#f8fafc;
-  font-size:10px;
+  font-size:12px;
   text-transform:uppercase;
-  letter-spacing:.5px;
 }
-tr:hover td{background:#fafafa}
 
 .badge{
-  display:inline-flex;
-  align-items:center;
-  padding:5px 8px;
-  border-radius:999px;
-  font-size:10px;
-  font-weight:800;
-}
-.badge-success{background:#dcfce7;color:#166534}
-.badge-warning{background:#fef3c7;color:#92400e}
-.badge-danger{background:#fee2e2;color:#991b1b}
-.badge-info{background:#e0f2fe;color:#075985}
-.badge-neutral{background:#f3f4f6;color:#374151}
-
-.toolbar{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:14px;
-  flex-wrap:wrap;
-}
-.search{
-  min-width:220px;
-  max-width:380px;
-  flex:1;
-}
-.input{
-  width:100%;
-  padding:10px 12px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  outline:none;
-  background:white;
-}
-.input:focus{
-  border-color:#6b7280;
-  box-shadow:0 0 0 3px rgba(17,24,39,.07);
-}
-textarea.input{min-height:90px;resize:vertical}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:13px;
-}
-.form-group{margin-bottom:0}
-.form-group.full{grid-column:1/-1}
-.form-label{
-  display:block;
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
   font-size:11px;
-  font-weight:800;
-  margin-bottom:6px;
-}
-.form-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-top:18px;
+  font-weight:700;
 }
 
-.empty{
-  padding:45px 20px;
-  text-align:center;
-  color:var(--muted);
+.badge.green{
+  background:#ecfdf5;
+  color:#15803d;
 }
-.empty-icon{font-size:32px;margin-bottom:8px}
+
+.badge.orange{
+  background:#fff7ed;
+  color:#c2410c;
+}
+
+.badge.red{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+/* MODAL */
 
 .modal{
   position:fixed;
   inset:0;
-  z-index:100;
-  background:rgba(15,23,42,.5);
-  display:none;
+  background:rgba(0,0,0,.5);
+  display:flex;
   align-items:center;
   justify-content:center;
-  padding:15px;
+  padding:20px;
+  z-index:100;
 }
-.modal.open{display:flex}
-.modal-box{
-  width:min(680px,100%);
+
+.modal-card{
+  width:100%;
+  max-width:720px;
   max-height:90vh;
   overflow:auto;
-  background:white;
-  border-radius:18px;
-  box-shadow:0 30px 70px rgba(0,0,0,.2);
-}
-.modal-head{
-  padding:17px 19px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.modal-title{font-size:16px;font-weight:850}
-.modal-close{
-  border:0;
-  background:#f3f4f6;
-  width:32px;
-  height:32px;
-  border-radius:9px;
-}
-.modal-body{padding:19px}
-
-.login-screen{
-  min-height:100vh;
-  background:#f3f4f6;
-  display:grid;
-  place-items:center;
-  padding:20px;
-}
-.login-card{
-  width:min(430px,100%);
-  background:white;
-  border:1px solid var(--border);
+  background:#fff;
   border-radius:20px;
-  box-shadow:0 20px 60px rgba(0,0,0,.08);
-  padding:28px;
-}
-.login-logo{
-  width:52px;
-  height:52px;
-  background:#111827;
-  color:white;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  margin-bottom:18px;
-}
-.login-card h1{margin:0;font-size:24px}
-.login-card p{color:var(--muted);font-size:13px}
-.login-form{margin-top:22px}
-.login-form .form-group{margin-bottom:14px}
-.login-note{
-  margin-top:15px;
-  padding:10px;
-  background:#f8fafc;
-  border-radius:10px;
-  color:var(--muted);
-  font-size:11px;
+  padding:23px;
 }
 
-.kpi-list{display:grid;gap:10px}
-.kpi-item{
+.modal-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px;
-  background:#f8fafc;
+  margin-bottom:20px;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.close{
+  width:36px;
+  height:36px;
+  border:0;
   border-radius:10px;
+  background:#f3f4f6;
 }
-.kpi-name{font-size:12px;font-weight:700}
-.kpi-value{font-size:13px;font-weight:850}
 
-.ai-box{
-  padding:18px;
-  border-radius:14px;
-  background:#f8fafc;
-  border:1px solid var(--border);
-}
-.ai-title{font-size:15px;font-weight:850;margin-bottom:8px}
-.ai-section{margin-top:15px}
-.ai-section strong{font-size:11px;text-transform:uppercase;color:var(--muted)}
-.ai-section div{margin-top:5px;font-size:13px;line-height:1.6}
-
-.tool-grid{
+.form-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:1fr 1fr;
   gap:15px;
 }
-.tool-card{
+
+.full{
+  grid-column:1/-1;
+}
+
+.image-upload{
+  border:2px dashed #d1d5db;
+  border-radius:15px;
   padding:18px;
-  border:1px solid var(--border);
+  text-align:center;
+}
+
+.image-preview{
+  width:180px;
+  height:180px;
+  margin:0 auto 15px;
+  object-fit:cover;
   border-radius:14px;
-  background:white;
+  background:#f3f4f6;
+  display:block;
 }
-.tool-card h3{margin:0 0 5px;font-size:14px}
-.tool-card p{font-size:11px;color:var(--muted);min-height:32px}
 
-.alert{
-  padding:11px 13px;
-  border-radius:10px;
-  font-size:12px;
-  margin-bottom:12px;
-}
-.alert-danger{background:#fee2e2;color:#991b1b}
-.alert-success{background:#dcfce7;color:#166534}
-.alert-warning{background:#fef3c7;color:#92400e}
-.alert-info{background:#e0f2fe;color:#075985}
-
-.toast-container{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:200;
+.image-preview.empty{
   display:grid;
-  gap:8px;
-}
-.toast{
-  background:#111827;
-  color:white;
-  padding:11px 14px;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
-  font-size:12px;
-  animation:toastIn .2s ease;
-}
-@keyframes toastIn{
-  from{transform:translateY(10px);opacity:0}
-  to{transform:translateY(0);opacity:1}
+  place-items:center;
+  font-size:50px;
+  color:#9ca3af;
 }
 
-.setting-row{
+.modal-actions{
   display:flex;
-  justify-content:space-between;
-  gap:20px;
-  padding:15px 0;
-  border-bottom:1px solid var(--border);
-}
-.setting-label{font-size:13px;font-weight:800}
-.setting-desc{font-size:11px;color:var(--muted);margin-top:4px}
-
-.chart-bars{
-  height:210px;
-  display:flex;
-  align-items:flex-end;
-  gap:10px;
-  padding:15px 5px 0;
-}
-.bar-wrap{
-  flex:1;
-  height:100%;
-  display:flex;
-  flex-direction:column;
   justify-content:flex-end;
-  align-items:center;
-  gap:6px;
+  gap:10px;
+  margin-top:22px;
 }
-.bar{
-  width:100%;
-  max-width:35px;
-  min-height:4px;
-  background:#374151;
-  border-radius:7px 7px 2px 2px;
+
+/* OVERLAY */
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  z-index:40;
 }
-.bar-label{font-size:9px;color:var(--muted)}
-.bar-value{font-size:9px;font-weight:800}
+
+.overlay.show{
+  display:block;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:200;
+  background:#111827;
+  color:#fff;
+  padding:13px 17px;
+  border-radius:11px;
+  opacity:0;
+  transform:translateY(10px);
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RESPONSIVE */
 
 @media(max-width:1100px){
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .grid-2,.grid-3{grid-template-columns:1fr}
-  .tool-grid{grid-template-columns:repeat(2,1fr)}
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
 }
 
-@media(max-width:760px){
+@media(max-width:800px){
   .sidebar{
     transform:translateX(-100%);
-    box-shadow:10px 0 40px rgba(0,0,0,.15);
+    transition:.25s;
   }
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  .mobile-menu{display:block}
-  .topbar{padding:0 14px}
-  .content{padding:16px}
-  .page-head{flex-direction:column}
-  .cards{grid-template-columns:1fr 1fr;gap:10px}
-  .stat-card{padding:14px}
-  .stat-value{font-size:18px}
-  .form-grid{grid-template-columns:1fr}
-  .form-group.full{grid-column:auto}
-  .tool-grid{grid-template-columns:1fr}
-  .company-label{display:none}
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .content{
+    padding:17px;
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
 }
 
-@media(max-width:450px){
-  .cards{grid-template-columns:1fr}
-  .top-actions .icon-btn:nth-child(2){display:none}
+@media(max-width:520px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:14px;
+  }
+
+  .stat-value{
+    font-size:19px;
+  }
+
+  .product-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .product-image{
+    height:135px;
+  }
+
+  .product-body{
+    padding:11px;
+  }
+
+  .page-title{
+    font-size:22px;
+  }
+
+  .modal{
+    padding:10px;
+  }
+
+  .modal-card{
+    padding:17px;
+  }
 }
 </style>
 </head>
@@ -641,1131 +693,319 @@ textarea.input{min-height:90px;resize:vertical}
 <body>
 
 <!-- LOGIN -->
-<div id="loginScreen" class="login-screen">
+
+<section id="loginScreen" class="login-screen">
   <div class="login-card">
-    <div class="login-logo">AS</div>
-    <h1>AUNG SMART BUSINESS</h1>
-    <p>Business Growth Operating System</p>
+    <div class="brand">AUNG SMART BUSINESS</div>
+    <div class="brand-sub">ERP • Business Growth Operating System</div>
 
-    <div id="loginAlert"></div>
-
-    <div class="login-form">
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input id="loginEmail" class="input" type="email" value="owner@example.com">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Password</label>
-        <input id="loginPassword" class="input" type="password" value="demo123">
-      </div>
-
-      <button class="btn btn-primary" style="width:100%;margin-top:5px" onclick="login()">
-        Sign In
-      </button>
-
-      <button class="btn btn-secondary" style="width:100%;margin-top:8px" onclick="demoLogin()">
-        Continue with Demo
-      </button>
-
-      <div class="login-note">
-        Development mode — Backend မချိတ်ထားသေးရင် LocalStorage data mode နဲ့ အလုပ်လုပ်ပါမယ်
-      </div>
+    <div class="field">
+      <label>Email</label>
+      <input id="loginEmail" type="email" placeholder="owner@example.com">
     </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input id="loginPassword" type="password" placeholder="Password">
+    </div>
+
+    <button class="btn btn-primary btn-block" onclick="login()">
+      Sign In
+    </button>
+
+    <button class="btn btn-light btn-block" style="margin-top:9px" onclick="showRegister()">
+      Create New Account
+    </button>
+
+    <div id="loginMsg"></div>
   </div>
-</div>
+</section>
+
 
 <!-- APP -->
-<div id="app" class="app hidden">
+
+<section id="app" class="app hidden">
 
   <aside id="sidebar" class="sidebar">
-    <div class="brand">
-      <div class="brand-title">AUNG SMART BUSINESS</div>
-      <div class="brand-sub">ERP V5 • Business Growth OS</div>
+
+    <div class="sidebar-brand">
+      <strong>AUNG SMART BUSINESS</strong>
+      <span>ERP V5 • Professional</span>
     </div>
 
-    <nav class="nav">
+    <button class="nav-item active" onclick="navigate('dashboard',this)">
+      📊 Dashboard
+    </button>
 
-      <div class="nav-section">Overview</div>
+    <button class="nav-item" onclick="navigate('sales',this)">
+      🧾 Sales
+    </button>
 
-      <button class="nav-btn active" data-page="dashboard" onclick="go('dashboard')">
-        <span class="nav-icon">▦</span> Dashboard
-      </button>
+    <button class="nav-item" onclick="navigate('customers',this)">
+      👥 CRM / Customers
+    </button>
 
-      <div class="nav-section">Sales & CRM</div>
+    <button class="nav-item" onclick="navigate('purchases',this)">
+      🛒 Purchases
+    </button>
 
-      <button class="nav-btn" data-page="sales" onclick="go('sales')">
-        <span class="nav-icon">▣</span> Sales & Invoice
-      </button>
+    <button class="nav-item" onclick="navigate('inventory',this)">
+      📦 Inventory
+    </button>
 
-      <button class="nav-btn" data-page="customers" onclick="go('customers')">
-        <span class="nav-icon">♙</span> Customers
-      </button>
+    <button class="nav-item" onclick="navigate('accounting',this)">
+      💰 Accounting
+    </button>
 
-      <button class="nav-btn" data-page="suppliers" onclick="go('suppliers')">
-        <span class="nav-icon">⇄</span> Suppliers
-      </button>
+    <button class="nav-item" onclick="navigate('expenses',this)">
+      💳 Expenses
+    </button>
 
-      <div class="nav-section">Operations</div>
+    <button class="nav-item" onclick="navigate('employees',this)">
+      👨‍💼 Employees
+    </button>
 
-      <button class="nav-btn" data-page="products" onclick="go('products')">
-        <span class="nav-icon">□</span> Products
-      </button>
+    <button class="nav-item" onclick="navigate('users',this)">
+      🔐 Users & Roles
+    </button>
 
-      <button class="nav-btn" data-page="purchases" onclick="go('purchases')">
-        <span class="nav-icon">◫</span> Purchases
-      </button>
+    <button class="nav-item" onclick="navigate('growth',this)">
+      🚀 100 → 1000 Growth
+    </button>
 
-      <button class="nav-btn" data-page="expenses" onclick="go('expenses')">
-        <span class="nav-icon">−</span> Expenses
-      </button>
+    <button class="nav-item" onclick="navigate('coach',this)">
+      🤖 AI Business Coach
+    </button>
 
-      <button class="nav-btn" data-page="employees" onclick="go('employees')">
-        <span class="nav-icon">♟</span> Employees
-      </button>
+    <button class="nav-item" onclick="navigate('settings',this)">
+      ⚙️ Settings
+    </button>
 
-      <div class="nav-section">Management</div>
+    <button class="nav-item" onclick="logout()" style="margin-top:20px">
+      🚪 Logout
+    </button>
 
-      <button class="nav-btn" data-page="reports" onclick="go('reports')">
-        <span class="nav-icon">▤</span> Reports
-      </button>
-
-      <button class="nav-btn" data-page="growth" onclick="go('growth')">
-        <span class="nav-icon">↗</span> 100 → 1000 Growth
-      </button>
-
-      <button class="nav-btn" data-page="coach" onclick="go('coach')">
-        <span class="nav-icon">✦</span> AI Business Coach
-      </button>
-
-      <button class="nav-btn" data-page="tools" onclick="go('tools')">
-        <span class="nav-icon">⌗</span> Business Tools
-      </button>
-
-      <div class="nav-section">Administration</div>
-
-      <button class="nav-btn" data-page="users" onclick="go('users')">
-        <span class="nav-icon">♙</span> Users & Roles
-      </button>
-
-      <button class="nav-btn" data-page="settings" onclick="go('settings')">
-        <span class="nav-icon">⚙</span> Settings
-      </button>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-      <div class="user-mini">
-        <div class="avatar">A</div>
-        <div>
-          <div class="user-name" id="sideUserName">Aung Zar Ni Win</div>
-          <div class="user-role">Owner</div>
-        </div>
-      </div>
-    </div>
   </aside>
+
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
 
   <main class="main">
 
     <header class="topbar">
-      <div class="top-left">
-        <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+      <div></div>
+
+      <div class="user-box">
         <div>
-          <div id="pageTitle" class="page-title">Dashboard</div>
-          <div id="companyLabel" class="company-label">Aung Business</div>
+          <strong id="topUserName">Owner</strong>
+          <div style="font-size:11px;color:#6b7280" id="topCompany">
+            Aung Business
+          </div>
         </div>
+
+        <div class="avatar" id="avatar">A</div>
       </div>
 
-      <div class="top-actions">
-        <button class="icon-btn" onclick="refreshCurrent()">↻</button>
-        <button class="icon-btn" onclick="showToast('System is running')">●</button>
-      </div>
     </header>
 
-    <div class="content">
+    <div id="content" class="content"></div>
 
-      <!-- DASHBOARD -->
-      <section id="page-dashboard" class="page active">
-
-        <div class="page-head">
-          <div>
-            <h1>Business Dashboard</h1>
-            <p>သင့်လုပ်ငန်းရဲ့ Sales, Profit, Cash နဲ့ Growth ကို တစ်နေရာတည်းက ကြည့်ပါ</p>
-          </div>
-          <div class="actions">
-            <button class="btn btn-secondary" onclick="openModal('saleModal')">+ New Sale</button>
-            <button class="btn btn-primary" onclick="openModal('productModal')">+ Product</button>
-          </div>
-        </div>
-
-        <div class="cards">
-
-          <div class="card stat-card">
-            <div class="stat-top">
-              <span class="stat-label">Revenue</span>
-              <span class="stat-icon">↗</span>
-            </div>
-            <div id="dashRevenue" class="stat-value">0</div>
-            <div class="stat-meta">Total sales</div>
-          </div>
-
-          <div class="card stat-card">
-            <div class="stat-top">
-              <span class="stat-label">Gross Profit</span>
-              <span class="stat-icon">◆</span>
-            </div>
-            <div id="dashGross" class="stat-value">0</div>
-            <div class="stat-meta">Revenue − COGS</div>
-          </div>
-
-          <div class="card stat-card">
-            <div class="stat-top">
-              <span class="stat-label">Net Profit</span>
-              <span class="stat-icon">✓</span>
-            </div>
-            <div id="dashNet" class="stat-value">0</div>
-            <div class="stat-meta">After expenses</div>
-          </div>
-
-          <div class="card stat-card">
-            <div class="stat-top">
-              <span class="stat-label">Receivable</span>
-              <span class="stat-icon">◌</span>
-            </div>
-            <div id="dashReceivable" class="stat-value">0</div>
-            <div class="stat-meta">Customer credit</div>
-          </div>
-
-        </div>
-
-        <div class="grid-2">
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">100 → 1000 Growth Progress</div>
-              <span id="growthStageBadge" class="badge badge-info">Foundation</span>
-            </div>
-
-            <div class="panel-body">
-
-              <div class="progress-row">
-                <div class="progress-info">
-                  <span>Current Revenue</span>
-                  <span id="growthCurrent">0</span>
-                </div>
-                <div class="progress">
-                  <div id="growthProgress" class="progress-bar" style="width:0%"></div>
-                </div>
-              </div>
-
-              <div class="kpi-list">
-                <div class="kpi-item">
-                  <span class="kpi-name">Target Revenue</span>
-                  <span id="growthTarget" class="kpi-value">0</span>
-                </div>
-
-                <div class="kpi-item">
-                  <span class="kpi-name">Growth Gap</span>
-                  <span id="growthGap" class="kpi-value">0</span>
-                </div>
-
-                <div class="kpi-item">
-                  <span class="kpi-name">Sales Transactions</span>
-                  <span id="dashSalesCount" class="kpi-value">0</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Quick Actions</div>
-            </div>
-
-            <div class="panel-body">
-
-              <div class="kpi-list">
-
-                <button class="btn btn-secondary" onclick="openModal('saleModal')">
-                  + Create Sales Invoice
-                </button>
-
-                <button class="btn btn-secondary" onclick="openModal('customerModal')">
-                  + Add Customer
-                </button>
-
-                <button class="btn btn-secondary" onclick="openModal('purchaseModal')">
-                  + Record Purchase
-                </button>
-
-                <button class="btn btn-secondary" onclick="openModal('expenseModal')">
-                  + Record Expense
-                </button>
-
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-        <div class="grid-2">
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Recent Sales</div>
-              <button class="btn btn-small btn-secondary" onclick="go('sales')">View All</button>
-            </div>
-            <div id="recentSales"></div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Stock Alerts</div>
-              <button class="btn btn-small btn-secondary" onclick="go('products')">Inventory</button>
-            </div>
-            <div id="stockAlerts"></div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- SALES -->
-      <section id="page-sales" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Sales & Invoice</h1>
-            <p>Sales invoice, payment and customer credit management</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('saleModal')">+ New Sale</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div class="toolbar">
-              <input id="salesSearch" class="input search" placeholder="Search invoice / customer..." oninput="renderSales()">
-              <button class="btn btn-secondary" onclick="exportCSV('sales')">Export CSV</button>
-            </div>
-            <div id="salesTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CUSTOMERS -->
-      <section id="page-customers" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Customers</h1>
-            <p>Customer database and receivable tracking</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('customerModal')">+ Add Customer</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div class="toolbar">
-              <input id="customerSearch" class="input search" placeholder="Search customer..." oninput="renderCustomers()">
-              <button class="btn btn-secondary" onclick="exportCSV('customers')">Export CSV</button>
-            </div>
-            <div id="customersTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SUPPLIERS -->
-      <section id="page-suppliers" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Suppliers</h1>
-            <p>Supplier database and payable tracking</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('supplierModal')">+ Add Supplier</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div class="toolbar">
-              <input id="supplierSearch" class="input search" placeholder="Search supplier..." oninput="renderSuppliers()">
-            </div>
-            <div id="suppliersTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PRODUCTS -->
-      <section id="page-products" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Products & Inventory</h1>
-            <p>Product master, stock quantity and low-stock monitoring</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('productModal')">+ Add Product</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div class="toolbar">
-              <input id="productSearch" class="input search" placeholder="Search product / SKU..." oninput="renderProducts()">
-              <button class="btn btn-secondary" onclick="exportCSV('products')">Export CSV</button>
-            </div>
-            <div id="productsTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PURCHASE -->
-      <section id="page-purchases" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Purchases</h1>
-            <p>Purchase records, supplier payable and stock receiving</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('purchaseModal')">+ New Purchase</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div id="purchasesTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- EXPENSES -->
-      <section id="page-expenses" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Expenses</h1>
-            <p>Track operating expenses and net profit</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('expenseModal')">+ Add Expense</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div id="expensesTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- EMPLOYEES -->
-      <section id="page-employees" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Employees</h1>
-            <p>Employee master and basic management</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('employeeModal')">+ Add Employee</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div id="employeesTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REPORTS -->
-      <section id="page-reports" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Reports</h1>
-            <p>Business performance overview</p>
-          </div>
-          <button class="btn btn-secondary" onclick="exportAll()">Export All Data</button>
-        </div>
-
-        <div class="cards">
-          <div class="card stat-card">
-            <div class="stat-label">Revenue</div>
-            <div id="reportRevenue" class="stat-value">0</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-label">COGS</div>
-            <div id="reportCOGS" class="stat-value">0</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-label">Expenses</div>
-            <div id="reportExpenses" class="stat-value">0</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-label">Net Profit</div>
-            <div id="reportNet" class="stat-value">0</div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Revenue Chart</div>
-            </div>
-            <div class="panel-body">
-              <div id="revenueChart" class="chart-bars"></div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Business KPIs</div>
-            </div>
-            <div class="panel-body">
-              <div id="reportKpis" class="kpi-list"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- GROWTH -->
-      <section id="page-growth" class="page">
-
-        <div class="page-head">
-          <div>
-            <h1>100 → 1000 Growth System</h1>
-            <p>လုပ်ငန်းအရွယ်အစားတိုးလာအောင် Revenue Gap နဲ့ Action Plan ကို စီမံပါ</p>
-          </div>
-        </div>
-
-        <div class="cards">
-          <div class="card stat-card">
-            <div class="stat-label">Current Revenue</div>
-            <div id="gCurrent" class="stat-value">0</div>
-          </div>
-
-          <div class="card stat-card">
-            <div class="stat-label">Target Revenue</div>
-            <div id="gTarget" class="stat-value">0</div>
-          </div>
-
-          <div class="card stat-card">
-            <div class="stat-label">Gap</div>
-            <div id="gGap" class="stat-value">0</div>
-          </div>
-
-          <div class="card stat-card">
-            <div class="stat-label">Achievement</div>
-            <div id="gAchievement" class="stat-value">0%</div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Growth Stage</div>
-            </div>
-            <div class="panel-body">
-              <div id="growthStages"></div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">30 / 60 / 90 Day Action Plan</div>
-            </div>
-            <div class="panel-body">
-              <div class="kpi-list">
-                <div class="kpi-item">
-                  <span class="kpi-name">0–30 Days</span>
-                  <span class="badge badge-info">Foundation</span>
-                </div>
-                <div class="kpi-item">
-                  <span class="kpi-name">31–60 Days</span>
-                  <span class="badge badge-warning">Sales Growth</span>
-                </div>
-                <div class="kpi-item">
-                  <span class="kpi-name">61–90 Days</span>
-                  <span class="badge badge-success">Scale</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- AI COACH -->
-      <section id="page-coach" class="page">
-
-        <div class="page-head">
-          <div>
-            <h1>AI Business Coach</h1>
-            <p>Business data ကိုကြည့်ပြီး Problem → Cause → Action → KPI → 7-Day Plan ပုံစံနဲ့ အကြံပေးပါမယ်</p>
-          </div>
-          <button class="btn btn-primary" onclick="runCoach()">Analyze Business</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div id="coachResult"></div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- TOOLS -->
-      <section id="page-tools" class="page">
-
-        <div class="page-head">
-          <div>
-            <h1>Business Tools</h1>
-            <p>Manager အတွက် အရေးကြီးတဲ့ business calculators</p>
-          </div>
-        </div>
-
-        <div class="tool-grid">
-
-          <div class="tool-card">
-            <h3>Gross Profit</h3>
-            <p>Revenue နဲ့ Cost ကနေ Gross Profit တွက်ပါ</p>
-            <input id="toolRevenue" class="input" placeholder="Revenue">
-            <input id="toolCost" class="input" style="margin-top:7px" placeholder="Cost">
-            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcGross()">Calculate</button>
-            <div id="toolGrossResult" style="margin-top:10px;font-weight:800"></div>
-          </div>
-
-          <div class="tool-card">
-            <h3>Margin</h3>
-            <p>Gross Margin % တွက်ပါ</p>
-            <input id="marginRevenue" class="input" placeholder="Revenue">
-            <input id="marginProfit" class="input" style="margin-top:7px" placeholder="Gross Profit">
-            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcMargin()">Calculate</button>
-            <div id="marginResult" style="margin-top:10px;font-weight:800"></div>
-          </div>
-
-          <div class="tool-card">
-            <h3>Break-even</h3>
-            <p>Fixed Cost / Contribution Margin ကနေ Break-even Sales တွက်ပါ</p>
-            <input id="beFixed" class="input" placeholder="Fixed Cost">
-            <input id="beMargin" class="input" style="margin-top:7px" placeholder="Margin %">
-            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcBreakEven()">Calculate</button>
-            <div id="beResult" style="margin-top:10px;font-weight:800"></div>
-          </div>
-
-          <div class="tool-card">
-            <h3>Pricing</h3>
-            <p>Cost + Target Margin နဲ့ Selling Price တွက်ပါ</p>
-            <input id="priceCost" class="input" placeholder="Cost">
-            <input id="priceMargin" class="input" style="margin-top:7px" placeholder="Target Margin %">
-            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcPrice()">Calculate</button>
-            <div id="priceResult" style="margin-top:10px;font-weight:800"></div>
-          </div>
-
-          <div class="tool-card">
-            <h3>Monthly Growth</h3>
-            <p>Previous vs Current Revenue Growth</p>
-            <input id="growthPrev" class="input" placeholder="Previous">
-            <input id="growthNow" class="input" style="margin-top:7px" placeholder="Current">
-            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcGrowth()">Calculate</button>
-            <div id="growthResult" style="margin-top:10px;font-weight:800"></div>
-          </div>
-
-          <div class="tool-card">
-            <h3>AOV</h3>
-            <p>Average Order Value</p>
-            <input id="aovRevenue" class="input" placeholder="Revenue">
-            <input id="aovOrders" class="input" style="margin-top:7px" placeholder="Orders">
-            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcAOV()">Calculate</button>
-            <div id="aovResult" style="margin-top:10px;font-weight:800"></div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- USERS -->
-      <section id="page-users" class="page">
-        <div class="page-head">
-          <div>
-            <h1>Users & Roles</h1>
-            <p>ERP access and user roles</p>
-          </div>
-          <button class="btn btn-primary" onclick="openModal('userModal')">+ Add User</button>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-            <div id="usersTable"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SETTINGS -->
-      <section id="page-settings" class="page">
-
-        <div class="page-head">
-          <div>
-            <h1>Settings</h1>
-            <p>Company and ERP configuration</p>
-          </div>
-        </div>
-
-        <div class="grid-2">
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Company Settings</div>
-            </div>
-
-            <div class="panel-body">
-
-              <div class="form-grid">
-
-                <div class="form-group">
-                  <label class="form-label">Company Name</label>
-                  <input id="settingCompany" class="input">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Owner</label>
-                  <input id="settingOwner" class="input">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Monthly Revenue Target</label>
-                  <input id="settingTarget" class="input" type="number">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Currency</label>
-                  <select id="settingCurrency" class="input">
-                    <option value="MMK">MMK</option>
-                    <option value="USD">USD</option>
-                  </select>
-                </div>
-
-              </div>
-
-              <div class="form-actions">
-                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Data Management</div>
-            </div>
-
-            <div class="panel-body">
-
-              <div class="setting-row">
-                <div>
-                  <div class="setting-label">Export All Data</div>
-                  <div class="setting-desc">LocalStorage data ကို JSON file အဖြစ်သိမ်းပါ</div>
-                </div>
-                <button class="btn btn-secondary" onclick="exportAll()">Export</button>
-              </div>
-
-              <div class="setting-row">
-                <div>
-                  <div class="setting-label">Reset Demo Data</div>
-                  <div class="setting-desc">Demo data အားလုံးကို ပြန်စတင်ပါမယ်</div>
-                </div>
-                <button class="btn btn-danger" onclick="resetData()">Reset</button>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
   </main>
-</div>
 
-<!-- MODALS -->
+</section>
 
-<!-- Customer -->
-<div id="customerModal" class="modal">
-  <div class="modal-box">
+
+<!-- REGISTER MODAL -->
+
+<div id="registerModal" class="modal hidden">
+  <div class="modal-card" style="max-width:500px">
+
     <div class="modal-head">
-      <div class="modal-title">Add Customer</div>
-      <button class="modal-close" onclick="closeModal('customerModal')">×</button>
+      <div class="modal-title">Create Business Account</div>
+      <button class="close" onclick="closeRegister()">✕</button>
     </div>
-    <div class="modal-body">
-      <form onsubmit="saveCustomer(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Customer Name</label>
-            <input id="customerName" class="input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input id="customerPhone" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Address</label>
-            <input id="customerAddress" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Credit Limit</label>
-            <input id="customerCredit" class="input" type="number" value="0">
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('customerModal')">Cancel</button>
-          <button class="btn btn-primary">Save Customer</button>
-        </div>
-      </form>
+
+    <div class="field">
+      <label>Company Name</label>
+      <input id="regCompany" placeholder="My Business">
     </div>
+
+    <div class="field">
+      <label>Your Name</label>
+      <input id="regName" placeholder="Owner Name">
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="regEmail" type="email" placeholder="owner@example.com">
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input id="regPassword" type="password" placeholder="Minimum 6 characters">
+    </div>
+
+    <button class="btn btn-primary btn-block" onclick="register()">
+      Create Account
+    </button>
+
+    <div id="registerMsg"></div>
+
   </div>
 </div>
 
-<!-- Supplier -->
-<div id="supplierModal" class="modal">
-  <div class="modal-box">
+
+<!-- PRODUCT MODAL -->
+
+<div id="productModal" class="modal hidden">
+
+  <div class="modal-card">
+
     <div class="modal-head">
-      <div class="modal-title">Add Supplier</div>
-      <button class="modal-close" onclick="closeModal('supplierModal')">×</button>
+      <div class="modal-title" id="productModalTitle">
+        Add Product
+      </div>
+
+      <button class="close" onclick="closeProductModal()">✕</button>
     </div>
-    <div class="modal-body">
-      <form onsubmit="saveSupplier(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Supplier Name</label>
-            <input id="supplierName" class="input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input id="supplierPhone" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Address</label>
-            <input id="supplierAddress" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Credit Limit</label>
-            <input id="supplierCredit" class="input" type="number" value="0">
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('supplierModal')">Cancel</button>
-          <button class="btn btn-primary">Save Supplier</button>
-        </div>
-      </form>
+
+    <div class="image-upload">
+
+      <div id="imagePreviewBox" class="image-preview empty">
+        📦
+      </div>
+
+      <input
+        id="productImage"
+        type="file"
+        accept="image/*"
+        onchange="handleProductImage(event)"
+      >
+
+      <div style="font-size:12px;color:#6b7280;margin-top:8px">
+        JPG / PNG / WEBP • Image will be compressed automatically
+      </div>
+
     </div>
+
+    <div class="form-grid" style="margin-top:20px">
+
+      <div class="field">
+        <label>Product Name *</label>
+        <input id="pName" placeholder="Product name">
+      </div>
+
+      <div class="field">
+        <label>SKU</label>
+        <input id="pSku" placeholder="SKU-001">
+      </div>
+
+      <div class="field">
+        <label>Category</label>
+        <input id="pCategory" placeholder="Beverage">
+      </div>
+
+      <div class="field">
+        <label>Unit</label>
+        <select id="pUnit">
+          <option value="pcs">Pieces</option>
+          <option value="box">Box</option>
+          <option value="pack">Pack</option>
+          <option value="carton">Carton</option>
+          <option value="kg">Kg</option>
+          <option value="liter">Liter</option>
+          <option value="bottle">Bottle</option>
+          <option value="can">Can</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Cost Price</label>
+        <input id="pCost" type="number" min="0" placeholder="0">
+      </div>
+
+      <div class="field">
+        <label>Selling Price *</label>
+        <input id="pPrice" type="number" min="0" placeholder="0">
+      </div>
+
+      <div class="field">
+        <label>Opening Stock</label>
+        <input id="pStock" type="number" min="0" placeholder="0">
+      </div>
+
+      <div class="field">
+        <label>Low Stock Alert</label>
+        <input id="pLowStock" type="number" min="0" value="10">
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-light" onclick="closeProductModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" onclick="saveProduct()">
+        Save Product
+      </button>
+    </div>
+
   </div>
 </div>
 
-<!-- Product -->
-<div id="productModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Add Product</div>
-      <button class="modal-close" onclick="closeModal('productModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="saveProduct(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Product Name</label>
-            <input id="productName" class="input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">SKU</label>
-            <input id="productSku" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Category</label>
-            <input id="productCategory" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Unit</label>
-            <select id="productUnit" class="input">
-              <option>Piece</option>
-              <option>Box</option>
-              <option>Pack</option>
-              <option>Carton</option>
-              <option>Kg</option>
-              <option>Liter</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Cost Price</label>
-            <input id="productCost" class="input" type="number" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Selling Price</label>
-            <input id="productPrice" class="input" type="number" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Opening Stock</label>
-            <input id="productStock" class="input" type="number" value="0">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Low Stock Alert</label>
-            <input id="productLow" class="input" type="number" value="5">
-          </div>
-        </div>
 
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('productModal')">Cancel</button>
-          <button class="btn btn-primary">Save Product</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<div id="toast" class="toast"></div>
 
-<!-- Sale -->
-<div id="saleModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Create Sales Invoice</div>
-      <button class="modal-close" onclick="closeModal('saleModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="saveSale(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Customer</label>
-            <select id="saleCustomer" class="input"></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Product</label>
-            <select id="saleProduct" class="input" onchange="updateSalePrice()"></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Quantity</label>
-            <input id="saleQty" class="input" type="number" min="1" value="1" onchange="updateSaleTotal()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Selling Price</label>
-            <input id="salePrice" class="input" type="number" min="0" onchange="updateSaleTotal()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Payment Status</label>
-            <select id="salePaymentStatus" class="input" onchange="updatePaidField()">
-              <option value="Paid">Paid</option>
-              <option value="Credit">Credit</option>
-              <option value="Partial">Partial</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Paid Amount</label>
-            <input id="salePaid" class="input" type="number" min="0" value="0">
-          </div>
-          <div class="form-group full">
-            <label class="form-label">Total</label>
-            <div id="saleTotalPreview" style="font-size:22px;font-weight:900">0</div>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('saleModal')">Cancel</button>
-          <button class="btn btn-primary">Create Invoice</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Purchase -->
-<div id="purchaseModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Record Purchase</div>
-      <button class="modal-close" onclick="closeModal('purchaseModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="savePurchase(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Supplier</label>
-            <select id="purchaseSupplier" class="input"></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Product</label>
-            <select id="purchaseProduct" class="input"></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Quantity</label>
-            <input id="purchaseQty" class="input" type="number" min="1" value="1">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Cost Price</label>
-            <input id="purchaseCost" class="input" type="number" min="0">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Payment Status</label>
-            <select id="purchasePaymentStatus" class="input">
-              <option value="Paid">Paid</option>
-              <option value="Credit">Credit</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('purchaseModal')">Cancel</button>
-          <button class="btn btn-primary">Save Purchase</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Expense -->
-<div id="expenseModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Add Expense</div>
-      <button class="modal-close" onclick="closeModal('expenseModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="saveExpense(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Category</label>
-            <select id="expenseCategory" class="input">
-              <option>Rent</option>
-              <option>Salary</option>
-              <option>Transport</option>
-              <option>Marketing</option>
-              <option>Utilities</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Amount</label>
-            <input id="expenseAmount" class="input" type="number" required>
-          </div>
-          <div class="form-group full">
-            <label class="form-label">Description</label>
-            <input id="expenseDescription" class="input">
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('expenseModal')">Cancel</button>
-          <button class="btn btn-primary">Save Expense</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Employee -->
-<div id="employeeModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Add Employee</div>
-      <button class="modal-close" onclick="closeModal('employeeModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="saveEmployee(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Name</label>
-            <input id="employeeName" class="input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Role</label>
-            <input id="employeeRole" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Phone</label>
-            <input id="employeePhone" class="input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Salary</label>
-            <input id="employeeSalary" class="input" type="number">
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('employeeModal')">Cancel</button>
-          <button class="btn btn-primary">Save Employee</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- User -->
-<div id="userModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title">Add User</div>
-      <button class="modal-close" onclick="closeModal('userModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="saveUser(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Name</label>
-            <input id="userName" class="input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input id="userEmail" class="input" type="email" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Role</label>
-            <select id="userRole" class="input">
-              <option>Admin</option>
-              <option>Sales Manager</option>
-              <option>Salesperson</option>
-              <option>Accountant</option>
-              <option>Warehouse</option>
-              <option>HR</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('userModal')">Cancel</button>
-          <button class="btn btn-primary">Save User</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div id="toastContainer" class="toast-container"></div>
 
 <script>
-/* =========================================================
-   AUNG SMART BUSINESS ERP V5
-   PROFESSIONAL FRONTEND
-   ========================================================= */
+const API_BASE =
+  localStorage.getItem("aung_erp_api") ||
+  "https://YOUR-ERP-BACKEND.onrender.com";
 
-/*
-  IMPORTANT
-  Backend ချိတ်မယ့်အချိန်မှာ ဒီ URL ကို Render Web Service URL ပြောင်းပါ
+const TOKEN_KEY = "aung_smart_business_token";
+const IMAGE_KEY = "aung_smart_business_product_images";
 
-  ဥပမာ
-  const API_BASE = "https://your-erp-service.onrender.com/api";
+let currentUser = null;
+let productsCache = [];
+let editingProduct = null;
+let selectedImageData = "";
 
-  အခု development အတွက် empty ထားထားလို့ LocalStorage Mode ဖြစ်ပါတယ်
-*/
-const API_BASE = "";
-
-const DB_KEY = "aung_smart_business_erp_v5_frontend";
-const SESSION_KEY = "aung_smart_business_erp_session";
-
-let currentPage = "dashboard";
-
-function uid(prefix="id"){
-  return prefix + "_" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+function $(id){
+  return document.getElementById(id);
 }
 
 function money(value){
-  const n = Number(value || 0);
   return new Intl.NumberFormat("en-US",{
     maximumFractionDigits:0
-  }).format(n);
+  }).format(Number(value || 0));
 }
 
-function today(){
-  return new Date().toISOString().slice(0,10);
+function showToast(message){
+  const el=$("toast");
+  el.textContent=message;
+  el.classList.add("show");
+
+  setTimeout(()=>{
+    el.classList.remove("show");
+  },2500);
 }
 
-function escapeHTML(value){
+function setMessage(id,message,type="error"){
+  const el=$(id);
+
+  if(!message){
+    el.innerHTML="";
+    return;
+  }
+
+  el.innerHTML=
+    '<div class="message '+type+'">'+escapeHtml(message)+'</div>';
+}
+
+function escapeHtml(value){
   return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -1774,1769 +1014,1395 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 }
 
-function defaultDB(){
-  return {
-    settings:{
-      company:"Aung Business",
-      owner:"Aung Zar Ni Win",
-      target:100000000,
-      currency:"MMK"
-    },
-    customers:[],
-    suppliers:[],
-    products:[],
-    sales:[],
-    purchases:[],
-    expenses:[],
-    employees:[],
-    users:[
-      {
-        id:uid("usr"),
-        name:"Aung Zar Ni Win",
-        email:"owner@example.com",
-        role:"Owner",
-        status:"Active"
-      }
-    ]
-  };
-}
-
-function getDB(){
-  try{
-    const raw = localStorage.getItem(DB_KEY);
-    if(!raw){
-      const db = defaultDB();
-      localStorage.setItem(DB_KEY,JSON.stringify(db));
-      return db;
-    }
-
-    const db = JSON.parse(raw);
-    const base = defaultDB();
-
-    return {
-      ...base,
-      ...db,
-      settings:{...base.settings,...(db.settings || {})},
-      customers:Array.isArray(db.customers)?db.customers:[],
-      suppliers:Array.isArray(db.suppliers)?db.suppliers:[],
-      products:Array.isArray(db.products)?db.products:[],
-      sales:Array.isArray(db.sales)?db.sales:[],
-      purchases:Array.isArray(db.purchases)?db.purchases:[],
-      expenses:Array.isArray(db.expenses)?db.expenses:[],
-      employees:Array.isArray(db.employees)?db.employees:[],
-      users:Array.isArray(db.users)?db.users:base.users
-    };
-  }catch(e){
-    console.error(e);
-    return defaultDB();
-  }
-}
-
-function saveDB(db){
-  localStorage.setItem(DB_KEY,JSON.stringify(db));
-}
-
-function getSession(){
-  try{
-    return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-  }catch(e){
-    return null;
-  }
-}
-
-function setSession(user){
-  localStorage.setItem(SESSION_KEY,JSON.stringify(user));
-}
-
-function clearSession(){
-  localStorage.removeItem(SESSION_KEY);
-}
-
-function showToast(message){
-  const box = document.createElement("div");
-  box.className = "toast";
-  box.textContent = message;
-  document.getElementById("toastContainer").appendChild(box);
-
-  setTimeout(()=>{
-    box.remove();
-  },2600);
-}
-
-function showLoginAlert(message,type="danger"){
-  document.getElementById("loginAlert").innerHTML =
-    `<div class="alert alert-${type}">${escapeHTML(message)}</div>`;
-}
-
-function login(){
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value;
-
-  if(!email || !password){
-    showLoginAlert("Email နဲ့ Password ဖြည့်ပါ");
-    return;
-  }
-
-  if(API_BASE){
-    apiLogin(email,password);
-    return;
-  }
-
-  const db = getDB();
-
-  let user = db.users.find(u =>
-    String(u.email).toLowerCase() === email.toLowerCase()
-  );
-
-  if(!user){
-    user = {
-      id:uid("usr"),
-      name:email.split("@")[0],
-      email,
-      role:"Owner",
-      status:"Active"
-    };
-
-    db.users.push(user);
-    saveDB(db);
-  }
-
-  setSession(user);
-  startApp();
-}
-
-function demoLogin(){
-  document.getElementById("loginEmail").value = "owner@example.com";
-  document.getElementById("loginPassword").value = "demo123";
-  login();
-}
-
-async function apiLogin(email,password){
-  try{
-    const res = await fetch(API_BASE + "/auth/login",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email,password})
-    });
-
-    const data = await res.json();
-
-    if(!res.ok){
-      throw new Error(data.message || "Login failed");
-    }
-
-    localStorage.setItem("aung_smart_business_token",data.token);
-    setSession(data.user);
-    startApp();
-  }catch(e){
-    showLoginAlert(e.message || "Unable to connect to server");
-  }
-}
-
-function startApp(){
-  document.getElementById("loginScreen").classList.add("hidden");
-  document.getElementById("app").classList.remove("hidden");
-
-  const session = getSession();
-  if(session){
-    document.getElementById("sideUserName").textContent =
-      session.name || "User";
-  }
-
-  renderAll();
-}
-
-function logout(){
-  clearSession();
-  localStorage.removeItem("aung_smart_business_token");
-
-  document.getElementById("app").classList.add("hidden");
-  document.getElementById("loginScreen").classList.remove("hidden");
-}
-
-function go(page){
-  currentPage = page;
-
-  document.querySelectorAll(".page").forEach(el=>{
-    el.classList.remove("active");
-  });
-
-  const target = document.getElementById("page-" + page);
-  if(target) target.classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.page === page);
-  });
-
-  const titles = {
-    dashboard:"Dashboard",
-    sales:"Sales & Invoice",
-    customers:"Customers",
-    suppliers:"Suppliers",
-    products:"Products & Inventory",
-    purchases:"Purchases",
-    expenses:"Expenses",
-    employees:"Employees",
-    reports:"Reports",
-    growth:"100 → 1000 Growth",
-    coach:"AI Business Coach",
-    tools:"Business Tools",
-    users:"Users & Roles",
-    settings:"Settings"
-  };
-
-  document.getElementById("pageTitle").textContent =
-    titles[page] || "Dashboard";
-
-  if(window.innerWidth <= 760){
-    document.getElementById("sidebar").classList.remove("open");
-  }
-
-  renderAll();
-}
-
-function toggleSidebar(){
-  document.getElementById("sidebar").classList.toggle("open");
-}
-
-function refreshCurrent(){
-  renderAll();
-  showToast("Updated");
-}
-
-function openModal(id){
-  const modal = document.getElementById(id);
-  if(!modal) return;
-
-  if(id === "saleModal") prepareSaleModal();
-  if(id === "purchaseModal") preparePurchaseModal();
-
-  modal.classList.add("open");
-}
-
-function closeModal(id){
-  const modal = document.getElementById(id);
-  if(modal) modal.classList.remove("open");
-}
-
-document.querySelectorAll(".modal").forEach(modal=>{
-  modal.addEventListener("click",e=>{
-    if(e.target === modal){
-      modal.classList.remove("open");
-    }
-  });
-});
-
-function getTotals(){
-  const db = getDB();
-
-  const revenue = db.sales.reduce((sum,s)=>sum + Number(s.total || 0),0);
-
-  const cogs = db.sales.reduce((sum,s)=>{
-    return sum + Number(s.costTotal || 0);
-  },0);
-
-  const expenses = db.expenses.reduce((sum,e)=>{
-    return sum + Number(e.amount || 0);
-  },0);
-
-  const gross = revenue - cogs;
-  const net = gross - expenses;
-
-  const collected = db.sales.reduce((sum,s)=>{
-    return sum + Number(s.paidAmount || 0);
-  },0);
-
-  const receivable = db.sales.reduce((sum,s)=>{
-    return sum + Number(s.balanceDue || 0);
-  },0);
-
-  const purchaseTotal = db.purchases.reduce((sum,p)=>{
-    return sum + Number(p.total || 0);
-  },0);
-
-  const payable = db.purchases.reduce((sum,p)=>{
-    return sum + Number(p.balanceDue || 0);
-  },0);
-
-  const stockValue = db.products.reduce((sum,p)=>{
-    return sum + Number(p.stock || 0) * Number(p.cost || 0);
-  },0);
-
-  const stockUnits = db.products.reduce((sum,p)=>{
-    return sum + Number(p.stock || 0);
-  },0);
-
-  const lowStock = db.products.filter(p=>{
-    return Number(p.stock || 0) <= Number(p.lowStock || 0);
-  }).length;
-
-  return {
-    revenue,
-    cogs,
-    expenses,
-    gross,
-    net,
-    collected,
-    receivable,
-    purchaseTotal,
-    payable,
-    stockValue,
-    stockUnits,
-    lowStock,
-    invoiceCount:db.sales.length
-  };
-}
-
-function renderAll(){
-  const db = getDB();
-  const t = getTotals();
-
-  document.getElementById("companyLabel").textContent =
-    db.settings.company || "Aung Business";
-
-  renderDashboard(t);
-  renderSales();
-  renderCustomers();
-  renderSuppliers();
-  renderProducts();
-  renderPurchases();
-  renderExpenses();
-  renderEmployees();
-  renderReports(t);
-  renderGrowth(t);
-  renderCoach();
-  renderUsers();
-  renderSettings();
-}
-
-function renderDashboard(t){
-  document.getElementById("dashRevenue").textContent = money(t.revenue);
-  document.getElementById("dashGross").textContent = money(t.gross);
-  document.getElementById("dashNet").textContent = money(t.net);
-  document.getElementById("dashReceivable").textContent = money(t.receivable);
-  document.getElementById("dashSalesCount").textContent = t.invoiceCount;
-
-  const db = getDB();
-  const target = Number(db.settings.target || 0);
-  const current = t.revenue;
-  const gap = Math.max(target-current,0);
-  const achievement = target > 0
-    ? Math.min((current/target)*100,100)
-    : 0;
-
-  document.getElementById("growthCurrent").textContent = money(current);
-  document.getElementById("growthTarget").textContent = money(target);
-  document.getElementById("growthGap").textContent = money(gap);
-  document.getElementById("growthProgress").style.width = achievement + "%";
-
-  const stage = getGrowthStage(current);
-  document.getElementById("growthStageBadge").textContent = stage.name;
-
-  const recent = db.sales.slice().reverse().slice(0,5);
-
-  if(!recent.length){
-    document.getElementById("recentSales").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">▣</div>
-        No sales yet
-      </div>`;
-  }else{
-    document.getElementById("recentSales").innerHTML = `
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Invoice</th>
-              <th>Customer</th>
-              <th>Total</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${recent.map(s=>`
-              <tr>
-                <td>${escapeHTML(s.invoiceNo)}</td>
-                <td>${escapeHTML(s.customerName || "Walk-in")}</td>
-                <td>${money(s.total)}</td>
-                <td>${statusBadge(s.paymentStatus)}</td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      </div>`;
-  }
-
-  const low = db.products
-    .filter(p=>Number(p.stock || 0) <= Number(p.lowStock || 0))
-    .slice(0,5);
-
-  if(!low.length){
-    document.getElementById("stockAlerts").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">✓</div>
-        No low-stock products
-      </div>`;
-  }else{
-    document.getElementById("stockAlerts").innerHTML = `
-      <div class="kpi-list" style="padding:14px">
-        ${low.map(p=>`
-          <div class="kpi-item">
-            <span class="kpi-name">${escapeHTML(p.name)}</span>
-            <span class="badge badge-danger">${money(p.stock)} ${escapeHTML(p.unit)}</span>
-          </div>
-        `).join("")}
-      </div>`;
-  }
-}
-
-function statusBadge(status){
-  const s = String(status || "Active");
-
-  if(s === "Paid" || s === "Active"){
-    return `<span class="badge badge-success">${escapeHTML(s)}</span>`;
-  }
-
-  if(s === "Credit" || s === "Partial"){
-    return `<span class="badge badge-warning">${escapeHTML(s)}</span>`;
-  }
-
-  return `<span class="badge badge-neutral">${escapeHTML(s)}</span>`;
-}
-
-function renderSales(){
-  const db = getDB();
-  const search = (document.getElementById("salesSearch")?.value || "")
-    .toLowerCase()
-    .trim();
-
-  const rows = db.sales.filter(s=>{
-    const text = [
-      s.invoiceNo,
-      s.customerName,
-      s.productName
-    ].join(" ").toLowerCase();
-
-    return text.includes(search);
-  }).slice().reverse();
-
-  if(!rows.length){
-    document.getElementById("salesTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">▣</div>
-        No sales records
-      </div>`;
-    return;
-  }
-
-  document.getElementById("salesTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Invoice</th>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Total</th>
-            <th>Paid</th>
-            <th>Balance</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(s=>`
-            <tr>
-              <td><strong>${escapeHTML(s.invoiceNo)}</strong></td>
-              <td>${escapeHTML(s.date)}</td>
-              <td>${escapeHTML(s.customerName || "Walk-in")}</td>
-              <td>${escapeHTML(s.productName)}</td>
-              <td>${money(s.qty)}</td>
-              <td>${money(s.total)}</td>
-              <td>${money(s.paidAmount)}</td>
-              <td>${money(s.balanceDue)}</td>
-              <td>${statusBadge(s.paymentStatus)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderCustomers(){
-  const db = getDB();
-
-  const search = (document.getElementById("customerSearch")?.value || "")
-    .toLowerCase()
-    .trim();
-
-  const rows = db.customers.filter(c=>{
-    return [c.name,c.phone,c.address]
-      .join(" ")
-      .toLowerCase()
-      .includes(search);
-  });
-
-  if(!rows.length){
-    document.getElementById("customersTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">♙</div>
-        No customers
-      </div>`;
-    return;
-  }
-
-  document.getElementById("customersTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Credit Limit</th>
-            <th>Receivable</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(c=>{
-            const receivable = db.sales
-              .filter(s=>s.customerId === c.id)
-              .reduce((sum,s)=>sum + Number(s.balanceDue || 0),0);
-
-            return `
-              <tr>
-                <td><strong>${escapeHTML(c.name)}</strong></td>
-                <td>${escapeHTML(c.phone)}</td>
-                <td>${escapeHTML(c.address)}</td>
-                <td>${money(c.creditLimit)}</td>
-                <td>${money(receivable)}</td>
-              </tr>`;
-          }).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderSuppliers(){
-  const db = getDB();
-
-  const search = (document.getElementById("supplierSearch")?.value || "")
-    .toLowerCase()
-    .trim();
-
-  const rows = db.suppliers.filter(s=>{
-    return [s.name,s.phone,s.address]
-      .join(" ")
-      .toLowerCase()
-      .includes(search);
-  });
-
-  if(!rows.length){
-    document.getElementById("suppliersTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">⇄</div>
-        No suppliers
-      </div>`;
-    return;
-  }
-
-  document.getElementById("suppliersTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Supplier</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Credit Limit</th>
-            <th>Payable</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(s=>{
-            const payable = db.purchases
-              .filter(p=>p.supplierId === s.id)
-              .reduce((sum,p)=>sum + Number(p.balanceDue || 0),0);
-
-            return `
-              <tr>
-                <td><strong>${escapeHTML(s.name)}</strong></td>
-                <td>${escapeHTML(s.phone)}</td>
-                <td>${escapeHTML(s.address)}</td>
-                <td>${money(s.creditLimit)}</td>
-                <td>${money(payable)}</td>
-              </tr>`;
-          }).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderProducts(){
-  const db = getDB();
-
-  const search = (document.getElementById("productSearch")?.value || "")
-    .toLowerCase()
-    .trim();
-
-  const rows = db.products.filter(p=>{
-    return [p.name,p.sku,p.category]
-      .join(" ")
-      .toLowerCase()
-      .includes(search);
-  });
-
-  if(!rows.length){
-    document.getElementById("productsTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">□</div>
-        No products
-      </div>`;
-    return;
-  }
-
-  document.getElementById("productsTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>SKU</th>
-            <th>Category</th>
-            <th>Unit</th>
-            <th>Cost</th>
-            <th>Selling</th>
-            <th>Stock</th>
-            <th>Stock Value</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(p=>{
-            const low = Number(p.stock || 0) <= Number(p.lowStock || 0);
-
-            return `
-              <tr>
-                <td><strong>${escapeHTML(p.name)}</strong></td>
-                <td>${escapeHTML(p.sku)}</td>
-                <td>${escapeHTML(p.category)}</td>
-                <td>${escapeHTML(p.unit)}</td>
-                <td>${money(p.cost)}</td>
-                <td>${money(p.price)}</td>
-                <td>${money(p.stock)}</td>
-                <td>${money(Number(p.stock||0)*Number(p.cost||0))}</td>
-                <td>
-                  ${low
-                    ? `<span class="badge badge-danger">Low Stock</span>`
-                    : `<span class="badge badge-success">Healthy</span>`
-                  }
-                </td>
-              </tr>`;
-          }).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderPurchases(){
-  const db = getDB();
-  const rows = db.purchases.slice().reverse();
-
-  if(!rows.length){
-    document.getElementById("purchasesTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">◫</div>
-        No purchase records
-      </div>`;
-    return;
-  }
-
-  document.getElementById("purchasesTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Purchase</th>
-            <th>Date</th>
-            <th>Supplier</th>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Total</th>
-            <th>Paid</th>
-            <th>Balance</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(p=>`
-            <tr>
-              <td><strong>${escapeHTML(p.purchaseNo)}</strong></td>
-              <td>${escapeHTML(p.date)}</td>
-              <td>${escapeHTML(p.supplierName || "-")}</td>
-              <td>${escapeHTML(p.productName)}</td>
-              <td>${money(p.qty)}</td>
-              <td>${money(p.total)}</td>
-              <td>${money(p.paidAmount)}</td>
-              <td>${money(p.balanceDue)}</td>
-              <td>${statusBadge(p.paymentStatus)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderExpenses(){
-  const db = getDB();
-  const rows = db.expenses.slice().reverse();
-
-  if(!rows.length){
-    document.getElementById("expensesTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">−</div>
-        No expenses
-      </div>`;
-    return;
-  }
-
-  document.getElementById("expensesTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(e=>`
-            <tr>
-              <td>${escapeHTML(e.date)}</td>
-              <td>${escapeHTML(e.category)}</td>
-              <td>${escapeHTML(e.description)}</td>
-              <td><strong>${money(e.amount)}</strong></td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderEmployees(){
-  const db = getDB();
-
-  if(!db.employees.length){
-    document.getElementById("employeesTable").innerHTML =
-      `<div class="empty">
-        <div class="empty-icon">♟</div>
-        No employees
-      </div>`;
-    return;
-  }
-
-  document.getElementById("employeesTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Phone</th>
-            <th>Salary</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${db.employees.map(e=>`
-            <tr>
-              <td><strong>${escapeHTML(e.name)}</strong></td>
-              <td>${escapeHTML(e.role)}</td>
-              <td>${escapeHTML(e.phone)}</td>
-              <td>${money(e.salary)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderReports(t){
-  document.getElementById("reportRevenue").textContent = money(t.revenue);
-  document.getElementById("reportCOGS").textContent = money(t.cogs);
-  document.getElementById("reportExpenses").textContent = money(t.expenses);
-  document.getElementById("reportNet").textContent = money(t.net);
-
-  const db = getDB();
-
-  const grossMargin = t.revenue > 0
-    ? (t.gross/t.revenue)*100
-    : 0;
-
-  const netMargin = t.revenue > 0
-    ? (t.net/t.revenue)*100
-    : 0;
-
-  const aov = db.sales.length
-    ? t.revenue/db.sales.length
-    : 0;
-
-  document.getElementById("reportKpis").innerHTML = `
-    <div class="kpi-item">
-      <span class="kpi-name">Gross Margin</span>
-      <span class="kpi-value">${grossMargin.toFixed(1)}%</span>
-    </div>
-    <div class="kpi-item">
-      <span class="kpi-name">Net Margin</span>
-      <span class="kpi-value">${netMargin.toFixed(1)}%</span>
-    </div>
-    <div class="kpi-item">
-      <span class="kpi-name">Average Order Value</span>
-      <span class="kpi-value">${money(aov)}</span>
-    </div>
-    <div class="kpi-item">
-      <span class="kpi-name">Stock Value</span>
-      <span class="kpi-value">${money(t.stockValue)}</span>
-    </div>
-    <div class="kpi-item">
-      <span class="kpi-name">Payable</span>
-      <span class="kpi-value">${money(t.payable)}</span>
-    </div>
-  `;
-
-  renderRevenueChart();
-}
-
-function renderRevenueChart(){
-  const db = getDB();
-
-  const months = [];
-
-  for(let i=5;i>=0;i--){
-    const d = new Date();
-    d.setMonth(d.getMonth()-i);
-
-    const key = d.toISOString().slice(0,7);
-
-    months.push({
-      key,
-      label:d.toLocaleDateString("en-US",{month:"short"}),
-      value:0
-    });
-  }
-
-  db.sales.forEach(s=>{
-    const key = String(s.date || "").slice(0,7);
-    const m = months.find(x=>x.key === key);
-
-    if(m){
-      m.value += Number(s.total || 0);
-    }
-  });
-
-  const max = Math.max(...months.map(m=>m.value),1);
-
-  document.getElementById("revenueChart").innerHTML =
-    months.map(m=>{
-      const h = Math.max((m.value/max)*150,4);
-
-      return `
-        <div class="bar-wrap">
-          <div class="bar-value">${money(m.value)}</div>
-          <div class="bar" style="height:${h}px"></div>
-          <div class="bar-label">${m.label}</div>
-        </div>`;
-    }).join("");
-}
-
-function getGrowthStage(revenue){
-  if(revenue >= 900000000){
-    return {
-      name:"900 → 1000 Systemized Business",
-      pct:95
-    };
-  }
-
-  if(revenue >= 700000000){
-    return {
-      name:"700 → 900 Expansion",
-      pct:80
-    };
-  }
-
-  if(revenue >= 500000000){
-    return {
-      name:"500 → 700 Scale",
-      pct:65
-    };
-  }
-
-  if(revenue >= 300000000){
-    return {
-      name:"300 → 500 Customer Growth",
-      pct:50
-    };
-  }
-
-  if(revenue >= 200000000){
-    return {
-      name:"200 → 300 Sales System",
-      pct:30
-    };
-  }
-
-  return {
-    name:"100 → 200 Foundation",
-    pct:15
-  };
-}
-
-function renderGrowth(t){
-  const db = getDB();
-  const current = t.revenue;
-  const target = Number(db.settings.target || 0);
-  const gap = Math.max(target-current,0);
-  const achievement = target > 0
-    ? (current/target)*100
-    : 0;
-
-  document.getElementById("gCurrent").textContent = money(current);
-  document.getElementById("gTarget").textContent = money(target);
-  document.getElementById("gGap").textContent = money(gap);
-  document.getElementById("gAchievement").textContent =
-    achievement.toFixed(1) + "%";
-
-  const stages = [
-    {
-      range:"100 → 200",
-      name:"Foundation",
-      action:"Cash flow, pricing, product margin, customer database"
-    },
-    {
-      range:"200 → 300",
-      name:"Sales System",
-      action:"Sales target, salesperson KPI, pipeline, repeat sales"
-    },
-    {
-      range:"300 → 500",
-      name:"Customer Growth",
-      action:"Distribution, customer segments, territory expansion"
-    },
-    {
-      range:"500 → 700",
-      name:"Scale",
-      action:"Team structure, process, inventory and management controls"
-    },
-    {
-      range:"700 → 900",
-      name:"Expansion",
-      action:"New markets, channels and product portfolio"
-    },
-    {
-      range:"900 → 1000",
-      name:"Systemized Business",
-      action:"Management system, KPI, finance control and delegation"
-    }
-  ];
-
-  document.getElementById("growthStages").innerHTML =
-    stages.map((s,i)=>`
-      <div class="progress-row">
-        <div class="progress-info">
-          <span>${escapeHTML(s.range)} • ${escapeHTML(s.name)}</span>
-          <span>${i < 2 ? "Build" : i < 4 ? "Scale" : "Systemize"}</span>
-        </div>
-        <div class="progress">
-          <div class="progress-bar" style="width:${Math.min((i+1)/6*100,100)}%"></div>
-        </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px">
-          ${escapeHTML(s.action)}
-        </div>
-      </div>
-    `).join("");
-}
-
-function renderCoach(){
-  const db = getDB();
-  const t = getTotals();
-
-  let problem = "Business data မလုံလောက်သေးပါ";
-  let cause = "Sales transactions နဲ့ product data ပိုထည့်ဖို့လိုပါတယ်";
-  let action = "Customer, Product နဲ့ Sales records ကို စနစ်တကျထည့်ပါ";
-  let kpi = "Daily Sales, Gross Margin, Receivable";
-  let plan = [
-    "Customer list ပြည့်စုံအောင်လုပ်ပါ",
-    "Top selling products သတ်မှတ်ပါ",
-    "Daily sales target သတ်မှတ်ပါ",
-    "Credit customers ကို follow-up လုပ်ပါ",
-    "Low-stock items စစ်ပါ",
-    "Gross margin စစ်ပါ",
-    "7-day result review လုပ်ပါ"
-  ];
-
-  if(t.revenue > 0){
-
-    if(t.receivable > t.revenue * .3){
-      problem = "Customer Receivable မြင့်နေပါတယ်";
-      cause = "Credit sales များပြီး collection cycle မထိန်းချုပ်ထားနိုင်ပါတယ်";
-      action = "Credit limit သတ်မှတ်ပြီး overdue customer follow-up system လုပ်ပါ";
-      kpi = "Collection Rate, DSO, Receivable";
-      plan = [
-        "Overdue customer list ပြုစုပါ",
-        "Customer တစ်ဦးချင်း credit limit စစ်ပါ",
-        "Payment due date သတ်မှတ်ပါ",
-        "Daily collection call လုပ်ပါ",
-        "Partial payment plan စီစဉ်ပါ",
-        "New credit sales ကို control လုပ်ပါ",
-        "Collection result review လုပ်ပါ"
-      ];
-    }
-    else if(t.gross < t.revenue * .2){
-      problem = "Gross Margin နည်းနေပါတယ်";
-      cause = "Product pricing သို့မဟုတ် COGS control အားနည်းနိုင်ပါတယ်";
-      action = "Product-level margin စစ်ပြီး low-margin items ရဲ့ pricing ပြန်သုံးသပ်ပါ";
-      kpi = "Gross Margin %, Product Margin, COGS";
-      plan = [
-        "Top 10 products margin တွက်ပါ",
-        "Supplier cost ပြန်ညှိပါ",
-        "Discount policy စစ်ပါ",
-        "Low-margin product list ပြုစုပါ",
-        "Price revision candidate ရွေးပါ",
-        "Sales team ကို margin target ပေးပါ",
-        "Margin result review လုပ်ပါ"
-      ];
-    }
-    else if(t.expenses > t.gross * .6){
-      problem = "Operating Expense မြင့်နေပါတယ်";
-      cause = "Expense structure က Gross Profit ကို ဖိအားပေးနေပါတယ်";
-      action = "Expense category အလိုက် budget နဲ့ actual ကို နှိုင်းယှဉ်ပါ";
-      kpi = "Expense Ratio, Net Margin, Cost per Sale";
-      plan = [
-        "Expense category အားလုံးစစ်ပါ",
-        "Fixed vs Variable cost ခွဲပါ",
-        "Unnecessary expense ရှာပါ",
-        "Monthly budget သတ်မှတ်ပါ",
-        "Transport/marketing cost စစ်ပါ",
-        "Approval rule သတ်မှတ်ပါ",
-        "Weekly expense review လုပ်ပါ"
-      ];
-    }
-    else{
-      problem = "Business Growth ကို ပိုမိုမြန်ဆန်အောင် Sales System တည်ဆောက်နိုင်ပါတယ်";
-      cause = "Revenue ရှိနေပြီး data-driven sales management ကို ပိုတိုးတက်အောင်လုပ်နိုင်ပါတယ်";
-      action = "Top customers, products နဲ့ salesperson performance ကို KPI နဲ့စီမံပါ";
-      kpi = "Revenue, Gross Margin, AOV, Repeat Sales";
-      plan = [
-        "Top 20 customers စာရင်းထုတ်ပါ",
-        "Top products စာရင်းထုတ်ပါ",
-        "Daily sales target သတ်မှတ်ပါ",
-        "Average Order Value တိုးရန် bundle စီစဉ်ပါ",
-        "Repeat customer follow-up လုပ်ပါ",
-        "Low-stock items ပြန်ဖြည့်ပါ",
-        "7-day KPI review လုပ်ပါ"
-      ];
-    }
-  }
-
-  document.getElementById("coachResult").innerHTML = `
-    <div class="ai-box">
-      <div class="ai-title">Business Coach Analysis</div>
-
-      <div class="ai-section">
-        <strong>Problem</strong>
-        <div>${escapeHTML(problem)}</div>
-      </div>
-
-      <div class="ai-section">
-        <strong>Possible Cause</strong>
-        <div>${escapeHTML(cause)}</div>
-      </div>
-
-      <div class="ai-section">
-        <strong>Recommended Action</strong>
-        <div>${escapeHTML(action)}</div>
-      </div>
-
-      <div class="ai-section">
-        <strong>KPI</strong>
-        <div>${escapeHTML(kpi)}</div>
-      </div>
-
-      <div class="ai-section">
-        <strong>7-Day Plan</strong>
-        <div>
-          <ol style="margin:8px 0;padding-left:20px">
-            ${plan.map(x=>`<li style="margin:5px 0">${escapeHTML(x)}</li>`).join("")}
-          </ol>
-        </div>
-      </div>
-    </div>`;
-}
-
-function runCoach(){
-  renderCoach();
-  showToast("Business analysis updated");
-}
-
-function renderUsers(){
-  const db = getDB();
-
-  document.getElementById("usersTable").innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${db.users.map(u=>`
-            <tr>
-              <td><strong>${escapeHTML(u.name)}</strong></td>
-              <td>${escapeHTML(u.email)}</td>
-              <td><span class="badge badge-info">${escapeHTML(u.role)}</span></td>
-              <td>${statusBadge(u.status)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>`;
-}
-
-function renderSettings(){
-  const db = getDB();
-
-  document.getElementById("settingCompany").value =
-    db.settings.company || "";
-
-  document.getElementById("settingOwner").value =
-    db.settings.owner || "";
-
-  document.getElementById("settingTarget").value =
-    db.settings.target || 0;
-
-  document.getElementById("settingCurrency").value =
-    db.settings.currency || "MMK";
-}
-
-function saveSettings(){
-  const db = getDB();
-
-  db.settings.company =
-    document.getElementById("settingCompany").value.trim() ||
-    "Aung Business";
-
-  db.settings.owner =
-    document.getElementById("settingOwner").value.trim() ||
-    "Aung Zar Ni Win";
-
-  db.settings.target =
-    Number(document.getElementById("settingTarget").value || 0);
-
-  db.settings.currency =
-    document.getElementById("settingCurrency").value;
-
-  saveDB(db);
-
-  document.getElementById("companyLabel").textContent =
-    db.settings.company;
-
-  showToast("Settings saved");
-  renderAll();
-}
-
-function saveCustomer(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  db.customers.push({
-    id:uid("cus"),
-    name:document.getElementById("customerName").value.trim(),
-    phone:document.getElementById("customerPhone").value.trim(),
-    address:document.getElementById("customerAddress").value.trim(),
-    creditLimit:Number(document.getElementById("customerCredit").value || 0),
-    openingBalance:0
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("customerModal");
-  renderAll();
-  showToast("Customer added");
-}
-
-function saveSupplier(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  db.suppliers.push({
-    id:uid("sup"),
-    name:document.getElementById("supplierName").value.trim(),
-    phone:document.getElementById("supplierPhone").value.trim(),
-    address:document.getElementById("supplierAddress").value.trim(),
-    creditLimit:Number(document.getElementById("supplierCredit").value || 0),
-    openingBalance:0
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("supplierModal");
-  renderAll();
-  showToast("Supplier added");
-}
-
-function saveProduct(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  db.products.push({
-    id:uid("prd"),
-    name:document.getElementById("productName").value.trim(),
-    sku:document.getElementById("productSku").value.trim(),
-    category:document.getElementById("productCategory").value.trim(),
-    unit:document.getElementById("productUnit").value,
-    cost:Number(document.getElementById("productCost").value || 0),
-    price:Number(document.getElementById("productPrice").value || 0),
-    stock:Number(document.getElementById("productStock").value || 0),
-    lowStock:Number(document.getElementById("productLow").value || 5)
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("productModal");
-  renderAll();
-  showToast("Product added");
-}
-
-function prepareSaleModal(){
-  const db = getDB();
-
-  const customerSelect = document.getElementById("saleCustomer");
-
-  customerSelect.innerHTML =
-    `<option value="">Walk-in Customer</option>` +
-    db.customers.map(c=>
-      `<option value="${escapeHTML(c.id)}">${escapeHTML(c.name)}</option>`
-    ).join("");
-
-  const productSelect = document.getElementById("saleProduct");
-
-  productSelect.innerHTML =
-    `<option value="">Select Product</option>` +
-    db.products.map(p=>
-      `<option value="${escapeHTML(p.id)}">
-        ${escapeHTML(p.name)} — Stock ${money(p.stock)}
-      </option>`
-    ).join("");
-
-  document.getElementById("saleQty").value = 1;
-  document.getElementById("salePaid").value = 0;
-  document.getElementById("salePrice").value = 0;
-  document.getElementById("saleTotalPreview").textContent = "0";
-}
-
-function updateSalePrice(){
-  const db = getDB();
-  const id = document.getElementById("saleProduct").value;
-  const product = db.products.find(p=>p.id === id);
-
-  document.getElementById("salePrice").value =
-    product ? Number(product.price || 0) : 0;
-
-  updateSaleTotal();
-}
-
-function updateSaleTotal(){
-  const qty = Number(document.getElementById("saleQty").value || 0);
-  const price = Number(document.getElementById("salePrice").value || 0);
-
-  document.getElementById("saleTotalPreview").textContent =
-    money(qty*price);
-}
-
-function updatePaidField(){
-  const status = document.getElementById("salePaymentStatus").value;
-  const db = getDB();
-
-  const qty = Number(document.getElementById("saleQty").value || 0);
-  const price = Number(document.getElementById("salePrice").value || 0);
-  const total = qty*price;
-
-  if(status === "Paid"){
-    document.getElementById("salePaid").value = total;
-  }
-
-  if(status === "Credit"){
-    document.getElementById("salePaid").value = 0;
-  }
-
-  if(status === "Partial"){
-    document.getElementById("salePaid").value =
-      Math.floor(total/2);
-  }
-}
-
-function saveSale(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  const customerId =
-    document.getElementById("saleCustomer").value;
-
-  const productId =
-    document.getElementById("saleProduct").value;
-
-  const qty =
-    Number(document.getElementById("saleQty").value || 0);
-
-  const price =
-    Number(document.getElementById("salePrice").value || 0);
-
-  const paymentStatus =
-    document.getElementById("salePaymentStatus").value;
-
-  const paidAmount =
-    Number(document.getElementById("salePaid").value || 0);
-
-  if(!productId){
-    showToast("Product ရွေးပါ");
-    return;
-  }
-
-  if(qty <= 0){
-    showToast("Quantity မှန်ကန်စွာထည့်ပါ");
-    return;
-  }
-
-  const product = db.products.find(p=>p.id === productId);
-
-  if(!product){
-    showToast("Product မတွေ့ပါ");
-    return;
-  }
-
-  if(Number(product.stock || 0) < qty){
-    showToast("Stock မလုံလောက်ပါ");
-    return;
-  }
-
-  const customer = db.customers.find(c=>c.id === customerId);
-
-  const total = qty * price;
-  const costTotal = qty * Number(product.cost || 0);
-
-  if(paidAmount > total){
-    showToast("Paid amount က total ထက် မများရပါ");
-    return;
-  }
-
-  product.stock =
-    Number(product.stock || 0) - qty;
-
-  db.sales.push({
-    id:uid("sale"),
-    invoiceNo:"INV-" + Date.now().toString().slice(-8),
-    date:today(),
-    customerId:customerId || "",
-    customerName:customer?.name || "Walk-in",
-    productId,
-    productName:product.name,
-    qty,
-    price,
-    total,
-    costTotal,
-    paymentStatus,
-    paidAmount,
-    balanceDue:Math.max(total-paidAmount,0)
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("saleModal");
-  renderAll();
-  showToast("Sales invoice created");
-}
-
-function preparePurchaseModal(){
-  const db = getDB();
-
-  document.getElementById("purchaseSupplier").innerHTML =
-    `<option value="">Select Supplier</option>` +
-    db.suppliers.map(s=>
-      `<option value="${escapeHTML(s.id)}">${escapeHTML(s.name)}</option>`
-    ).join("");
-
-  document.getElementById("purchaseProduct").innerHTML =
-    `<option value="">Select Product</option>` +
-    db.products.map(p=>
-      `<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`
-    ).join("");
-}
-
-document.getElementById("purchaseProduct").addEventListener("change",()=>{
-  const db = getDB();
-  const id = document.getElementById("purchaseProduct").value;
-  const p = db.products.find(x=>x.id===id);
-
-  document.getElementById("purchaseCost").value =
-    p ? Number(p.cost || 0) : 0;
-});
-
-function savePurchase(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  const supplierId =
-    document.getElementById("purchaseSupplier").value;
-
-  const productId =
-    document.getElementById("purchaseProduct").value;
-
-  const qty =
-    Number(document.getElementById("purchaseQty").value || 0);
-
-  const cost =
-    Number(document.getElementById("purchaseCost").value || 0);
-
-  const paymentStatus =
-    document.getElementById("purchasePaymentStatus").value;
-
-  if(!productId || qty <= 0){
-    showToast("Product နဲ့ Quantity စစ်ပါ");
-    return;
-  }
-
-  const product = db.products.find(p=>p.id===productId);
-  const supplier = db.suppliers.find(s=>s.id===supplierId);
-
-  if(!product){
-    showToast("Product မတွေ့ပါ");
-    return;
-  }
-
-  const total = qty*cost;
-  const paidAmount = paymentStatus === "Paid" ? total : 0;
-
-  product.stock =
-    Number(product.stock || 0) + qty;
-
-  db.purchases.push({
-    id:uid("pur"),
-    purchaseNo:"PUR-" + Date.now().toString().slice(-8),
-    date:today(),
-    supplierId:supplierId || "",
-    supplierName:supplier?.name || "Unknown Supplier",
-    productId,
-    productName:product.name,
-    qty,
-    cost,
-    total,
-    paymentStatus,
-    paidAmount,
-    balanceDue:Math.max(total-paidAmount,0)
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("purchaseModal");
-  renderAll();
-  showToast("Purchase recorded");
-}
-
-function saveExpense(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  db.expenses.push({
-    id:uid("exp"),
-    date:today(),
-    category:document.getElementById("expenseCategory").value,
-    amount:Number(document.getElementById("expenseAmount").value || 0),
-    description:document.getElementById("expenseDescription").value.trim()
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("expenseModal");
-  renderAll();
-  showToast("Expense saved");
-}
-
-function saveEmployee(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  db.employees.push({
-    id:uid("emp"),
-    name:document.getElementById("employeeName").value.trim(),
-    role:document.getElementById("employeeRole").value.trim(),
-    phone:document.getElementById("employeePhone").value.trim(),
-    salary:Number(document.getElementById("employeeSalary").value || 0)
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("employeeModal");
-  renderAll();
-  showToast("Employee added");
-}
-
-function saveUser(e){
-  e.preventDefault();
-
-  const db = getDB();
-
-  db.users.push({
-    id:uid("usr"),
-    name:document.getElementById("userName").value.trim(),
-    email:document.getElementById("userEmail").value.trim(),
-    role:document.getElementById("userRole").value,
-    status:"Active"
-  });
-
-  saveDB(db);
-
-  e.target.reset();
-  closeModal("userModal");
-  renderAll();
-  showToast("User added");
-}
-
-/* =========================
-   BUSINESS TOOLS
-   ========================= */
-
-function calcGross(){
-  const revenue = Number(document.getElementById("toolRevenue").value || 0);
-  const cost = Number(document.getElementById("toolCost").value || 0);
-
-  const result = revenue-cost;
-
-  document.getElementById("toolGrossResult").textContent =
-    "Gross Profit = " + money(result);
-}
-
-function calcMargin(){
-  const revenue = Number(document.getElementById("marginRevenue").value || 0);
-  const profit = Number(document.getElementById("marginProfit").value || 0);
-
-  if(revenue <= 0){
-    document.getElementById("marginResult").textContent =
-      "Revenue ထည့်ပါ";
-    return;
-  }
-
-  document.getElementById("marginResult").textContent =
-    "Margin = " + ((profit/revenue)*100).toFixed(2) + "%";
-}
-
-function calcBreakEven(){
-  const fixed = Number(document.getElementById("beFixed").value || 0);
-  const margin = Number(document.getElementById("beMargin").value || 0);
-
-  if(margin <= 0){
-    document.getElementById("beResult").textContent =
-      "Margin % ထည့်ပါ";
-    return;
-  }
-
-  const result = fixed/(margin/100);
-
-  document.getElementById("beResult").textContent =
-    "Break-even = " + money(result);
-}
-
-function calcPrice(){
-  const cost = Number(document.getElementById("priceCost").value || 0);
-  const margin = Number(document.getElementById("priceMargin").value || 0);
-
-  if(margin >= 100){
-    document.getElementById("priceResult").textContent =
-      "Margin % < 100 ဖြစ်ရပါမယ်";
-    return;
-  }
-
-  const price = cost/(1-margin/100);
-
-  document.getElementById("priceResult").textContent =
-    "Selling Price = " + money(price);
-}
-
-function calcGrowth(){
-  const prev = Number(document.getElementById("growthPrev").value || 0);
-  const now = Number(document.getElementById("growthNow").value || 0);
-
-  if(prev <= 0){
-    document.getElementById("growthResult").textContent =
-      "Previous Revenue ထည့်ပါ";
-    return;
-  }
-
-  const growth = ((now-prev)/prev)*100;
-
-  document.getElementById("growthResult").textContent =
-    "Growth = " + growth.toFixed(2) + "%";
-}
-
-function calcAOV(){
-  const revenue = Number(document.getElementById("aovRevenue").value || 0);
-  const orders = Number(document.getElementById("aovOrders").value || 0);
-
-  if(orders <= 0){
-    document.getElementById("aovResult").textContent =
-      "Orders ထည့်ပါ";
-    return;
-  }
-
-  document.getElementById("aovResult").textContent =
-    "AOV = " + money(revenue/orders);
-}
-
-/* =========================
-   EXPORT
-   ========================= */
-
-function exportCSV(type){
-  const db = getDB();
-
-  const rows = db[type] || [];
-
-  if(!rows.length){
-    showToast("Export လုပ်စရာ data မရှိပါ");
-    return;
-  }
-
-  const headers = Object.keys(rows[0]);
-
-  const csv = [
-    headers.join(","),
-    ...rows.map(row=>
-      headers.map(h=>{
-        const value = String(row[h] ?? "")
-          .replace(/"/g,'""');
-        return `"${value}"`;
-      }).join(",")
-    )
-  ].join("\n");
-
-  downloadFile(
-    type + "_" + today() + ".csv",
-    csv,
-    "text/csv;charset=utf-8"
-  );
-}
-
-function exportAll(){
-  const db = getDB();
-
-  downloadFile(
-    "aung-smart-business-backup-" + today() + ".json",
-    JSON.stringify(db,null,2),
-    "application/json"
-  );
-
-  showToast("Backup exported");
-}
-
-function downloadFile(name,content,type){
-  const blob = new Blob([content],{type});
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  URL.revokeObjectURL(url);
-}
-
-function resetData(){
-  const yes = confirm(
-    "Demo data အားလုံးကို reset လုပ်မှာ သေချာပါသလား?"
-  );
-
-  if(!yes) return;
-
-  localStorage.removeItem(DB_KEY);
-
-  const db = defaultDB();
-  saveDB(db);
-
-  renderAll();
-  showToast("Data reset");
-}
-
-/* =========================
-   API FOUNDATION
-   ========================= */
-
-async function apiRequest(path,options={}){
-  if(!API_BASE){
-    throw new Error("API mode is disabled");
-  }
-
-  const token =
-    localStorage.getItem("aung_smart_business_token");
-
-  const headers = {
-    "Content-Type":"application/json",
+async function api(path,options={}){
+  const headers={
     ...(options.headers || {})
   };
 
+  const token=localStorage.getItem(TOKEN_KEY);
+
   if(token){
-    headers.Authorization = "Bearer " + token;
+    headers.Authorization="Bearer "+token;
   }
 
-  const res = await fetch(API_BASE + path,{
+  if(options.body && !headers["Content-Type"]){
+    headers["Content-Type"]="application/json";
+  }
+
+  const response=await fetch(API_BASE+path,{
     ...options,
     headers
   });
 
-  const data = await res.json().catch(()=>({}));
+  let data={};
 
-  if(!res.ok){
-    throw new Error(data.message || "API request failed");
+  try{
+    data=await response.json();
+  }catch(e){}
+
+  if(!response.ok){
+    throw new Error(data.error || data.message || "Request failed");
   }
 
   return data;
 }
 
-/* =========================
-   INITIALIZE
-   ========================= */
 
-(function init(){
+/* AUTH */
 
-  getDB();
+async function login(){
 
-  const session = getSession();
+  const email=$("loginEmail").value.trim();
+  const password=$("loginPassword").value;
 
-  if(session){
-    startApp();
+  if(!email || !password){
+    setMessage("loginMsg","Email and password are required");
+    return;
   }
 
-})();
+  setMessage("loginMsg","Signing in...","success");
+
+  try{
+
+    const data=await api("/api/auth/login",{
+      method:"POST",
+      body:JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    localStorage.setItem(TOKEN_KEY,data.token);
+
+    currentUser=data.user;
+
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+
+    await loadUser();
+    navigate("dashboard");
+
+  }catch(error){
+
+    setMessage("loginMsg",error.message);
+
+  }
+}
+
+
+async function register(){
+
+  const company=$("regCompany").value.trim();
+  const name=$("regName").value.trim();
+  const email=$("regEmail").value.trim();
+  const password=$("regPassword").value;
+
+  if(!company || !name || !email || !password){
+    setMessage("registerMsg","Please complete all fields");
+    return;
+  }
+
+  if(password.length<6){
+    setMessage("registerMsg","Password must be at least 6 characters");
+    return;
+  }
+
+  setMessage("registerMsg","Creating account...","success");
+
+  try{
+
+    const data=await api("/api/auth/register",{
+      method:"POST",
+      body:JSON.stringify({
+        company,
+        name,
+        email,
+        password
+      })
+    });
+
+    localStorage.setItem(TOKEN_KEY,data.token);
+
+    currentUser=data.user;
+
+    closeRegister();
+
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+
+    await loadUser();
+    navigate("dashboard");
+
+  }catch(error){
+
+    setMessage("registerMsg",error.message);
+
+  }
+}
+
+
+async function loadUser(){
+
+  try{
+
+    const data=await api("/api/auth/me");
+
+    currentUser=data.user || data;
+
+    const name=currentUser.name || "Owner";
+    const company=
+      currentUser.company_name ||
+      currentUser.company ||
+      "Aung Business";
+
+    $("topUserName").textContent=name;
+    $("topCompany").textContent=company;
+
+    $("avatar").textContent=
+      name.charAt(0).toUpperCase();
+
+  }catch(error){
+
+    logout();
+
+  }
+}
+
+
+function showRegister(){
+  $("registerModal").classList.remove("hidden");
+}
+
+function closeRegister(){
+  $("registerModal").classList.add("hidden");
+}
+
+
+function logout(){
+
+  localStorage.removeItem(TOKEN_KEY);
+
+  currentUser=null;
+
+  $("app").classList.add("hidden");
+  $("loginScreen").classList.remove("hidden");
+}
+
+
+/* NAVIGATION */
+
+function navigate(page,button){
+
+  document.querySelectorAll(".nav-item")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  closeSidebar();
+
+  const pages={
+    dashboard:renderDashboard,
+    sales:renderSales,
+    customers:renderCustomers,
+    purchases:renderPurchases,
+    inventory:renderInventory,
+    accounting:renderAccounting,
+    expenses:renderExpenses,
+    employees:renderEmployees,
+    users:renderUsers,
+    growth:renderGrowth,
+    coach:renderCoach,
+    settings:renderSettings
+  };
+
+  if(pages[page]){
+    pages[page]();
+  }
+}
+
+
+/* DASHBOARD */
+
+async function renderDashboard(){
+
+  $("content").innerHTML=`
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Business Dashboard</h1>
+        <div class="page-sub">
+          AUNG SMART BUSINESS ERP V5
+        </div>
+      </div>
+    </div>
+
+    <div id="dashboardStats" class="stats">
+      <div class="stat">
+        <div class="stat-label">Loading</div>
+        <div class="stat-value">...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Business Overview</div>
+      <div id="dashboardInfo">
+        Loading business data...
+      </div>
+    </div>
+  `;
+
+  try{
+
+    const data=await api("/api/dashboard");
+
+    const revenue=Number(data.revenue||0);
+    const profit=Number(data.net_profit||0);
+    const receivable=Number(data.receivable||0);
+    const payable=Number(data.payable||0);
+
+    $("dashboardStats").innerHTML=`
+
+      <div class="stat">
+        <div class="stat-label">Revenue</div>
+        <div class="stat-value">${money(revenue)}</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Net Profit</div>
+        <div class="stat-value">${money(profit)}</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Receivable</div>
+        <div class="stat-value">${money(receivable)}</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Payable</div>
+        <div class="stat-value">${money(payable)}</div>
+      </div>
+
+    `;
+
+    $("dashboardInfo").innerHTML=`
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
+
+        <div>
+          <div style="color:#6b7280;font-size:12px">
+            Sales Invoices
+          </div>
+          <strong>${data.invoice_count||0}</strong>
+        </div>
+
+        <div>
+          <div style="color:#6b7280;font-size:12px">
+            Customers
+          </div>
+          <strong>${data.customer_count||0}</strong>
+        </div>
+
+        <div>
+          <div style="color:#6b7280;font-size:12px">
+            Products
+          </div>
+          <strong>${data.product_count||0}</strong>
+        </div>
+
+      </div>
+    `;
+
+  }catch(error){
+
+    $("dashboardInfo").innerHTML=
+      `<div class="message error">${escapeHtml(error.message)}</div>`;
+
+  }
+}
+
+
+/* INVENTORY */
+
+async function renderInventory(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+
+      <div>
+        <h1 class="page-title">Products</h1>
+        <div class="page-sub">
+          Product catalogue, stock and pricing
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="openProductModal()">
+        + Add Product
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <div class="toolbar">
+
+        <input
+          id="productSearch"
+          class="search"
+          placeholder="Search product, SKU or category..."
+          oninput="filterProducts()"
+        >
+
+        <button class="btn btn-light" onclick="loadProducts()">
+          ↻ Refresh
+        </button>
+
+      </div>
+
+      <div id="productGrid" class="product-grid">
+        Loading products...
+      </div>
+
+    </div>
+  `;
+
+  await loadProducts();
+}
+
+
+async function loadProducts(){
+
+  try{
+
+    const data=await api("/api/products");
+
+    productsCache=
+      Array.isArray(data) ? data :
+      Array.isArray(data.products) ? data.products :
+      [];
+
+    filterProducts();
+
+  }catch(error){
+
+    $("productGrid").innerHTML=
+      `<div class="message error">${escapeHtml(error.message)}</div>`;
+
+  }
+}
+
+
+function getImageMap(){
+
+  try{
+    return JSON.parse(
+      localStorage.getItem(IMAGE_KEY) || "{}"
+    );
+  }catch(error){
+    return {};
+  }
+}
+
+
+function saveImageMap(map){
+
+  localStorage.setItem(
+    IMAGE_KEY,
+    JSON.stringify(map)
+  );
+
+}
+
+
+function productImage(product){
+
+  const map=getImageMap();
+
+  return map[product.id] || map[product.sku] || "";
+
+}
+
+
+function filterProducts(){
+
+  const grid=$("productGrid");
+
+  if(!grid)return;
+
+  const input=$("productSearch");
+
+  const query=
+    input ?
+    input.value.trim().toLowerCase() :
+    "";
+
+  const list=productsCache.filter(p=>{
+
+    const text=[
+      p.name,
+      p.sku,
+      p.category
+    ].join(" ").toLowerCase();
+
+    return text.includes(query);
+
+  });
+
+  if(!list.length){
+
+    grid.innerHTML=`
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7280">
+        No products found
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML=list.map(product=>{
+
+    const image=productImage(product);
+
+    const stock=Number(product.stock||0);
+    const low=Number(product.low_stock||0);
+
+    return `
+
+      <div class="product-card">
+
+        ${
+          image
+          ?
+          `<img class="product-image" src="${image}" alt="">`
+          :
+          `<div class="product-image empty">📦</div>`
+        }
+
+        <div class="product-body">
+
+          <div class="product-name">
+            ${escapeHtml(product.name)}
+          </div>
+
+          <div class="product-sku">
+            ${escapeHtml(product.sku || "No SKU")}
+          </div>
+
+          <div class="product-meta">
+
+            <div class="product-price">
+              ${money(product.selling_price)} MMK
+            </div>
+
+            <div class="stock ${stock<=low ? "low":""}">
+              Stock ${money(stock)}
+            </div>
+
+          </div>
+
+          <div style="margin-top:7px;font-size:12px;color:#6b7280">
+            Cost: ${money(product.cost_price)} MMK
+          </div>
+
+          <div class="product-actions">
+
+            <button
+              class="btn btn-light"
+              onclick="editProduct('${escapeHtml(product.id)}')"
+            >
+              Edit
+            </button>
+
+            <button
+              class="btn btn-light"
+              onclick="changeProductImage('${escapeHtml(product.id)}')"
+            >
+              🖼️ Image
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+}
+
+
+/* PRODUCT IMAGE */
+
+function handleProductImage(event){
+
+  const file=event.target.files[0];
+
+  if(!file)return;
+
+  if(!file.type.startsWith("image/")){
+    showToast("Please select an image");
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=function(){
+
+    const img=new Image();
+
+    img.onload=function(){
+
+      const maxSize=700;
+
+      let width=img.width;
+      let height=img.height;
+
+      if(width>height){
+
+        if(width>maxSize){
+          height=Math.round(height*maxSize/width);
+          width=maxSize;
+        }
+
+      }else{
+
+        if(height>maxSize){
+          width=Math.round(width*maxSize/height);
+          height=maxSize;
+        }
+
+      }
+
+      const canvas=document.createElement("canvas");
+
+      canvas.width=width;
+      canvas.height=height;
+
+      const ctx=canvas.getContext("2d");
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        width,
+        height
+      );
+
+      selectedImageData=
+        canvas.toDataURL(
+          "image/jpeg",
+          .72
+        );
+
+      showImagePreview(selectedImageData);
+
+    };
+
+    img.src=reader.result;
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+function showImagePreview(src){
+
+  const box=$("imagePreviewBox");
+
+  box.className="image-preview";
+
+  box.innerHTML="";
+
+  const img=document.createElement("img");
+
+  img.src=src;
+
+  img.style.width="100%";
+  img.style.height="100%";
+  img.style.objectFit="cover";
+  img.style.borderRadius="14px";
+
+  box.appendChild(img);
+
+}
+
+
+function openProductModal(product=null){
+
+  editingProduct=product;
+  selectedImageData=
+    product ?
+    productImage(product) :
+    "";
+
+  $("productModalTitle").textContent=
+    product ? "Edit Product" : "Add Product";
+
+  $("pName").value=product?.name || "";
+  $("pSku").value=product?.sku || "";
+  $("pCategory").value=product?.category || "";
+  $("pUnit").value=product?.unit || "pcs";
+  $("pCost").value=product?.cost_price ?? "";
+  $("pPrice").value=product?.selling_price ?? "";
+  $("pStock").value=product ? product.stock ?? 0 : "";
+  $("pLowStock").value=product?.low_stock ?? 10;
+
+  if(selectedImageData){
+    showImagePreview(selectedImageData);
+  }else{
+
+    $("imagePreviewBox").className=
+      "image-preview empty";
+
+    $("imagePreviewBox").innerHTML="📦";
+
+  }
+
+  $("productImage").value="";
+
+  $("productModal").classList.remove("hidden");
+}
+
+
+function closeProductModal(){
+
+  $("productModal").classList.add("hidden");
+
+  editingProduct=null;
+  selectedImageData="";
+
+}
+
+
+function editProduct(id){
+
+  const product=
+    productsCache.find(
+      p=>String(p.id)===String(id)
+    );
+
+  if(product){
+    openProductModal(product);
+  }
+
+}
+
+
+function changeProductImage(id){
+
+  const product=
+    productsCache.find(
+      p=>String(p.id)===String(id)
+    );
+
+  if(!product)return;
+
+  openProductModal(product);
+
+  setTimeout(()=>{
+    $("productImage").click();
+  },150);
+
+}
+
+
+async function saveProduct(){
+
+  const name=$("pName").value.trim();
+  const sku=$("pSku").value.trim();
+  const category=$("pCategory").value.trim();
+  const unit=$("pUnit").value;
+  const cost=Number($("pCost").value||0);
+  const price=Number($("pPrice").value||0);
+  const stock=Number($("pStock").value||0);
+  const lowStock=Number($("pLowStock").value||0);
+
+  if(!name){
+    showToast("Product name is required");
+    return;
+  }
+
+  if(price<0 || cost<0 || stock<0){
+    showToast("Invalid product values");
+    return;
+  }
+
+  try{
+
+    const data=await api("/api/products",{
+      method:"POST",
+      body:JSON.stringify({
+        name,
+        sku:sku || null,
+        category:category || null,
+        unit,
+        cost_price:cost,
+        selling_price:price,
+        opening_stock:editingProduct ? 0 : stock,
+        low_stock:lowStock,
+        active:true
+      })
+    });
+
+    const saved=
+      data.product ||
+      data;
+
+    const map=getImageMap();
+
+    if(selectedImageData){
+
+      const key=
+        saved.id ||
+        saved.sku ||
+        editingProduct?.id;
+
+      if(key){
+        map[key]=selectedImageData;
+      }
+
+    }
+
+    saveImageMap(map);
+
+    closeProductModal();
+
+    showToast(
+      editingProduct
+      ? "Product updated"
+      : "Product saved"
+    );
+
+    await loadProducts();
+
+  }catch(error){
+
+    showToast(error.message);
+
+  }
+}
+
+
+/* OTHER MODULES */
+
+function renderSales(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Sales</h1>
+        <div class="page-sub">
+          Sales invoices, payments and customer credit
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Sales Module</div>
+      <div style="color:#6b7280">
+        Sales Invoice + Payment API is ready in ERP V5
+      </div>
+    </div>
+  `;
+
+}
+
+
+async function renderCustomers(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">CRM / Customers</h1>
+        <div class="page-sub">
+          Customer management and receivables
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div id="customerTable">
+        Loading customers...
+      </div>
+
+    </div>
+  `;
+
+  try{
+
+    const data=await api("/api/customers");
+
+    const customers=
+      Array.isArray(data)
+      ? data
+      : data.customers || [];
+
+    if(!customers.length){
+
+      $("customerTable").innerHTML=
+        "No customers yet";
+
+      return;
+    }
+
+    $("customerTable").innerHTML=`
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Credit Limit</th>
+              <th>Receivable</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${customers.map(c=>`
+
+              <tr>
+
+                <td>
+                  <strong>${escapeHtml(c.name)}</strong>
+                </td>
+
+                <td>${escapeHtml(c.phone||"-")}</td>
+
+                <td>${money(c.credit_limit)} MMK</td>
+
+                <td>${money(c.receivable)} MMK</td>
+
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    `;
+
+  }catch(error){
+
+    $("customerTable").innerHTML=
+      `<div class="message error">${escapeHtml(error.message)}</div>`;
+
+  }
+}
+
+
+function renderPurchases(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Purchases</h1>
+        <div class="page-sub">
+          Purchase orders, supplier payables and stock receiving
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Purchase Module</div>
+      <div style="color:#6b7280">
+        Purchase + Stock Receive API is ready in ERP V5
+      </div>
+    </div>
+  `;
+
+}
+
+
+function renderAccounting(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Accounting</h1>
+        <div class="page-sub">
+          Financial overview
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">
+        Current Accounting Foundation
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
+
+        <div class="stat">
+          <div class="stat-label">Revenue</div>
+          <div class="stat-value" id="accRevenue">-</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Gross Profit</div>
+          <div class="stat-value" id="accGross">-</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Net Profit</div>
+          <div class="stat-value" id="accNet">-</div>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  loadAccounting();
+
+}
+
+
+async function loadAccounting(){
+
+  try{
+
+    const data=await api("/api/dashboard");
+
+    $("accRevenue").textContent=
+      money(data.revenue)+" MMK";
+
+    $("accGross").textContent=
+      money(data.gross_profit)+" MMK";
+
+    $("accNet").textContent=
+      money(data.net_profit)+" MMK";
+
+  }catch(error){}
+
+}
+
+
+function renderExpenses(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Expenses</h1>
+        <div class="page-sub">
+          Track operating expenses
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Expense Management</div>
+      <div style="color:#6b7280">
+        Rent • Salary • Transport • Marketing • Utilities • Other
+      </div>
+    </div>
+
+  `;
+
+}
+
+
+function renderEmployees(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Employees</h1>
+        <div class="page-sub">
+          Employee and team management
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      Employee management foundation
+    </div>
+
+  `;
+
+}
+
+
+async function renderUsers(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Users & Roles</h1>
+        <div class="page-sub">
+          Control access to your business system
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div id="usersTable">
+        Loading users...
+      </div>
+
+    </div>
+
+  `;
+
+  try{
+
+    const data=await api("/api/users");
+
+    const users=
+      Array.isArray(data)
+      ? data
+      : data.users || [];
+
+    $("usersTable").innerHTML=`
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            ${users.map(u=>`
+
+              <tr>
+                <td>${escapeHtml(u.name)}</td>
+                <td>${escapeHtml(u.email)}</td>
+                <td>${escapeHtml(u.role)}</td>
+                <td>
+                  <span class="badge ${
+                    u.status==="Active"
+                    ? "green"
+                    : "red"
+                  }">
+                    ${escapeHtml(u.status)}
+                  </span>
+                </td>
+              </tr>
+
+            `).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    `;
+
+  }catch(error){
+
+    $("usersTable").innerHTML=
+      `<div class="message error">${escapeHtml(error.message)}</div>`;
+
+  }
+
+}
+
+
+function renderGrowth(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">100 → 1000 Growth</h1>
+        <div class="page-sub">
+          Business growth operating system
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">
+        Growth Roadmap
+      </div>
+
+      <div style="display:grid;gap:12px">
+
+        <div class="stat">
+          <strong>100 → 200</strong>
+          <div class="stat-label">
+            Foundation
+          </div>
+        </div>
+
+        <div class="stat">
+          <strong>200 → 300</strong>
+          <div class="stat-label">
+            Sales System
+          </div>
+        </div>
+
+        <div class="stat">
+          <strong>300 → 500</strong>
+          <div class="stat-label">
+            Customer Growth
+          </div>
+        </div>
+
+        <div class="stat">
+          <strong>500 → 700</strong>
+          <div class="stat-label">
+            Scale
+          </div>
+        </div>
+
+        <div class="stat">
+          <strong>700 → 900</strong>
+          <div class="stat-label">
+            Expansion
+          </div>
+        </div>
+
+        <div class="stat">
+          <strong>900 → 1000</strong>
+          <div class="stat-label">
+            Systemized Business
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderCoach(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">AI Business Coach</h1>
+        <div class="page-sub">
+          Problem → Cause → Action → KPI → 7-Day Plan
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div class="field">
+
+        <label>
+          What business problem are you facing?
+        </label>
+
+        <textarea
+          id="coachProblem"
+          rows="5"
+          placeholder="Example: Sales are below target..."
+        ></textarea>
+
+      </div>
+
+      <button class="btn btn-primary" onclick="runCoach()">
+        🤖 Analyze Business Problem
+      </button>
+
+      <div id="coachResult" style="margin-top:20px"></div>
+
+    </div>
+
+  `;
+
+}
+
+
+function runCoach(){
+
+  const problem=$("coachProblem").value.trim();
+
+  if(!problem){
+    showToast("Enter a business problem");
+    return;
+  }
+
+  $("coachResult").innerHTML=`
+
+    <div class="card" style="background:#f8fafc">
+
+      <strong>Business Coach Framework</strong>
+
+      <p>
+        <b>Problem</b><br>
+        ${escapeHtml(problem)}
+      </p>
+
+      <p>
+        <b>Possible Cause</b><br>
+        Review sales volume, conversion, pricing, customer activity and team execution
+      </p>
+
+      <p>
+        <b>Action</b><br>
+        Define one measurable action and assign an owner
+      </p>
+
+      <p>
+        <b>KPI</b><br>
+        Track daily activity, revenue, achievement and conversion
+      </p>
+
+      <p>
+        <b>7-Day Plan</b><br>
+        Set daily target → execute → review → correct → repeat
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderSettings(){
+
+  $("content").innerHTML=`
+
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Settings</h1>
+        <div class="page-sub">
+          ERP configuration
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">
+        Backend API
+      </div>
+
+      <div class="field">
+
+        <label>API Base URL</label>
+
+        <input
+          id="apiSetting"
+          value="${escapeHtml(API_BASE)}"
+        >
+
+      </div>
+
+      <button class="btn btn-primary" onclick="saveApiSetting()">
+        Save API URL
+      </button>
+
+      <div style="margin-top:20px;color:#6b7280;font-size:13px">
+        Current version: AUNG SMART BUSINESS ERP V5
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function saveApiSetting(){
+
+  const url=$("apiSetting").value.trim();
+
+  if(!url){
+    showToast("API URL is required");
+    return;
+  }
+
+  localStorage.setItem(
+    "aung_erp_api",
+    url.replace(/\/$/,"")
+  );
+
+  showToast("API URL saved. Reloading...");
+
+  setTimeout(()=>{
+    location.reload();
+  },700);
+
+}
+
+
+/* MOBILE */
+
+function toggleSidebar(){
+
+  $("sidebar").classList.toggle("open");
+  $("overlay").classList.toggle("show");
+
+}
+
+
+function closeSidebar(){
+
+  $("sidebar").classList.remove("open");
+  $("overlay").classList.remove("show");
+
+}
+
+
+/* STARTUP */
+
+async function boot(){
+
+  const token=
+    localStorage.getItem(TOKEN_KEY);
+
+  if(!token){
+    return;
+  }
+
+  try{
+
+    await loadUser();
+
+    $("loginScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+
+    navigate("dashboard");
+
+  }catch(error){
+
+    logout();
+
+  }
+
+}
+
+boot();
+
 </script>
 
 </body>
