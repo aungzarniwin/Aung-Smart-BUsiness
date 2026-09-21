@@ -2,563 +2,638 @@
 <html lang="my">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AUNG SMART BUSINESS ERP V3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#111827">
+<title>AUNG SMART BUSINESS ERP V5</title>
 
 <style>
-*{box-sizing:border-box}
 :root{
-  --bg:#f4f7f9;
-  --card:#fff;
-  --text:#17202a;
-  --muted:#718096;
-  --line:#e5e9ef;
-  --dark:#111827;
-  --dark2:#1f2937;
-  --accent:#16a34a;
-  --accent2:#15803d;
+  --bg:#f5f7fb;
+  --surface:#ffffff;
+  --surface2:#f8fafc;
+  --border:#e5e7eb;
+  --text:#111827;
+  --muted:#6b7280;
+  --primary:#111827;
+  --primary2:#374151;
+  --success:#15803d;
+  --warning:#b45309;
   --danger:#dc2626;
-  --warning:#d97706;
-  --info:#2563eb;
-  --shadow:0 8px 30px rgba(15,23,42,.07);
-  --radius:16px
+  --info:#0369a1;
+  --sidebar:#111827;
+  --sidebarText:#d1d5db;
+  --radius:16px;
+  --shadow:0 8px 28px rgba(15,23,42,.07);
 }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
 body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",
-  "Noto Sans Myanmar",sans-serif;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Myanmar",sans-serif;
   background:var(--bg);
-  color:var(--text)
+  color:var(--text);
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 
-/* LOGIN */
-.login-screen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:
-    radial-gradient(circle at top left,#dcfce7,transparent 35%),
-    linear-gradient(135deg,#f8fafc,#eef2f7)
-}
-.login-box{
-  width:100%;
-  max-width:430px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-  box-shadow:0 20px 70px rgba(15,23,42,.12);
-  padding:32px
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin-bottom:28px
-}
-.brand-logo{
-  width:48px;
-  height:48px;
-  border-radius:14px;
-  background:var(--dark);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  font-size:20px
-}
-.brand h1{
-  margin:0;
-  font-size:20px
-}
-.brand small{color:var(--muted)}
-.login-box h2{
-  margin:0 0 7px;
-  font-size:26px
-}
-.login-sub{
-  color:var(--muted);
-  margin-bottom:25px
-}
-
-/* APP */
 .app{
   min-height:100vh;
-  display:flex
-}
-.sidebar{
-  width:270px;
-  background:var(--dark);
-  color:#fff;
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  z-index:100;
-  overflow-y:auto
-}
-.sidebar-head{
-  padding:23px 20px;
-  border-bottom:1px solid rgba(255,255,255,.08)
-}
-.sidebar-brand{
   display:flex;
-  align-items:center;
-  gap:11px
 }
-.sidebar-logo{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:var(--accent);
-  display:grid;
-  place-items:center;
-  font-weight:900
+
+.sidebar{
+  width:260px;
+  background:var(--sidebar);
+  color:white;
+  position:fixed;
+  inset:0 auto 0 0;
+  z-index:50;
+  display:flex;
+  flex-direction:column;
+  transition:.25s ease;
 }
-.sidebar-brand strong{
-  display:block;
-  font-size:15px
+
+.brand{
+  padding:22px 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
-.sidebar-brand span{
+.brand-title{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.brand-sub{
+  font-size:11px;
   color:#9ca3af;
-  font-size:11px
+  margin-top:5px;
 }
+
 .nav{
-  padding:15px 12px
+  padding:14px 10px;
+  overflow:auto;
+  flex:1;
 }
 .nav-section{
   color:#6b7280;
   font-size:10px;
+  font-weight:800;
   text-transform:uppercase;
-  letter-spacing:1px;
-  margin:16px 10px 7px
+  padding:14px 11px 7px;
+  letter-spacing:.8px;
 }
-.nav button{
+.nav-btn{
   width:100%;
   border:0;
   background:transparent;
-  color:#cbd5e1;
+  color:var(--sidebarText);
   padding:11px 12px;
-  border-radius:10px;
-  text-align:left;
   margin:2px 0;
+  border-radius:10px;
   display:flex;
   align-items:center;
   gap:11px;
-  font-size:13px
+  text-align:left;
+  font-size:13px;
 }
-.nav button:hover,
-.nav button.active{
+.nav-btn:hover{background:#1f2937;color:white}
+.nav-btn.active{
+  background:#374151;
+  color:white;
+  font-weight:700;
+}
+.nav-icon{
+  width:20px;
+  text-align:center;
+  font-size:15px;
+}
+
+.sidebar-bottom{
+  padding:12px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.user-mini{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border-radius:12px;
   background:#1f2937;
-  color:#fff
 }
-.nav button.active{
-  box-shadow:inset 3px 0 0 var(--accent)
+.avatar{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#4b5563;
+  display:grid;
+  place-items:center;
+  font-weight:800;
 }
-.sidebar-user{
-  margin:10px 14px 20px;
-  padding:13px;
-  background:#1a2332;
-  border-radius:12px
-}
-.sidebar-user strong{
-  font-size:12px;
-  display:block
-}
-.sidebar-user span{
-  color:#94a3b8;
-  font-size:11px
-}
+.user-name{font-size:12px;font-weight:700}
+.user-role{font-size:10px;color:#9ca3af}
+
 .main{
-  margin-left:270px;
-  width:calc(100% - 270px);
-  min-height:100vh
+  margin-left:260px;
+  min-width:0;
+  flex:1;
 }
+
 .topbar{
   height:68px;
-  background:#fff;
-  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 25px;
+  padding:0 24px;
   position:sticky;
   top:0;
-  z-index:50
+  z-index:30;
+}
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 .page-title{
+  font-size:18px;
   font-weight:800;
-  font-size:18px
 }
-.page-sub{
-  font-size:11px;
-  color:var(--muted)
-}
-.top-actions{
-  display:flex;
-  gap:9px;
-  align-items:center
+.company-label{
+  color:var(--muted);
+  font-size:12px;
 }
 .mobile-menu{
   display:none;
-  border:0;
-  background:#f1f5f9;
-  width:40px;
-  height:40px;
-  border-radius:10px
-}
-.content{
-  padding:25px;
-  max-width:1600px;
-  margin:auto
+  border:1px solid var(--border);
+  background:white;
+  width:38px;
+  height:38px;
+  border-radius:10px;
 }
 
-/* COMMON */
-.grid{
-  display:grid;
-  gap:16px
-}
-.grid-4{grid-template-columns:repeat(4,1fr)}
-.grid-3{grid-template-columns:repeat(3,1fr)}
-.grid-2{grid-template-columns:repeat(2,1fr)}
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:19px
-}
-.card-head{
+.top-actions{
   display:flex;
   align-items:center;
+  gap:8px;
+}
+.icon-btn{
+  border:1px solid var(--border);
+  background:white;
+  width:38px;
+  height:38px;
+  border-radius:10px;
+}
+.icon-btn:hover{background:var(--surface2)}
+
+.content{
+  padding:24px;
+  max-width:1600px;
+  margin:auto;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.page-head{
+  display:flex;
   justify-content:space-between;
-  gap:10px;
-  margin-bottom:17px
+  align-items:flex-start;
+  gap:15px;
+  margin-bottom:20px;
 }
-.card-title{
-  font-size:15px;
-  font-weight:800
+.page-head h1{
+  margin:0;
+  font-size:24px;
 }
-.muted{color:var(--muted)}
-.small{font-size:12px}
-.metric{
-  position:relative;
-  overflow:hidden
+.page-head p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
 }
-.metric-label{
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:10px 15px;
+  font-weight:700;
+  font-size:13px;
+  transition:.15s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:white}
+.btn-secondary{background:white;border:1px solid var(--border);color:var(--text)}
+.btn-success{background:#166534;color:white}
+.btn-danger{background:#b91c1c;color:white}
+.btn-warning{background:#d97706;color:white}
+.btn-small{padding:7px 10px;font-size:11px}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.stat-card{padding:18px}
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.stat-label{
   font-size:12px;
   color:var(--muted);
-  margin-bottom:10px
+  font-weight:600;
 }
-.metric-value{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:-.5px
-}
-.metric-foot{
-  margin-top:9px;
-  font-size:11px
-}
-.metric-icon{
-  position:absolute;
-  right:17px;
-  top:17px;
+.stat-icon{
   width:36px;
   height:36px;
   border-radius:10px;
   display:grid;
   place-items:center;
-  background:#f0fdf4
+  background:#f3f4f6;
 }
-.green{color:var(--accent)}
-.red{color:var(--danger)}
-.orange{color:var(--warning)}
-.blue{color:var(--info)}
-.btn{
-  border:0;
-  border-radius:10px;
-  padding:10px 14px;
-  font-size:12px;
-  font-weight:700;
-  background:#e2e8f0;
-  color:#1e293b
+.stat-value{
+  margin-top:10px;
+  font-size:23px;
+  font-weight:850;
 }
-.btn:hover{filter:brightness(.97)}
-.btn-primary{
-  background:var(--accent);
-  color:#fff
-}
-.btn-primary:hover{background:var(--accent2)}
-.btn-danger{
-  background:#fee2e2;
-  color:#991b1b
-}
-.btn-info{
-  background:#dbeafe;
-  color:#1d4ed8
-}
-.btn-dark{
-  background:var(--dark);
-  color:#fff
-}
-.btn-sm{
-  padding:7px 10px;
-  font-size:11px
-}
-.input,
-.select,
-.textarea{
-  width:100%;
-  border:1px solid #d9e0e7;
-  border-radius:10px;
-  padding:11px 12px;
-  outline:none;
-  background:#fff
-}
-.input:focus,
-.select:focus,
-.textarea:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(22,163,74,.08)
-}
-.textarea{min-height:90px;resize:vertical}
-.form-group{margin-bottom:13px}
-.form-label{
-  display:block;
+.stat-meta{
+  margin-top:6px;
   font-size:11px;
-  font-weight:700;
-  margin-bottom:6px
+  color:var(--muted);
 }
-.form-grid{
+
+.grid-2{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px
+  grid-template-columns:1.4fr 1fr;
+  gap:16px;
+  margin-top:16px;
 }
-.form-grid-3{
+.grid-3{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px
+  gap:16px;
+  margin-top:16px;
 }
+
+.panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.panel-head{
+  padding:16px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid var(--border);
+}
+.panel-title{
+  font-size:14px;
+  font-weight:800;
+}
+.panel-body{padding:18px}
+
 .progress{
-  height:9px;
-  background:#edf1f4;
-  border-radius:99px;
-  overflow:hidden
-}
-.progress > div{
-  height:100%;
-  background:var(--accent);
-  border-radius:99px
-}
-.badge{
-  display:inline-flex;
-  padding:5px 8px;
+  height:10px;
+  background:#e5e7eb;
   border-radius:999px;
-  font-size:10px;
-  font-weight:800
+  overflow:hidden;
 }
-.badge-green{background:#dcfce7;color:#166534}
-.badge-red{background:#fee2e2;color:#991b1b}
-.badge-orange{background:#ffedd5;color:#9a3412}
-.badge-blue{background:#dbeafe;color:#1d4ed8}
-.badge-gray{background:#f1f5f9;color:#475569}
+.progress-bar{
+  height:100%;
+  background:#111827;
+  border-radius:999px;
+  transition:.3s;
+}
+.progress-row{
+  margin-bottom:15px;
+}
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:7px;
+  font-size:12px;
+}
+.progress-info span:last-child{font-weight:800}
+
 .table-wrap{
   overflow:auto;
-  border:1px solid var(--line);
-  border-radius:12px
 }
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:650px
+  min-width:650px;
 }
 th,td{
-  padding:11px 12px;
-  border-bottom:1px solid var(--line);
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
   text-align:left;
-  font-size:11px
+  font-size:12px;
+  white-space:nowrap;
 }
 th{
-  background:#f8fafc;
-  color:#64748b;
-  font-size:10px;
-  text-transform:uppercase
-}
-tr:last-child td{border-bottom:0}
-.empty{
-  padding:35px 15px;
-  text-align:center;
   color:var(--muted);
-  font-size:12px
+  background:#f8fafc;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
 }
-.action-row{
+tr:hover td{background:#fafafa}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:800;
+}
+.badge-success{background:#dcfce7;color:#166534}
+.badge-warning{background:#fef3c7;color:#92400e}
+.badge-danger{background:#fee2e2;color:#991b1b}
+.badge-info{background:#e0f2fe;color:#075985}
+.badge-neutral{background:#f3f4f6;color:#374151}
+
+.toolbar{
   display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:14px;
   flex-wrap:wrap;
-  gap:8px
 }
-.section{
-  margin-bottom:18px
+.search{
+  min-width:220px;
+  max-width:380px;
+  flex:1;
 }
-.page{
-  display:none
+.input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  background:white;
 }
-.page.active{
-  display:block
+.input:focus{
+  border-color:#6b7280;
+  box-shadow:0 0 0 3px rgba(17,24,39,.07);
 }
-.hero{
-  background:linear-gradient(135deg,#111827,#1f2937);
-  color:#fff;
-  border-radius:18px;
-  padding:24px;
-  margin-bottom:18px
+textarea.input{min-height:90px;resize:vertical}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
 }
-.hero h2{
-  margin:0 0 6px;
-  font-size:23px
+.form-group{margin-bottom:0}
+.form-group.full{grid-column:1/-1}
+.form-label{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:6px;
 }
-.hero p{
-  color:#cbd5e1;
-  margin:0
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:18px;
 }
 
-/* MODAL */
+.empty{
+  padding:45px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+.empty-icon{font-size:32px;margin-bottom:8px}
+
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(15,23,42,.58);
-  z-index:500;
+  z-index:100;
+  background:rgba(15,23,42,.5);
   display:none;
   align-items:center;
   justify-content:center;
-  padding:18px
+  padding:15px;
 }
-.modal.show{display:flex}
+.modal.open{display:flex}
 .modal-box{
-  background:#fff;
-  width:100%;
-  max-width:650px;
+  width:min(680px,100%);
   max-height:90vh;
   overflow:auto;
+  background:white;
   border-radius:18px;
-  padding:22px
+  box-shadow:0 30px 70px rgba(0,0,0,.2);
 }
 .modal-head{
+  padding:17px 19px;
+  border-bottom:1px solid var(--border);
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  justify-content:space-between;
-  margin-bottom:18px
 }
-.modal-head h3{margin:0}
-.close{
+.modal-title{font-size:16px;font-weight:850}
+.modal-close{
   border:0;
-  background:#f1f5f9;
-  width:34px;
-  height:34px;
-  border-radius:9px
+  background:#f3f4f6;
+  width:32px;
+  height:32px;
+  border-radius:9px;
+}
+.modal-body{padding:19px}
+
+.login-screen{
+  min-height:100vh;
+  background:#f3f4f6;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+.login-card{
+  width:min(430px,100%);
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  padding:28px;
+}
+.login-logo{
+  width:52px;
+  height:52px;
+  background:#111827;
+  color:white;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  margin-bottom:18px;
+}
+.login-card h1{margin:0;font-size:24px}
+.login-card p{color:var(--muted);font-size:13px}
+.login-form{margin-top:22px}
+.login-form .form-group{margin-bottom:14px}
+.login-note{
+  margin-top:15px;
+  padding:10px;
+  background:#f8fafc;
+  border-radius:10px;
+  color:var(--muted);
+  font-size:11px;
 }
 
-/* DASHBOARD */
-.dashboard-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:17px
-}
-.stage{
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  margin-bottom:9px
-}
-.stage strong{
+.kpi-list{display:grid;gap:10px}
+.kpi-item{
   display:flex;
   justify-content:space-between;
-  font-size:12px
+  align-items:center;
+  padding:12px;
+  background:#f8fafc;
+  border-radius:10px;
 }
-.stage small{
-  display:block;
-  color:var(--muted);
-  margin:5px 0 8px
-}
+.kpi-name{font-size:12px;font-weight:700}
+.kpi-value{font-size:13px;font-weight:850}
 
-/* REPORT */
-.report-card{
-  min-height:170px
-}
-.report-number{
-  font-size:30px;
-  font-weight:900;
-  margin-top:8px
-}
-
-/* AI */
 .ai-box{
-  background:linear-gradient(135deg,#f0fdf4,#ecfdf5);
-  border:1px solid #bbf7d0;
-  border-radius:15px;
-  padding:18px
+  padding:18px;
+  border-radius:14px;
+  background:#f8fafc;
+  border:1px solid var(--border);
 }
-.ai-answer{
-  white-space:pre-line;
-  line-height:1.8;
-  font-size:13px
-}
+.ai-title{font-size:15px;font-weight:850;margin-bottom:8px}
+.ai-section{margin-top:15px}
+.ai-section strong{font-size:11px;text-transform:uppercase;color:var(--muted)}
+.ai-section div{margin-top:5px;font-size:13px;line-height:1.6}
 
-/* TOAST */
-.toast{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:1000;
-  background:#111827;
-  color:#fff;
-  padding:12px 16px;
-  border-radius:11px;
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.tool-card{
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:white;
+}
+.tool-card h3{margin:0 0 5px;font-size:14px}
+.tool-card p{font-size:11px;color:var(--muted);min-height:32px}
+
+.alert{
+  padding:11px 13px;
+  border-radius:10px;
   font-size:12px;
-  box-shadow:0 12px 40px rgba(0,0,0,.2);
-  transform:translateY(20px);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s
+  margin-bottom:12px;
 }
-.toast.show{
-  transform:translateY(0);
-  opacity:1
+.alert-danger{background:#fee2e2;color:#991b1b}
+.alert-success{background:#dcfce7;color:#166534}
+.alert-warning{background:#fef3c7;color:#92400e}
+.alert-info{background:#e0f2fe;color:#075985}
+
+.toast-container{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:200;
+  display:grid;
+  gap:8px;
+}
+.toast{
+  background:#111827;
+  color:white;
+  padding:11px 14px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  font-size:12px;
+  animation:toastIn .2s ease;
+}
+@keyframes toastIn{
+  from{transform:translateY(10px);opacity:0}
+  to{transform:translateY(0);opacity:1}
 }
 
-/* MOBILE */
-@media(max-width:1050px){
-  .grid-4{grid-template-columns:repeat(2,1fr)}
-  .grid-3{grid-template-columns:repeat(2,1fr)}
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
 }
+.setting-label{font-size:13px;font-weight:800}
+.setting-desc{font-size:11px;color:var(--muted);margin-top:4px}
+
+.chart-bars{
+  height:210px;
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+  padding:15px 5px 0;
+}
+.bar-wrap{
+  flex:1;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  gap:6px;
+}
+.bar{
+  width:100%;
+  max-width:35px;
+  min-height:4px;
+  background:#374151;
+  border-radius:7px 7px 2px 2px;
+}
+.bar-label{font-size:9px;color:var(--muted)}
+.bar-value{font-size:9px;font-weight:800}
+
+@media(max-width:1100px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .tool-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 @media(max-width:760px){
   .sidebar{
     transform:translateX(-100%);
-    transition:.25s
+    box-shadow:10px 0 40px rgba(0,0,0,.15);
   }
   .sidebar.open{transform:translateX(0)}
-  .main{
-    margin-left:0;
-    width:100%
-  }
+  .main{margin-left:0}
   .mobile-menu{display:block}
-  .topbar{padding:0 15px}
-  .content{padding:15px}
-  .grid-4,
-  .grid-3,
-  .grid-2{
-    grid-template-columns:1fr
-  }
-  .form-grid,
-  .form-grid-3{
-    grid-template-columns:1fr
-  }
-  .top-actions .hide-mobile{display:none}
-  .metric-value{font-size:23px}
+  .topbar{padding:0 14px}
+  .content{padding:16px}
+  .page-head{flex-direction:column}
+  .cards{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-card{padding:14px}
+  .stat-value{font-size:18px}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:auto}
+  .tool-grid{grid-template-columns:1fr}
+  .company-label{display:none}
+}
+
+@media(max-width:450px){
+  .cards{grid-template-columns:1fr}
+  .top-actions .icon-btn:nth-child(2){display:none}
 }
 </style>
 </head>
@@ -567,47 +642,35 @@ tr:last-child td{border-bottom:0}
 
 <!-- LOGIN -->
 <div id="loginScreen" class="login-screen">
-  <div class="login-box">
-    <div class="brand">
-      <div class="brand-logo">AS</div>
-      <div>
-        <h1>AUNG SMART BUSINESS</h1>
-        <small>ERP • Business Growth System</small>
+  <div class="login-card">
+    <div class="login-logo">AS</div>
+    <h1>AUNG SMART BUSINESS</h1>
+    <p>Business Growth Operating System</p>
+
+    <div id="loginAlert"></div>
+
+    <div class="login-form">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input id="loginEmail" class="input" type="email" value="owner@example.com">
       </div>
-    </div>
 
-    <h2>Welcome Back</h2>
-    <div class="login-sub">
-      Myanmar SME Business Management System
-    </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input id="loginPassword" class="input" type="password" value="demo123">
+      </div>
 
-    <div class="form-group">
-      <label class="form-label">Email</label>
-      <input id="loginEmail" class="input" type="email"
-             placeholder="owner@example.com">
-    </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:5px" onclick="login()">
+        Sign In
+      </button>
 
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input id="loginPassword" class="input" type="password"
-             placeholder="Password">
-    </div>
+      <button class="btn btn-secondary" style="width:100%;margin-top:8px" onclick="demoLogin()">
+        Continue with Demo
+      </button>
 
-    <button class="btn btn-primary" style="width:100%"
-            onclick="login()">
-      Sign In
-    </button>
-
-    <button class="btn" style="width:100%;margin-top:9px"
-            onclick="demoLogin()">
-      Use Demo Account
-    </button>
-
-    <div id="loginMsg"
-         style="margin-top:13px;text-align:center;font-size:11px"></div>
-
-    <div style="margin-top:25px;text-align:center;color:#94a3b8;font-size:10px">
-      AUNG SMART BUSINESS ERP V3
+      <div class="login-note">
+        Development mode — Backend မချိတ်ထားသေးရင် LocalStorage data mode နဲ့ အလုပ်လုပ်ပါမယ်
+      </div>
     </div>
   </div>
 </div>
@@ -616,70 +679,106 @@ tr:last-child td{border-bottom:0}
 <div id="app" class="app hidden">
 
   <aside id="sidebar" class="sidebar">
-    <div class="sidebar-head">
-      <div class="sidebar-brand">
-        <div class="sidebar-logo">AS</div>
-        <div>
-          <strong>AUNG SMART BUSINESS</strong>
-          <span>ERP V3 • 100 → 1000</span>
-        </div>
-      </div>
+    <div class="brand">
+      <div class="brand-title">AUNG SMART BUSINESS</div>
+      <div class="brand-sub">ERP V5 • Business Growth OS</div>
     </div>
 
-    <div class="nav">
+    <nav class="nav">
 
       <div class="nav-section">Overview</div>
-      <button data-page="dashboard" onclick="go('dashboard')">▣ Dashboard</button>
 
-      <div class="nav-section">Sales</div>
-      <button data-page="sales" onclick="go('sales')">▤ Sales</button>
-      <button data-page="crm" onclick="go('crm')">◎ CRM / Customers</button>
+      <button class="nav-btn active" data-page="dashboard" onclick="go('dashboard')">
+        <span class="nav-icon">▦</span> Dashboard
+      </button>
+
+      <div class="nav-section">Sales & CRM</div>
+
+      <button class="nav-btn" data-page="sales" onclick="go('sales')">
+        <span class="nav-icon">▣</span> Sales & Invoice
+      </button>
+
+      <button class="nav-btn" data-page="customers" onclick="go('customers')">
+        <span class="nav-icon">♙</span> Customers
+      </button>
+
+      <button class="nav-btn" data-page="suppliers" onclick="go('suppliers')">
+        <span class="nav-icon">⇄</span> Suppliers
+      </button>
 
       <div class="nav-section">Operations</div>
-      <button data-page="purchases" onclick="go('purchases')">⇩ Purchases</button>
-      <button data-page="inventory" onclick="go('inventory')">▦ Inventory</button>
 
-      <div class="nav-section">Finance</div>
-      <button data-page="accounting" onclick="go('accounting')">▤ Accounting</button>
-      <button data-page="expenses" onclick="go('expenses')">− Expenses</button>
+      <button class="nav-btn" data-page="products" onclick="go('products')">
+        <span class="nav-icon">□</span> Products
+      </button>
 
-      <div class="nav-section">People</div>
-      <button data-page="employees" onclick="go('employees')">♙ Employees</button>
-      <button data-page="users" onclick="go('users')">♧ Users & Roles</button>
+      <button class="nav-btn" data-page="purchases" onclick="go('purchases')">
+        <span class="nav-icon">◫</span> Purchases
+      </button>
 
-      <div class="nav-section">Growth</div>
-      <button data-page="reports" onclick="go('reports')">▥ Reports</button>
-      <button data-page="growth" onclick="go('growth')">↗ 100 → 1000 Growth</button>
-      <button data-page="ai" onclick="go('ai')">✦ AI Business Coach</button>
-      <button data-page="tools" onclick="go('tools')">⌘ Business Tools</button>
+      <button class="nav-btn" data-page="expenses" onclick="go('expenses')">
+        <span class="nav-icon">−</span> Expenses
+      </button>
 
-      <div class="nav-section">System</div>
-      <button data-page="settings" onclick="go('settings')">⚙ Settings</button>
-      <button onclick="logout()">↪ Logout</button>
-    </div>
+      <button class="nav-btn" data-page="employees" onclick="go('employees')">
+        <span class="nav-icon">♟</span> Employees
+      </button>
 
-    <div class="sidebar-user">
-      <strong id="sideUser">Aung Zar Ni Win</strong>
-      <span id="sideRole">Owner</span>
+      <div class="nav-section">Management</div>
+
+      <button class="nav-btn" data-page="reports" onclick="go('reports')">
+        <span class="nav-icon">▤</span> Reports
+      </button>
+
+      <button class="nav-btn" data-page="growth" onclick="go('growth')">
+        <span class="nav-icon">↗</span> 100 → 1000 Growth
+      </button>
+
+      <button class="nav-btn" data-page="coach" onclick="go('coach')">
+        <span class="nav-icon">✦</span> AI Business Coach
+      </button>
+
+      <button class="nav-btn" data-page="tools" onclick="go('tools')">
+        <span class="nav-icon">⌗</span> Business Tools
+      </button>
+
+      <div class="nav-section">Administration</div>
+
+      <button class="nav-btn" data-page="users" onclick="go('users')">
+        <span class="nav-icon">♙</span> Users & Roles
+      </button>
+
+      <button class="nav-btn" data-page="settings" onclick="go('settings')">
+        <span class="nav-icon">⚙</span> Settings
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="user-mini">
+        <div class="avatar">A</div>
+        <div>
+          <div class="user-name" id="sideUserName">Aung Zar Ni Win</div>
+          <div class="user-role">Owner</div>
+        </div>
+      </div>
     </div>
   </aside>
 
   <main class="main">
 
     <header class="topbar">
-      <div style="display:flex;align-items:center;gap:10px">
+      <div class="top-left">
         <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
         <div>
           <div id="pageTitle" class="page-title">Dashboard</div>
-          <div id="companyTop" class="page-sub">Aung Business</div>
+          <div id="companyLabel" class="company-label">Aung Business</div>
         </div>
       </div>
 
       <div class="top-actions">
-        <button class="btn btn-sm hide-mobile"
-                onclick="quickSale()">+ Sale</button>
-        <button class="btn btn-sm hide-mobile"
-                onclick="go('ai')">AI Coach</button>
+        <button class="icon-btn" onclick="refreshCurrent()">↻</button>
+        <button class="icon-btn" onclick="showToast('System is running')">●</button>
       </div>
     </header>
 
@@ -688,787 +787,591 @@ tr:last-child td{border-bottom:0}
       <!-- DASHBOARD -->
       <section id="page-dashboard" class="page active">
 
-        <div class="hero">
-          <h2 id="dashWelcome">Good Business Day</h2>
-          <p>
-            Manage your business from sales to profit and growth in one system
-          </p>
-
-          <div class="dashboard-actions">
-            <button class="btn btn-primary" onclick="quickSale()">+ New Sale</button>
-            <button class="btn" onclick="openModal('customerModal')">+ Customer</button>
-            <button class="btn" onclick="openModal('productModal')">+ Product</button>
-            <button class="btn" onclick="go('reports')">View Reports</button>
+        <div class="page-head">
+          <div>
+            <h1>Business Dashboard</h1>
+            <p>သင့်လုပ်ငန်းရဲ့ Sales, Profit, Cash နဲ့ Growth ကို တစ်နေရာတည်းက ကြည့်ပါ</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-secondary" onclick="openModal('saleModal')">+ New Sale</button>
+            <button class="btn btn-primary" onclick="openModal('productModal')">+ Product</button>
           </div>
         </div>
 
-        <div class="grid grid-4 section">
-          <div class="card metric">
-            <div class="metric-label">Revenue</div>
-            <div id="mRevenue" class="metric-value">0 Ks</div>
-            <div class="metric-foot green">Total sales</div>
-            <div class="metric-icon">₭</div>
+        <div class="cards">
+
+          <div class="card stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Revenue</span>
+              <span class="stat-icon">↗</span>
+            </div>
+            <div id="dashRevenue" class="stat-value">0</div>
+            <div class="stat-meta">Total sales</div>
           </div>
 
-          <div class="card metric">
-            <div class="metric-label">Gross Profit</div>
-            <div id="mGross" class="metric-value">0 Ks</div>
-            <div class="metric-foot green">After COGS</div>
-            <div class="metric-icon">↗</div>
+          <div class="card stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Gross Profit</span>
+              <span class="stat-icon">◆</span>
+            </div>
+            <div id="dashGross" class="stat-value">0</div>
+            <div class="stat-meta">Revenue − COGS</div>
           </div>
 
-          <div class="card metric">
-            <div class="metric-label">Net Profit</div>
-            <div id="mNet" class="metric-value">0 Ks</div>
-            <div class="metric-foot">After expenses</div>
-            <div class="metric-icon">◆</div>
+          <div class="card stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Net Profit</span>
+              <span class="stat-icon">✓</span>
+            </div>
+            <div id="dashNet" class="stat-value">0</div>
+            <div class="stat-meta">After expenses</div>
           </div>
 
-          <div class="card metric">
-            <div class="metric-label">Customers</div>
-            <div id="mCustomers" class="metric-value">0</div>
-            <div class="metric-foot">Active records</div>
-            <div class="metric-icon">◎</div>
-          </div>
-        </div>
-
-        <div class="grid grid-2 section">
-
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">100 → 1000 Growth</div>
-              <button class="btn btn-sm" onclick="go('growth')">
-                Open
-              </button>
+          <div class="card stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Receivable</span>
+              <span class="stat-icon">◌</span>
             </div>
-
-            <div style="display:flex;justify-content:space-between;margin-bottom:7px">
-              <span class="small muted">Current revenue</span>
-              <strong id="growthCurrent">0 Ks</strong>
-            </div>
-
-            <div class="progress">
-              <div id="growthProgress" style="width:0%"></div>
-            </div>
-
-            <div style="display:flex;justify-content:space-between;margin-top:8px">
-              <span class="small muted">Target</span>
-              <strong id="growthTarget">1,000 Ks</strong>
-            </div>
-
-            <div id="growthStage" style="margin-top:15px"></div>
-          </div>
-
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">Business Attention</div>
-              <button class="btn btn-sm" onclick="go('ai')">AI Coach</button>
-            </div>
-            <div id="attention"></div>
+            <div id="dashReceivable" class="stat-value">0</div>
+            <div class="stat-meta">Customer credit</div>
           </div>
 
         </div>
 
-        <div class="grid grid-2">
+        <div class="grid-2">
 
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">Recent Sales</div>
-              <button class="btn btn-sm" onclick="go('sales')">All Sales</button>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">100 → 1000 Growth Progress</div>
+              <span id="growthStageBadge" class="badge badge-info">Foundation</span>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="progress-row">
+                <div class="progress-info">
+                  <span>Current Revenue</span>
+                  <span id="growthCurrent">0</span>
+                </div>
+                <div class="progress">
+                  <div id="growthProgress" class="progress-bar" style="width:0%"></div>
+                </div>
+              </div>
+
+              <div class="kpi-list">
+                <div class="kpi-item">
+                  <span class="kpi-name">Target Revenue</span>
+                  <span id="growthTarget" class="kpi-value">0</span>
+                </div>
+
+                <div class="kpi-item">
+                  <span class="kpi-name">Growth Gap</span>
+                  <span id="growthGap" class="kpi-value">0</span>
+                </div>
+
+                <div class="kpi-item">
+                  <span class="kpi-name">Sales Transactions</span>
+                  <span id="dashSalesCount" class="kpi-value">0</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Quick Actions</div>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="kpi-list">
+
+                <button class="btn btn-secondary" onclick="openModal('saleModal')">
+                  + Create Sales Invoice
+                </button>
+
+                <button class="btn btn-secondary" onclick="openModal('customerModal')">
+                  + Add Customer
+                </button>
+
+                <button class="btn btn-secondary" onclick="openModal('purchaseModal')">
+                  + Record Purchase
+                </button>
+
+                <button class="btn btn-secondary" onclick="openModal('expenseModal')">
+                  + Record Expense
+                </button>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="grid-2">
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Recent Sales</div>
+              <button class="btn btn-small btn-secondary" onclick="go('sales')">View All</button>
             </div>
             <div id="recentSales"></div>
           </div>
 
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">Today's Action</div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Stock Alerts</div>
+              <button class="btn btn-small btn-secondary" onclick="go('products')">Inventory</button>
             </div>
-
-            <div class="stage">
-              <strong>1. Check sales target</strong>
-              <small>Review actual vs target performance</small>
-              <button class="btn btn-sm btn-primary" onclick="go('reports')">
-                Check KPI
-              </button>
-            </div>
-
-            <div class="stage">
-              <strong>2. Check low stock</strong>
-              <small>Prevent stock-out on fast-moving products</small>
-              <button class="btn btn-sm" onclick="go('inventory')">
-                Inventory
-              </button>
-            </div>
-
-            <div class="stage">
-              <strong>3. Review profit</strong>
-              <small>Control margin and expenses</small>
-              <button class="btn btn-sm" onclick="go('accounting')">
-                Finance
-              </button>
-            </div>
+            <div id="stockAlerts"></div>
           </div>
 
         </div>
+
       </section>
 
       <!-- SALES -->
       <section id="page-sales" class="page">
-        <div class="card-head">
+        <div class="page-head">
           <div>
-            <div class="card-title">Sales Management</div>
-            <div class="small muted">Quotation → Order → Invoice → Payment</div>
+            <h1>Sales & Invoice</h1>
+            <p>Sales invoice, payment and customer credit management</p>
           </div>
-          <button class="btn btn-primary" onclick="openModal('saleModal')">
-            + New Sale
-          </button>
+          <button class="btn btn-primary" onclick="openModal('saleModal')">+ New Sale</button>
         </div>
 
-        <div class="grid grid-4 section">
-          <div class="card metric">
-            <div class="metric-label">Invoices</div>
-            <div id="salesCount" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Revenue</div>
-            <div id="salesRevenue" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Paid</div>
-            <div id="salesPaid" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Receivable</div>
-            <div id="salesReceivable" class="metric-value">0 Ks</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Invoice</th>
-                  <th>Customer</th>
-                  <th>Product</th>
-                  <th>Qty</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="salesTable"></tbody>
-            </table>
+        <div class="panel">
+          <div class="panel-body">
+            <div class="toolbar">
+              <input id="salesSearch" class="input search" placeholder="Search invoice / customer..." oninput="renderSales()">
+              <button class="btn btn-secondary" onclick="exportCSV('sales')">Export CSV</button>
+            </div>
+            <div id="salesTable"></div>
           </div>
         </div>
       </section>
 
-      <!-- CRM -->
-      <section id="page-crm" class="page">
-        <div class="card-head">
+      <!-- CUSTOMERS -->
+      <section id="page-customers" class="page">
+        <div class="page-head">
           <div>
-            <div class="card-title">CRM / Customers</div>
-            <div class="small muted">Customers, leads and follow-up management</div>
+            <h1>Customers</h1>
+            <p>Customer database and receivable tracking</p>
           </div>
-          <button class="btn btn-primary"
-                  onclick="openModal('customerModal')">
-            + New Customer
-          </button>
+          <button class="btn btn-primary" onclick="openModal('customerModal')">+ Add Customer</button>
         </div>
 
-        <div class="grid grid-3 section">
-          <div class="card metric">
-            <div class="metric-label">Customers</div>
-            <div id="crmCustomers" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Retail</div>
-            <div id="crmRetail" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Business</div>
-            <div id="crmBusiness" class="metric-value">0</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Type</th>
-                  <th>Total Purchase</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="customerTable"></tbody>
-            </table>
+        <div class="panel">
+          <div class="panel-body">
+            <div class="toolbar">
+              <input id="customerSearch" class="input search" placeholder="Search customer..." oninput="renderCustomers()">
+              <button class="btn btn-secondary" onclick="exportCSV('customers')">Export CSV</button>
+            </div>
+            <div id="customersTable"></div>
           </div>
         </div>
       </section>
 
-      <!-- PURCHASES -->
+      <!-- SUPPLIERS -->
+      <section id="page-suppliers" class="page">
+        <div class="page-head">
+          <div>
+            <h1>Suppliers</h1>
+            <p>Supplier database and payable tracking</p>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('supplierModal')">+ Add Supplier</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body">
+            <div class="toolbar">
+              <input id="supplierSearch" class="input search" placeholder="Search supplier..." oninput="renderSuppliers()">
+            </div>
+            <div id="suppliersTable"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section id="page-products" class="page">
+        <div class="page-head">
+          <div>
+            <h1>Products & Inventory</h1>
+            <p>Product master, stock quantity and low-stock monitoring</p>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('productModal')">+ Add Product</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body">
+            <div class="toolbar">
+              <input id="productSearch" class="input search" placeholder="Search product / SKU..." oninput="renderProducts()">
+              <button class="btn btn-secondary" onclick="exportCSV('products')">Export CSV</button>
+            </div>
+            <div id="productsTable"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PURCHASE -->
       <section id="page-purchases" class="page">
-        <div class="card-head">
+        <div class="page-head">
           <div>
-            <div class="card-title">Purchase Management</div>
-            <div class="small muted">Supplier → Purchase Order → Stock In</div>
+            <h1>Purchases</h1>
+            <p>Purchase records, supplier payable and stock receiving</p>
           </div>
-          <button class="btn btn-primary"
-                  onclick="openModal('purchaseModal')">
-            + New Purchase
-          </button>
+          <button class="btn btn-primary" onclick="openModal('purchaseModal')">+ New Purchase</button>
         </div>
 
-        <div class="grid grid-3 section">
-          <div class="card metric">
-            <div class="metric-label">Purchase Orders</div>
-            <div id="purchaseCount" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Purchase Value</div>
-            <div id="purchaseValue" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Suppliers</div>
-            <div id="supplierCount" class="metric-value">0</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>PO</th>
-                  <th>Supplier</th>
-                  <th>Product</th>
-                  <th>Qty</th>
-                  <th>Total</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="purchaseTable"></tbody>
-            </table>
+        <div class="panel">
+          <div class="panel-body">
+            <div id="purchasesTable"></div>
           </div>
         </div>
       </section>
 
-      <!-- INVENTORY -->
-      <section id="page-inventory" class="page">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Inventory Management</div>
-            <div class="small muted">Stock, valuation and low-stock control</div>
-          </div>
-          <button class="btn btn-primary"
-                  onclick="openModal('productModal')">
-            + New Product
-          </button>
-        </div>
-
-        <div class="grid grid-4 section">
-          <div class="card metric">
-            <div class="metric-label">Products</div>
-            <div id="invProducts" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Stock Units</div>
-            <div id="invUnits" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Stock Value</div>
-            <div id="invValue" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Low Stock</div>
-            <div id="invLow" class="metric-value red">0</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Category</th>
-                  <th>Cost</th>
-                  <th>Price</th>
-                  <th>Stock</th>
-                  <th>Margin</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="productTable"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- ACCOUNTING -->
-      <section id="page-accounting" class="page">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Accounting & Finance</div>
-            <div class="small muted">Revenue, COGS, gross profit and net profit</div>
-          </div>
-          <button class="btn btn-primary" onclick="exportReport()">
-            Export Report
-          </button>
-        </div>
-
-        <div class="grid grid-4 section">
-          <div class="card report-card">
-            <div class="metric-label">Revenue</div>
-            <div id="accRevenue" class="report-number">0 Ks</div>
-          </div>
-          <div class="card report-card">
-            <div class="metric-label">COGS</div>
-            <div id="accCogs" class="report-number">0 Ks</div>
-          </div>
-          <div class="card report-card">
-            <div class="metric-label">Gross Profit</div>
-            <div id="accGross" class="report-number green">0 Ks</div>
-          </div>
-          <div class="card report-card">
-            <div class="metric-label">Net Profit</div>
-            <div id="accNet" class="report-number green">0 Ks</div>
-          </div>
-        </div>
-
-        <div class="grid grid-3">
-          <div class="card">
-            <div class="metric-label">Gross Margin</div>
-            <div id="grossMargin" class="metric-value">0%</div>
-          </div>
-          <div class="card">
-            <div class="metric-label">Net Margin</div>
-            <div id="netMargin" class="metric-value">0%</div>
-          </div>
-          <div class="card">
-            <div class="metric-label">Expense Ratio</div>
-            <div id="expenseRatio" class="metric-value">0%</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- EXPENSE -->
+      <!-- EXPENSES -->
       <section id="page-expenses" class="page">
-        <div class="card-head">
+        <div class="page-head">
           <div>
-            <div class="card-title">Expense Management</div>
-            <div class="small muted">Control business operating expenses</div>
+            <h1>Expenses</h1>
+            <p>Track operating expenses and net profit</p>
           </div>
-          <button class="btn btn-primary"
-                  onclick="openModal('expenseModal')">
-            + New Expense
-          </button>
+          <button class="btn btn-primary" onclick="openModal('expenseModal')">+ Add Expense</button>
         </div>
 
-        <div class="grid grid-3 section">
-          <div class="card metric">
-            <div class="metric-label">Total Expenses</div>
-            <div id="expenseTotal" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Expense Entries</div>
-            <div id="expenseCount" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Average Expense</div>
-            <div id="expenseAverage" class="metric-value">0 Ks</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Category</th>
-                  <th>Description</th>
-                  <th>Amount</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="expenseTable"></tbody>
-            </table>
+        <div class="panel">
+          <div class="panel-body">
+            <div id="expensesTable"></div>
           </div>
         </div>
       </section>
 
       <!-- EMPLOYEES -->
       <section id="page-employees" class="page">
-        <div class="card-head">
+        <div class="page-head">
           <div>
-            <div class="card-title">HR / Employees</div>
-            <div class="small muted">Employees, departments and salary records</div>
+            <h1>Employees</h1>
+            <p>Employee master and basic management</p>
           </div>
-          <button class="btn btn-primary"
-                  onclick="openModal('employeeModal')">
-            + New Employee
-          </button>
+          <button class="btn btn-primary" onclick="openModal('employeeModal')">+ Add Employee</button>
         </div>
 
-        <div class="grid grid-3 section">
-          <div class="card metric">
-            <div class="metric-label">Employees</div>
-            <div id="empCount" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Monthly Payroll</div>
-            <div id="empPayroll" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Departments</div>
-            <div id="empDepartments" class="metric-value">0</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Department</th>
-                  <th>Position</th>
-                  <th>Salary</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="employeeTable"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- USERS -->
-      <section id="page-users" class="page">
-        <div class="card-head">
-          <div>
-            <div class="card-title">Users & Roles</div>
-            <div class="small muted">Control who can access each ERP area</div>
-          </div>
-          <button class="btn btn-primary"
-                  onclick="openModal('userModal')">
-            + Add User
-          </button>
-        </div>
-
-        <div class="grid grid-3 section">
-          <div class="card metric">
-            <div class="metric-label">Users</div>
-            <div id="userCount" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Administrators</div>
-            <div id="adminCount" class="metric-value">0</div>
-          </div>
-          <div class="card metric">
-            <div class="metric-label">Active</div>
-            <div id="activeUsers" class="metric-value green">0</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="userTable"></tbody>
-            </table>
+        <div class="panel">
+          <div class="panel-body">
+            <div id="employeesTable"></div>
           </div>
         </div>
       </section>
 
       <!-- REPORTS -->
       <section id="page-reports" class="page">
-        <div class="card-head">
+        <div class="page-head">
           <div>
-            <div class="card-title">Business Reports</div>
-            <div class="small muted">Management KPI snapshot</div>
+            <h1>Reports</h1>
+            <p>Business performance overview</p>
           </div>
-          <button class="btn btn-primary" onclick="exportReport()">
-            Download Report
-          </button>
+          <button class="btn btn-secondary" onclick="exportAll()">Export All Data</button>
         </div>
 
-        <div class="grid grid-4 section">
-          <div class="card">
-            <div class="metric-label">Sales</div>
-            <div id="rSales" class="metric-value">0 Ks</div>
+        <div class="cards">
+          <div class="card stat-card">
+            <div class="stat-label">Revenue</div>
+            <div id="reportRevenue" class="stat-value">0</div>
           </div>
-          <div class="card">
-            <div class="metric-label">Purchases</div>
-            <div id="rPurchase" class="metric-value">0 Ks</div>
+          <div class="card stat-card">
+            <div class="stat-label">COGS</div>
+            <div id="reportCOGS" class="stat-value">0</div>
           </div>
-          <div class="card">
-            <div class="metric-label">Expenses</div>
-            <div id="rExpense" class="metric-value">0 Ks</div>
+          <div class="card stat-card">
+            <div class="stat-label">Expenses</div>
+            <div id="reportExpenses" class="stat-value">0</div>
           </div>
-          <div class="card">
-            <div class="metric-label">Net Profit</div>
-            <div id="rNet" class="metric-value green">0 Ks</div>
+          <div class="card stat-card">
+            <div class="stat-label">Net Profit</div>
+            <div id="reportNet" class="stat-value">0</div>
           </div>
         </div>
 
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">Sales Performance</div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Revenue Chart</div>
             </div>
-            <div id="salesReport"></div>
+            <div class="panel-body">
+              <div id="revenueChart" class="chart-bars"></div>
+            </div>
           </div>
 
-          <div class="card">
-            <div class="card-head">
-              <div class="card-title">Inventory Risk</div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Business KPIs</div>
             </div>
-            <div id="inventoryReport"></div>
+            <div class="panel-body">
+              <div id="reportKpis" class="kpi-list"></div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- GROWTH -->
       <section id="page-growth" class="page">
-        <div class="hero">
-          <h2>100 → 1000 Business Growth System</h2>
-          <p>
-            Build systems first, then scale revenue
-          </p>
-        </div>
 
-        <div class="grid grid-3 section">
-          <div class="card">
-            <div class="metric-label">Current Revenue</div>
-            <div id="gCurrent" class="metric-value">0 Ks</div>
-          </div>
-          <div class="card">
-            <div class="metric-label">Target</div>
-            <div id="gTarget" class="metric-value">1,000 Ks</div>
-          </div>
-          <div class="card">
-            <div class="metric-label">Required Growth</div>
-            <div id="gRequired" class="metric-value green">0%</div>
+        <div class="page-head">
+          <div>
+            <h1>100 → 1000 Growth System</h1>
+            <p>လုပ်ငန်းအရွယ်အစားတိုးလာအောင် Revenue Gap နဲ့ Action Plan ကို စီမံပါ</p>
           </div>
         </div>
 
-        <div class="card section">
-          <div class="card-head">
-            <div class="card-title">Growth Roadmap</div>
+        <div class="cards">
+          <div class="card stat-card">
+            <div class="stat-label">Current Revenue</div>
+            <div id="gCurrent" class="stat-value">0</div>
           </div>
 
-          <div id="roadmap"></div>
+          <div class="card stat-card">
+            <div class="stat-label">Target Revenue</div>
+            <div id="gTarget" class="stat-value">0</div>
+          </div>
+
+          <div class="card stat-card">
+            <div class="stat-label">Gap</div>
+            <div id="gGap" class="stat-value">0</div>
+          </div>
+
+          <div class="card stat-card">
+            <div class="stat-label">Achievement</div>
+            <div id="gAchievement" class="stat-value">0%</div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="card-head">
-            <div class="card-title">90-Day Action Plan</div>
-          </div>
+        <div class="grid-2">
 
-          <div class="grid grid-3">
-            <div class="stage">
-              <strong>Days 1–30</strong>
-              <small>Foundation: product, pricing, customer and sales process</small>
-              <span class="badge badge-blue">FOUNDATION</span>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Growth Stage</div>
             </div>
-            <div class="stage">
-              <strong>Days 31–60</strong>
-              <small>Sales growth, team KPI and customer retention</small>
-              <span class="badge badge-orange">GROWTH</span>
-            </div>
-            <div class="stage">
-              <strong>Days 61–90</strong>
-              <small>Distribution, systems and profit optimization</small>
-              <span class="badge badge-green">SCALE</span>
+            <div class="panel-body">
+              <div id="growthStages"></div>
             </div>
           </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">30 / 60 / 90 Day Action Plan</div>
+            </div>
+            <div class="panel-body">
+              <div class="kpi-list">
+                <div class="kpi-item">
+                  <span class="kpi-name">0–30 Days</span>
+                  <span class="badge badge-info">Foundation</span>
+                </div>
+                <div class="kpi-item">
+                  <span class="kpi-name">31–60 Days</span>
+                  <span class="badge badge-warning">Sales Growth</span>
+                </div>
+                <div class="kpi-item">
+                  <span class="kpi-name">61–90 Days</span>
+                  <span class="badge badge-success">Scale</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </section>
 
-      <!-- AI -->
-      <section id="page-ai" class="page">
-        <div class="hero">
-          <h2>✦ AI Business Coach</h2>
-          <p>
-            Ask your business problem and get a practical management action plan
-          </p>
+      <!-- AI COACH -->
+      <section id="page-coach" class="page">
+
+        <div class="page-head">
+          <div>
+            <h1>AI Business Coach</h1>
+            <p>Business data ကိုကြည့်ပြီး Problem → Cause → Action → KPI → 7-Day Plan ပုံစံနဲ့ အကြံပေးပါမယ်</p>
+          </div>
+          <button class="btn btn-primary" onclick="runCoach()">Analyze Business</button>
         </div>
 
-        <div class="card">
-          <div class="form-group">
-            <label class="form-label">Business Question</label>
-            <textarea id="aiQuestion" class="textarea"
-              placeholder="ဥပမာ - Sales မတက်ဘူး၊ Profit margin နည်းနေတယ်၊ Stock ပိတ်နေတယ်"></textarea>
-          </div>
-
-          <div class="action-row">
-            <button class="btn btn-primary" onclick="askAI()">
-              Get Business Advice
-            </button>
-
-            <button class="btn" onclick="aiPreset('sales')">
-              Sales
-            </button>
-
-            <button class="btn" onclick="aiPreset('profit')">
-              Profit
-            </button>
-
-            <button class="btn" onclick="aiPreset('stock')">
-              Stock
-            </button>
-
-            <button class="btn" onclick="aiPreset('growth')">
-              Growth
-            </button>
+        <div class="panel">
+          <div class="panel-body">
+            <div id="coachResult"></div>
           </div>
         </div>
 
-        <div id="aiResult" class="ai-box" style="margin-top:16px">
-          <div class="card-title">AI Coach Result</div>
-          <div class="small muted" style="margin-top:7px">
-            Select a topic or enter your own business problem
-          </div>
-        </div>
       </section>
 
       <!-- TOOLS -->
       <section id="page-tools" class="page">
-        <div class="card-head">
+
+        <div class="page-head">
           <div>
-            <div class="card-title">Business Tools</div>
-            <div class="small muted">Practical calculators for managers</div>
+            <h1>Business Tools</h1>
+            <p>Manager အတွက် အရေးကြီးတဲ့ business calculators</p>
           </div>
         </div>
 
-        <div class="grid grid-2">
+        <div class="tool-grid">
 
-          <div class="card">
-            <div class="card-title">Profit Calculator</div>
-
-            <div class="form-group" style="margin-top:15px">
-              <label class="form-label">Selling Price</label>
-              <input id="calcSell" class="input" type="number" placeholder="100000">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Cost</label>
-              <input id="calcCost" class="input" type="number" placeholder="70000">
-            </div>
-
-            <button class="btn btn-primary" onclick="calcProfit()">
-              Calculate
-            </button>
-
-            <div id="profitResult" style="margin-top:15px"></div>
+          <div class="tool-card">
+            <h3>Gross Profit</h3>
+            <p>Revenue နဲ့ Cost ကနေ Gross Profit တွက်ပါ</p>
+            <input id="toolRevenue" class="input" placeholder="Revenue">
+            <input id="toolCost" class="input" style="margin-top:7px" placeholder="Cost">
+            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcGross()">Calculate</button>
+            <div id="toolGrossResult" style="margin-top:10px;font-weight:800"></div>
           </div>
 
-          <div class="card">
-            <div class="card-title">100 → 1000 Growth Calculator</div>
-
-            <div class="form-group" style="margin-top:15px">
-              <label class="form-label">Current Revenue</label>
-              <input id="calcCurrent" class="input" type="number"
-                     placeholder="10000000">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Target Revenue</label>
-              <input id="calcTarget" class="input" type="number"
-                     placeholder="100000000">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Monthly Growth %</label>
-              <input id="calcGrowth" class="input" type="number"
-                     placeholder="10">
-            </div>
-
-            <button class="btn btn-primary" onclick="calcGrowthTool()">
-              Calculate
-            </button>
-
-            <div id="growthResult" style="margin-top:15px"></div>
+          <div class="tool-card">
+            <h3>Margin</h3>
+            <p>Gross Margin % တွက်ပါ</p>
+            <input id="marginRevenue" class="input" placeholder="Revenue">
+            <input id="marginProfit" class="input" style="margin-top:7px" placeholder="Gross Profit">
+            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcMargin()">Calculate</button>
+            <div id="marginResult" style="margin-top:10px;font-weight:800"></div>
           </div>
 
+          <div class="tool-card">
+            <h3>Break-even</h3>
+            <p>Fixed Cost / Contribution Margin ကနေ Break-even Sales တွက်ပါ</p>
+            <input id="beFixed" class="input" placeholder="Fixed Cost">
+            <input id="beMargin" class="input" style="margin-top:7px" placeholder="Margin %">
+            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcBreakEven()">Calculate</button>
+            <div id="beResult" style="margin-top:10px;font-weight:800"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Pricing</h3>
+            <p>Cost + Target Margin နဲ့ Selling Price တွက်ပါ</p>
+            <input id="priceCost" class="input" placeholder="Cost">
+            <input id="priceMargin" class="input" style="margin-top:7px" placeholder="Target Margin %">
+            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcPrice()">Calculate</button>
+            <div id="priceResult" style="margin-top:10px;font-weight:800"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Monthly Growth</h3>
+            <p>Previous vs Current Revenue Growth</p>
+            <input id="growthPrev" class="input" placeholder="Previous">
+            <input id="growthNow" class="input" style="margin-top:7px" placeholder="Current">
+            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcGrowth()">Calculate</button>
+            <div id="growthResult" style="margin-top:10px;font-weight:800"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>AOV</h3>
+            <p>Average Order Value</p>
+            <input id="aovRevenue" class="input" placeholder="Revenue">
+            <input id="aovOrders" class="input" style="margin-top:7px" placeholder="Orders">
+            <button class="btn btn-primary" style="margin-top:8px;width:100%" onclick="calcAOV()">Calculate</button>
+            <div id="aovResult" style="margin-top:10px;font-weight:800"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- USERS -->
+      <section id="page-users" class="page">
+        <div class="page-head">
+          <div>
+            <h1>Users & Roles</h1>
+            <p>ERP access and user roles</p>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('userModal')">+ Add User</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-body">
+            <div id="usersTable"></div>
+          </div>
         </div>
       </section>
 
       <!-- SETTINGS -->
       <section id="page-settings" class="page">
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Business Settings</div>
-              <div class="small muted">Company profile and ERP preferences</div>
-            </div>
+
+        <div class="page-head">
+          <div>
+            <h1>Settings</h1>
+            <p>Company and ERP configuration</p>
           </div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">Company Name</label>
-              <input id="setCompany" class="input">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Owner</label>
-              <input id="setOwner" class="input">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">100 → 1000 Target</label>
-              <input id="setTarget" class="input" type="number">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Currency</label>
-              <select id="setCurrency" class="select">
-                <option value="MMK">MMK - Myanmar Kyat</option>
-                <option value="USD">USD - US Dollar</option>
-              </select>
-            </div>
-          </div>
-
-          <button class="btn btn-primary" onclick="saveSettings()">
-            Save Settings
-          </button>
         </div>
 
-        <div class="card" style="margin-top:16px">
-          <div class="card-head">
-            <div>
-              <div class="card-title">System Data</div>
-              <div class="small muted">
-                Local browser prototype data management
+        <div class="grid-2">
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Company Settings</div>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="form-grid">
+
+                <div class="form-group">
+                  <label class="form-label">Company Name</label>
+                  <input id="settingCompany" class="input">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Owner</label>
+                  <input id="settingOwner" class="input">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Monthly Revenue Target</label>
+                  <input id="settingTarget" class="input" type="number">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Currency</label>
+                  <select id="settingCurrency" class="input">
+                    <option value="MMK">MMK</option>
+                    <option value="USD">USD</option>
+                  </select>
+                </div>
+
               </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+              </div>
+
             </div>
           </div>
 
-          <div class="action-row">
-            <button class="btn btn-dark" onclick="exportReport()">
-              Export Backup
-            </button>
-            <button class="btn btn-danger" onclick="resetData()">
-              Reset All Data
-            </button>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Data Management</div>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="setting-row">
+                <div>
+                  <div class="setting-label">Export All Data</div>
+                  <div class="setting-desc">LocalStorage data ကို JSON file အဖြစ်သိမ်းပါ</div>
+                </div>
+                <button class="btn btn-secondary" onclick="exportAll()">Export</button>
+              </div>
+
+              <div class="setting-row">
+                <div>
+                  <div class="setting-label">Reset Demo Data</div>
+                  <div class="setting-desc">Demo data အားလုံးကို ပြန်စတင်ပါမယ်</div>
+                </div>
+                <button class="btn btn-danger" onclick="resetData()">Reset</button>
+              </div>
+
+            </div>
           </div>
+
         </div>
+
       </section>
 
     </div>
@@ -1477,335 +1380,399 @@ tr:last-child td{border-bottom:0}
 
 <!-- MODALS -->
 
-<!-- SALE -->
-<div id="saleModal" class="modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h3>New Sale</h3>
-      <button class="close" onclick="closeModal('saleModal')">×</button>
-    </div>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Date</label>
-        <input id="saleDate" class="input" type="date">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Customer</label>
-        <select id="saleCustomer" class="select"></select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Product</label>
-      <select id="saleProduct" class="select"
-              onchange="updateSalePrice()"></select>
-    </div>
-
-    <div class="form-grid-3">
-      <div class="form-group">
-        <label class="form-label">Qty</label>
-        <input id="saleQty" class="input" type="number" min="1" value="1">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Selling Price</label>
-        <input id="salePrice" class="input" type="number">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Payment</label>
-        <select id="salePayment" class="select">
-          <option value="Paid">Paid</option>
-          <option value="Credit">Credit</option>
-        </select>
-      </div>
-    </div>
-
-    <div id="salePreview"
-         style="background:#f8fafc;padding:12px;border-radius:10px;margin-bottom:15px">
-      Total: 0 Ks
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="saveSale()">
-      Save Sale
-    </button>
-  </div>
-</div>
-
-<!-- CUSTOMER -->
+<!-- Customer -->
 <div id="customerModal" class="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>New Customer</h3>
-      <button class="close" onclick="closeModal('customerModal')">×</button>
+      <div class="modal-title">Add Customer</div>
+      <button class="modal-close" onclick="closeModal('customerModal')">×</button>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Customer Name</label>
-      <input id="customerName" class="input">
+    <div class="modal-body">
+      <form onsubmit="saveCustomer(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Customer Name</label>
+            <input id="customerName" class="input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input id="customerPhone" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <input id="customerAddress" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Limit</label>
+            <input id="customerCredit" class="input" type="number" value="0">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('customerModal')">Cancel</button>
+          <button class="btn btn-primary">Save Customer</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Phone</label>
-        <input id="customerPhone" class="input">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Customer Type</label>
-        <select id="customerType" class="select">
-          <option value="Retail">Retail</option>
-          <option value="Business">Business</option>
-          <option value="Distributor">Distributor</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="saveCustomer()">
-      Save Customer
-    </button>
   </div>
 </div>
 
-<!-- PRODUCT -->
+<!-- Supplier -->
+<div id="supplierModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Add Supplier</div>
+      <button class="modal-close" onclick="closeModal('supplierModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="saveSupplier(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Supplier Name</label>
+            <input id="supplierName" class="input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input id="supplierPhone" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Address</label>
+            <input id="supplierAddress" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Limit</label>
+            <input id="supplierCredit" class="input" type="number" value="0">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('supplierModal')">Cancel</button>
+          <button class="btn btn-primary">Save Supplier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Product -->
 <div id="productModal" class="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>New Product</h3>
-      <button class="close" onclick="closeModal('productModal')">×</button>
+      <div class="modal-title">Add Product</div>
+      <button class="modal-close" onclick="closeModal('productModal')">×</button>
     </div>
+    <div class="modal-body">
+      <form onsubmit="saveProduct(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Product Name</label>
+            <input id="productName" class="input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">SKU</label>
+            <input id="productSku" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <input id="productCategory" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <select id="productUnit" class="input">
+              <option>Piece</option>
+              <option>Box</option>
+              <option>Pack</option>
+              <option>Carton</option>
+              <option>Kg</option>
+              <option>Liter</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cost Price</label>
+            <input id="productCost" class="input" type="number" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Selling Price</label>
+            <input id="productPrice" class="input" type="number" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Opening Stock</label>
+            <input id="productStock" class="input" type="number" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Low Stock Alert</label>
+            <input id="productLow" class="input" type="number" value="5">
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label class="form-label">Product Name</label>
-      <input id="productName" class="input">
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('productModal')">Cancel</button>
+          <button class="btn btn-primary">Save Product</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Category</label>
-        <input id="productCategory" class="input">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Unit</label>
-        <select id="productUnit" class="select">
-          <option value="pcs">pcs</option>
-          <option value="box">box</option>
-          <option value="carton">carton</option>
-          <option value="kg">kg</option>
-          <option value="liter">liter</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Cost Price</label>
-        <input id="productCost" class="input" type="number">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Selling Price</label>
-        <input id="productPrice" class="input" type="number">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Opening Stock</label>
-        <input id="productStock" class="input" type="number" value="0">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Low Stock Alert</label>
-        <input id="productLow" class="input" type="number" value="5">
-      </div>
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="saveProduct()">
-      Save Product
-    </button>
   </div>
 </div>
 
-<!-- PURCHASE -->
+<!-- Sale -->
+<div id="saleModal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Create Sales Invoice</div>
+      <button class="modal-close" onclick="closeModal('saleModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="saveSale(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Customer</label>
+            <select id="saleCustomer" class="input"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Product</label>
+            <select id="saleProduct" class="input" onchange="updateSalePrice()"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input id="saleQty" class="input" type="number" min="1" value="1" onchange="updateSaleTotal()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Selling Price</label>
+            <input id="salePrice" class="input" type="number" min="0" onchange="updateSaleTotal()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Payment Status</label>
+            <select id="salePaymentStatus" class="input" onchange="updatePaidField()">
+              <option value="Paid">Paid</option>
+              <option value="Credit">Credit</option>
+              <option value="Partial">Partial</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Paid Amount</label>
+            <input id="salePaid" class="input" type="number" min="0" value="0">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Total</label>
+            <div id="saleTotalPreview" style="font-size:22px;font-weight:900">0</div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('saleModal')">Cancel</button>
+          <button class="btn btn-primary">Create Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Purchase -->
 <div id="purchaseModal" class="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>New Purchase</h3>
-      <button class="close" onclick="closeModal('purchaseModal')">×</button>
+      <div class="modal-title">Record Purchase</div>
+      <button class="modal-close" onclick="closeModal('purchaseModal')">×</button>
     </div>
+    <div class="modal-body">
+      <form onsubmit="savePurchase(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Supplier</label>
+            <select id="purchaseSupplier" class="input"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Product</label>
+            <select id="purchaseProduct" class="input"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input id="purchaseQty" class="input" type="number" min="1" value="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cost Price</label>
+            <input id="purchaseCost" class="input" type="number" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Payment Status</label>
+            <select id="purchasePaymentStatus" class="input">
+              <option value="Paid">Paid</option>
+              <option value="Credit">Credit</option>
+            </select>
+          </div>
+        </div>
 
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Date</label>
-        <input id="purchaseDate" class="input" type="date">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Supplier</label>
-        <input id="purchaseSupplier" class="input">
-      </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('purchaseModal')">Cancel</button>
+          <button class="btn btn-primary">Save Purchase</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Product</label>
-      <select id="purchaseProduct" class="select"></select>
-    </div>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Quantity</label>
-        <input id="purchaseQty" class="input" type="number" value="1">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Cost Price</label>
-        <input id="purchaseCost" class="input" type="number">
-      </div>
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="savePurchase()">
-      Save Purchase
-    </button>
   </div>
 </div>
 
-<!-- EXPENSE -->
+<!-- Expense -->
 <div id="expenseModal" class="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>New Expense</h3>
-      <button class="close" onclick="closeModal('expenseModal')">×</button>
+      <div class="modal-title">Add Expense</div>
+      <button class="modal-close" onclick="closeModal('expenseModal')">×</button>
     </div>
+    <div class="modal-body">
+      <form onsubmit="saveExpense(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="expenseCategory" class="input">
+              <option>Rent</option>
+              <option>Salary</option>
+              <option>Transport</option>
+              <option>Marketing</option>
+              <option>Utilities</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amount</label>
+            <input id="expenseAmount" class="input" type="number" required>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Description</label>
+            <input id="expenseDescription" class="input">
+          </div>
+        </div>
 
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Date</label>
-        <input id="expenseDate" class="input" type="date">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Category</label>
-        <select id="expenseCategory" class="select">
-          <option>Rent</option>
-          <option>Salary</option>
-          <option>Transport</option>
-          <option>Marketing</option>
-          <option>Utilities</option>
-          <option>Other</option>
-        </select>
-      </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('expenseModal')">Cancel</button>
+          <button class="btn btn-primary">Save Expense</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Description</label>
-      <input id="expenseDescription" class="input">
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Amount</label>
-      <input id="expenseAmount" class="input" type="number">
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="saveExpense()">
-      Save Expense
-    </button>
   </div>
 </div>
 
-<!-- EMPLOYEE -->
+<!-- Employee -->
 <div id="employeeModal" class="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>New Employee</h3>
-      <button class="close" onclick="closeModal('employeeModal')">×</button>
+      <div class="modal-title">Add Employee</div>
+      <button class="modal-close" onclick="closeModal('employeeModal')">×</button>
     </div>
+    <div class="modal-body">
+      <form onsubmit="saveEmployee(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input id="employeeName" class="input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <input id="employeeRole" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input id="employeePhone" class="input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Salary</label>
+            <input id="employeeSalary" class="input" type="number">
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label class="form-label">Employee Name</label>
-      <input id="employeeName" class="input">
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('employeeModal')">Cancel</button>
+          <button class="btn btn-primary">Save Employee</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Department</label>
-        <input id="employeeDepartment" class="input">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Position</label>
-        <input id="employeePosition" class="input">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Monthly Salary</label>
-      <input id="employeeSalary" class="input" type="number">
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="saveEmployee()">
-      Save Employee
-    </button>
   </div>
 </div>
 
-<!-- USER -->
+<!-- User -->
 <div id="userModal" class="modal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>Add User</h3>
-      <button class="close" onclick="closeModal('userModal')">×</button>
+      <div class="modal-title">Add User</div>
+      <button class="modal-close" onclick="closeModal('userModal')">×</button>
     </div>
+    <div class="modal-body">
+      <form onsubmit="saveUser(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input id="userName" class="input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input id="userEmail" class="input" type="email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <select id="userRole" class="input">
+              <option>Admin</option>
+              <option>Sales Manager</option>
+              <option>Salesperson</option>
+              <option>Accountant</option>
+              <option>Warehouse</option>
+              <option>HR</option>
+            </select>
+          </div>
+        </div>
 
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Name</label>
-        <input id="userName" class="input">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input id="userEmail" class="input" type="email">
-      </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('userModal')">Cancel</button>
+          <button class="btn btn-primary">Save User</button>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Role</label>
-      <select id="userRole" class="select">
-        <option>Admin</option>
-        <option>Sales Manager</option>
-        <option>Salesperson</option>
-        <option>Accountant</option>
-        <option>Warehouse</option>
-        <option>HR</option>
-      </select>
-    </div>
-
-    <button class="btn btn-primary" style="width:100%"
-            onclick="saveUser()">
-      Add User
-    </button>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toastContainer" class="toast-container"></div>
 
 <script>
 /* =========================================================
-   AUNG SMART BUSINESS ERP V3
-   Local ERP Foundation
+   AUNG SMART BUSINESS ERP V5
+   PROFESSIONAL FRONTEND
    ========================================================= */
 
-const DB_KEY = "aung_smart_business_erp_v3";
-const SESSION_KEY = "aung_smart_business_session";
+/*
+  IMPORTANT
+  Backend ချိတ်မယ့်အချိန်မှာ ဒီ URL ကို Render Web Service URL ပြောင်းပါ
 
-let db = loadDB();
+  ဥပမာ
+  const API_BASE = "https://your-erp-service.onrender.com/api";
+
+  အခု development အတွက် empty ထားထားလို့ LocalStorage Mode ဖြစ်ပါတယ်
+*/
+const API_BASE = "";
+
+const DB_KEY = "aung_smart_business_erp_v5_frontend";
+const SESSION_KEY = "aung_smart_business_erp_session";
+
 let currentPage = "dashboard";
+
+function uid(prefix="id"){
+  return prefix + "_" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+}
+
+function money(value){
+  const n = Number(value || 0);
+  return new Intl.NumberFormat("en-US",{
+    maximumFractionDigits:0
+  }).format(n);
+}
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
 function defaultDB(){
   return {
@@ -1815,15 +1782,16 @@ function defaultDB(){
       target:100000000,
       currency:"MMK"
     },
-    sales:[],
     customers:[],
+    suppliers:[],
     products:[],
+    sales:[],
     purchases:[],
     expenses:[],
     employees:[],
     users:[
       {
-        id:id(),
+        id:uid("usr"),
         name:"Aung Zar Ni Win",
         email:"owner@example.com",
         role:"Owner",
@@ -1833,1609 +1801,1742 @@ function defaultDB(){
   };
 }
 
-function loadDB(){
+function getDB(){
   try{
-    const raw=localStorage.getItem(DB_KEY);
-    if(!raw) return defaultDB();
+    const raw = localStorage.getItem(DB_KEY);
+    if(!raw){
+      const db = defaultDB();
+      localStorage.setItem(DB_KEY,JSON.stringify(db));
+      return db;
+    }
 
-    const data=JSON.parse(raw);
-    const base=defaultDB();
+    const db = JSON.parse(raw);
+    const base = defaultDB();
 
     return {
       ...base,
-      ...data,
-      settings:{...base.settings,...(data.settings||{})},
-      sales:Array.isArray(data.sales)?data.sales:[],
-      customers:Array.isArray(data.customers)?data.customers:[],
-      products:Array.isArray(data.products)?data.products:[],
-      purchases:Array.isArray(data.purchases)?data.purchases:[],
-      expenses:Array.isArray(data.expenses)?data.expenses:[],
-      employees:Array.isArray(data.employees)?data.employees:[],
-      users:Array.isArray(data.users)&&data.users.length
-        ?data.users:base.users
+      ...db,
+      settings:{...base.settings,...(db.settings || {})},
+      customers:Array.isArray(db.customers)?db.customers:[],
+      suppliers:Array.isArray(db.suppliers)?db.suppliers:[],
+      products:Array.isArray(db.products)?db.products:[],
+      sales:Array.isArray(db.sales)?db.sales:[],
+      purchases:Array.isArray(db.purchases)?db.purchases:[],
+      expenses:Array.isArray(db.expenses)?db.expenses:[],
+      employees:Array.isArray(db.employees)?db.employees:[],
+      users:Array.isArray(db.users)?db.users:base.users
     };
   }catch(e){
+    console.error(e);
     return defaultDB();
   }
 }
 
-function saveDB(){
+function saveDB(db){
   localStorage.setItem(DB_KEY,JSON.stringify(db));
 }
 
-function id(){
-  return Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+function getSession(){
+  try{
+    return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+  }catch(e){
+    return null;
+  }
 }
 
-function $(x){
-  return document.getElementById(x);
+function setSession(user){
+  localStorage.setItem(SESSION_KEY,JSON.stringify(user));
 }
 
-function money(n){
-  return Number(n||0).toLocaleString("en-US")+" "+(db.settings.currency||"MMK");
+function clearSession(){
+  localStorage.removeItem(SESSION_KEY);
 }
 
-function num(n){
-  return Number(n||0);
+function showToast(message){
+  const box = document.createElement("div");
+  box.className = "toast";
+  box.textContent = message;
+  document.getElementById("toastContainer").appendChild(box);
+
+  setTimeout(()=>{
+    box.remove();
+  },2600);
 }
 
-function esc(value){
-  return String(value??"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+function showLoginAlert(message,type="danger"){
+  document.getElementById("loginAlert").innerHTML =
+    `<div class="alert alert-${type}">${escapeHTML(message)}</div>`;
 }
-
-function today(){
-  return new Date().toISOString().slice(0,10);
-}
-
-function toast(message){
-  const el=$("toast");
-  el.textContent=message;
-  el.classList.add("show");
-  setTimeout(()=>el.classList.remove("show"),2200);
-}
-
-/* LOGIN */
 
 function login(){
-  const email=$("loginEmail").value.trim();
-  const password=$("loginPassword").value.trim();
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
 
-  if(!email||!password){
-    $("loginMsg").innerHTML=
-      '<span style="color:#dc2626">Email နှင့် Password ထည့်ပါ</span>';
+  if(!email || !password){
+    showLoginAlert("Email နဲ့ Password ဖြည့်ပါ");
     return;
   }
 
-  localStorage.setItem(SESSION_KEY,JSON.stringify({
-    email,
-    loginAt:Date.now()
-  }));
+  if(API_BASE){
+    apiLogin(email,password);
+    return;
+  }
 
-  showApp();
+  const db = getDB();
+
+  let user = db.users.find(u =>
+    String(u.email).toLowerCase() === email.toLowerCase()
+  );
+
+  if(!user){
+    user = {
+      id:uid("usr"),
+      name:email.split("@")[0],
+      email,
+      role:"Owner",
+      status:"Active"
+    };
+
+    db.users.push(user);
+    saveDB(db);
+  }
+
+  setSession(user);
+  startApp();
 }
 
 function demoLogin(){
-  $("loginEmail").value="owner@example.com";
-  $("loginPassword").value="demo";
+  document.getElementById("loginEmail").value = "owner@example.com";
+  document.getElementById("loginPassword").value = "demo123";
   login();
 }
 
-function showApp(){
-  $("loginScreen").classList.add("hidden");
-  $("app").classList.remove("hidden");
-  renderAll();
-  go("dashboard");
-}
+async function apiLogin(email,password){
+  try{
+    const res = await fetch(API_BASE + "/auth/login",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email,password})
+    });
 
-function logout(){
-  localStorage.removeItem(SESSION_KEY);
-  $("app").classList.add("hidden");
-  $("loginScreen").classList.remove("hidden");
-}
+    const data = await res.json();
 
-function initAuth(){
-  const session=localStorage.getItem(SESSION_KEY);
+    if(!res.ok){
+      throw new Error(data.message || "Login failed");
+    }
 
-  if(session){
-    showApp();
-  }else{
-    $("loginScreen").classList.remove("hidden");
-    $("app").classList.add("hidden");
+    localStorage.setItem("aung_smart_business_token",data.token);
+    setSession(data.user);
+    startApp();
+  }catch(e){
+    showLoginAlert(e.message || "Unable to connect to server");
   }
 }
 
-/* NAVIGATION */
+function startApp(){
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
 
-const titles={
-  dashboard:"Dashboard",
-  sales:"Sales Management",
-  crm:"CRM / Customers",
-  purchases:"Purchase Management",
-  inventory:"Inventory Management",
-  accounting:"Accounting & Finance",
-  expenses:"Expense Management",
-  employees:"HR / Employees",
-  users:"Users & Roles",
-  reports:"Business Reports",
-  growth:"100 → 1000 Growth",
-  ai:"AI Business Coach",
-  tools:"Business Tools",
-  settings:"Settings"
-};
+  const session = getSession();
+  if(session){
+    document.getElementById("sideUserName").textContent =
+      session.name || "User";
+  }
+
+  renderAll();
+}
+
+function logout(){
+  clearSession();
+  localStorage.removeItem("aung_smart_business_token");
+
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("loginScreen").classList.remove("hidden");
+}
 
 function go(page){
-  currentPage=page;
+  currentPage = page;
 
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
+  document.querySelectorAll(".page").forEach(el=>{
+    el.classList.remove("active");
   });
 
-  const target=$("page-"+page);
+  const target = document.getElementById("page-" + page);
   if(target) target.classList.add("active");
 
-  document.querySelectorAll(".nav button[data-page]").forEach(b=>{
-    b.classList.toggle("active",b.dataset.page===page);
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.page === page);
   });
 
-  $("pageTitle").textContent=titles[page]||"Dashboard";
-  $("companyTop").textContent=db.settings.company;
+  const titles = {
+    dashboard:"Dashboard",
+    sales:"Sales & Invoice",
+    customers:"Customers",
+    suppliers:"Suppliers",
+    products:"Products & Inventory",
+    purchases:"Purchases",
+    expenses:"Expenses",
+    employees:"Employees",
+    reports:"Reports",
+    growth:"100 → 1000 Growth",
+    coach:"AI Business Coach",
+    tools:"Business Tools",
+    users:"Users & Roles",
+    settings:"Settings"
+  };
 
-  $("sidebar").classList.remove("open");
+  document.getElementById("pageTitle").textContent =
+    titles[page] || "Dashboard";
+
+  if(window.innerWidth <= 760){
+    document.getElementById("sidebar").classList.remove("open");
+  }
 
   renderAll();
 }
 
 function toggleSidebar(){
-  $("sidebar").classList.toggle("open");
+  document.getElementById("sidebar").classList.toggle("open");
 }
 
-/* MODAL */
-
-function openModal(name){
-  const el=$(name);
-  if(!el) return;
-
-  el.classList.add("show");
-
-  if(name==="saleModal"){
-    $("saleDate").value=today();
-    populateSaleSelects();
-    updateSalePrice();
-  }
-
-  if(name==="purchaseModal"){
-    $("purchaseDate").value=today();
-    populatePurchaseProducts();
-  }
-
-  if(name==="expenseModal"){
-    $("expenseDate").value=today();
-  }
+function refreshCurrent(){
+  renderAll();
+  showToast("Updated");
 }
 
-function closeModal(name){
-  const el=$(name);
-  if(el) el.classList.remove("show");
+function openModal(id){
+  const modal = document.getElementById(id);
+  if(!modal) return;
+
+  if(id === "saleModal") prepareSaleModal();
+  if(id === "purchaseModal") preparePurchaseModal();
+
+  modal.classList.add("open");
+}
+
+function closeModal(id){
+  const modal = document.getElementById(id);
+  if(modal) modal.classList.remove("open");
 }
 
 document.querySelectorAll(".modal").forEach(modal=>{
   modal.addEventListener("click",e=>{
-    if(e.target===modal) modal.classList.remove("show");
-  });
-});
-
-/* CALCULATIONS */
-
-function totals(){
-  const revenue=db.sales.reduce((s,x)=>s+num(x.total),0);
-
-  const cogs=db.sales.reduce((s,x)=>{
-    return s+(num(x.cost)*num(x.qty));
-  },0);
-
-  const gross=revenue-cogs;
-
-  const expenses=db.expenses.reduce((s,x)=>{
-    return s+num(x.amount);
-  },0);
-
-  const net=gross-expenses;
-
-  const paid=db.sales
-    .filter(x=>x.payment==="Paid")
-    .reduce((s,x)=>s+num(x.total),0);
-
-  const receivable=db.sales
-    .filter(x=>x.payment==="Credit")
-    .reduce((s,x)=>s+num(x.total),0);
-
-  const purchases=db.purchases.reduce((s,x)=>s+num(x.total),0);
-
-  return {
-    revenue,
-    cogs,
-    gross,
-    expenses,
-    net,
-    paid,
-    receivable,
-    purchases
-  };
-}
-
-/* RENDER ALL */
-
-function renderAll(){
-  renderIdentity();
-  renderDashboard();
-  renderSales();
-  renderCRM();
-  renderPurchases();
-  renderInventory();
-  renderAccounting();
-  renderExpenses();
-  renderEmployees();
-  renderUsers();
-  renderReports();
-  renderGrowth();
-  renderSettings();
-}
-
-function renderIdentity(){
-  $("sideUser").textContent=db.settings.owner||"Owner";
-  $("sideRole").textContent="Owner";
-  $("companyTop").textContent=db.settings.company;
-}
-
-function renderDashboard(){
-  const t=totals();
-
-  $("mRevenue").textContent=money(t.revenue);
-  $("mGross").textContent=money(t.gross);
-  $("mNet").textContent=money(t.net);
-  $("mCustomers").textContent=db.customers.length;
-
-  $("growthCurrent").textContent=money(t.revenue);
-  $("growthTarget").textContent=money(db.settings.target);
-
-  const pct=db.settings.target>0
-    ?Math.min(100,(t.revenue/db.settings.target)*100)
-    :0;
-
-  $("growthProgress").style.width=pct+"%";
-
-  const stage=getGrowthStage(t.revenue);
-
-  $("growthStage").innerHTML=
-    '<span class="badge badge-green">'+esc(stage.name)+'</span>';
-
-  const attention=[];
-
-  const low=db.products.filter(
-    p=>num(p.stock)<=num(p.low)
-  ).length;
-
-  if(low>0){
-    attention.push(
-      '<div class="stage">'+
-      '<strong class="red">'+low+' product(s) low stock</strong>'+
-      '<small>Review inventory and create purchase order</small>'+
-      '<button class="btn btn-sm" onclick="go(\'inventory\')">Open Inventory</button>'+
-      '</div>'
-    );
-  }
-
-  if(t.revenue===0){
-    attention.push(
-      '<div class="stage">'+
-      '<strong>Sales data မရှိသေးပါ</strong>'+
-      '<small>Start recording daily sales to activate KPI tracking</small>'+
-      '<button class="btn btn-sm btn-primary" onclick="quickSale()">Create Sale</button>'+
-      '</div>'
-    );
-  }
-
-  if(t.revenue>0 && t.net<0){
-    attention.push(
-      '<div class="stage">'+
-      '<strong class="red">Net loss detected</strong>'+
-      '<small>Review pricing, gross margin and expenses</small>'+
-      '<button class="btn btn-sm" onclick="go(\'accounting\')">Review Finance</button>'+
-      '</div>'
-    );
-  }
-
-  if(!attention.length){
-    attention.push(
-      '<div class="stage">'+
-      '<strong class="green">Business system is ready</strong>'+
-      '<small>Continue tracking sales, profit, customers and stock</small>'+
-      '<button class="btn btn-sm btn-primary" onclick="go(\'growth\')">Growth Plan</button>'+
-      '</div>'
-    );
-  }
-
-  $("attention").innerHTML=attention.join("");
-
-  const recent=[...db.sales].reverse().slice(0,6);
-
-  if(!recent.length){
-    $("recentSales").innerHTML=
-      '<div class="empty">No sales recorded yet</div>';
-  }else{
-    $("recentSales").innerHTML=recent.map(s=>{
-      return `
-        <div style="display:flex;justify-content:space-between;
-                    padding:11px 0;border-bottom:1px solid var(--line)">
-          <div>
-            <strong style="font-size:12px">${esc(s.invoice)}</strong>
-            <div class="small muted">${esc(s.customerName||"Walk-in")}</div>
-          </div>
-          <strong>${money(s.total)}</strong>
-        </div>
-      `;
-    }).join("");
-  }
-}
-
-/* SALES */
-
-function populateSaleSelects(){
-  $("saleCustomer").innerHTML=
-    '<option value="">Walk-in Customer</option>'+
-    db.customers.map(c=>
-      `<option value="${esc(c.id)}">${esc(c.name)}</option>`
-    ).join("");
-
-  $("saleProduct").innerHTML=
-    '<option value="">Select Product</option>'+
-    db.products.map(p=>
-      `<option value="${esc(p.id)}">${esc(p.name)} — ${money(p.price)}</option>`
-    ).join("");
-}
-
-function updateSalePrice(){
-  const p=db.products.find(x=>x.id===$("saleProduct").value);
-
-  $("salePrice").value=p?num(p.price):"";
-  updateSalePreview();
-}
-
-["saleQty","salePrice"].forEach(idName=>{
-  document.addEventListener("input",e=>{
-    if(e.target&&e.target.id===idName){
-      updateSalePreview();
+    if(e.target === modal){
+      modal.classList.remove("open");
     }
   });
 });
 
-function updateSalePreview(){
-  const total=num($("saleQty").value)*num($("salePrice").value);
-  $("salePreview").textContent="Total: "+money(total);
-}
+function getTotals(){
+  const db = getDB();
 
-function quickSale(){
-  openModal("saleModal");
-}
+  const revenue = db.sales.reduce((sum,s)=>sum + Number(s.total || 0),0);
 
-function saveSale(){
-  const product=db.products.find(
-    p=>p.id===$("saleProduct").value
-  );
+  const cogs = db.sales.reduce((sum,s)=>{
+    return sum + Number(s.costTotal || 0);
+  },0);
 
-  if(!product){
-    toast("Product ရွေးပါ");
-    return;
-  }
+  const expenses = db.expenses.reduce((sum,e)=>{
+    return sum + Number(e.amount || 0);
+  },0);
 
-  const qty=num($("saleQty").value);
-  const price=num($("salePrice").value);
+  const gross = revenue - cogs;
+  const net = gross - expenses;
 
-  if(qty<=0||price<=0){
-    toast("Qty နှင့် Price မှန်ကန်စွာထည့်ပါ");
-    return;
-  }
+  const collected = db.sales.reduce((sum,s)=>{
+    return sum + Number(s.paidAmount || 0);
+  },0);
 
-  if(num(product.stock)<qty){
-    toast("Stock မလုံလောက်ပါ");
-    return;
-  }
+  const receivable = db.sales.reduce((sum,s)=>{
+    return sum + Number(s.balanceDue || 0);
+  },0);
 
-  const customer=db.customers.find(
-    c=>c.id===$("saleCustomer").value
-  );
+  const purchaseTotal = db.purchases.reduce((sum,p)=>{
+    return sum + Number(p.total || 0);
+  },0);
 
-  const sale={
-    id:id(),
-    invoice:"INV-"+Date.now().toString().slice(-7),
-    date:$("saleDate").value||today(),
-    customerId:customer?.id||"",
-    customerName:customer?.name||"Walk-in Customer",
-    productId:product.id,
-    productName:product.name,
-    qty,
-    price,
-    cost:num(product.cost),
-    total:qty*price,
-    payment:$("salePayment").value
+  const payable = db.purchases.reduce((sum,p)=>{
+    return sum + Number(p.balanceDue || 0);
+  },0);
+
+  const stockValue = db.products.reduce((sum,p)=>{
+    return sum + Number(p.stock || 0) * Number(p.cost || 0);
+  },0);
+
+  const stockUnits = db.products.reduce((sum,p)=>{
+    return sum + Number(p.stock || 0);
+  },0);
+
+  const lowStock = db.products.filter(p=>{
+    return Number(p.stock || 0) <= Number(p.lowStock || 0);
+  }).length;
+
+  return {
+    revenue,
+    cogs,
+    expenses,
+    gross,
+    net,
+    collected,
+    receivable,
+    purchaseTotal,
+    payable,
+    stockValue,
+    stockUnits,
+    lowStock,
+    invoiceCount:db.sales.length
   };
+}
 
-  db.sales.push(sale);
-  product.stock=num(product.stock)-qty;
+function renderAll(){
+  const db = getDB();
+  const t = getTotals();
 
-  saveDB();
-  closeModal("saleModal");
-  renderAll();
-  go("sales");
-  toast("Sale saved successfully");
+  document.getElementById("companyLabel").textContent =
+    db.settings.company || "Aung Business";
+
+  renderDashboard(t);
+  renderSales();
+  renderCustomers();
+  renderSuppliers();
+  renderProducts();
+  renderPurchases();
+  renderExpenses();
+  renderEmployees();
+  renderReports(t);
+  renderGrowth(t);
+  renderCoach();
+  renderUsers();
+  renderSettings();
+}
+
+function renderDashboard(t){
+  document.getElementById("dashRevenue").textContent = money(t.revenue);
+  document.getElementById("dashGross").textContent = money(t.gross);
+  document.getElementById("dashNet").textContent = money(t.net);
+  document.getElementById("dashReceivable").textContent = money(t.receivable);
+  document.getElementById("dashSalesCount").textContent = t.invoiceCount;
+
+  const db = getDB();
+  const target = Number(db.settings.target || 0);
+  const current = t.revenue;
+  const gap = Math.max(target-current,0);
+  const achievement = target > 0
+    ? Math.min((current/target)*100,100)
+    : 0;
+
+  document.getElementById("growthCurrent").textContent = money(current);
+  document.getElementById("growthTarget").textContent = money(target);
+  document.getElementById("growthGap").textContent = money(gap);
+  document.getElementById("growthProgress").style.width = achievement + "%";
+
+  const stage = getGrowthStage(current);
+  document.getElementById("growthStageBadge").textContent = stage.name;
+
+  const recent = db.sales.slice().reverse().slice(0,5);
+
+  if(!recent.length){
+    document.getElementById("recentSales").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">▣</div>
+        No sales yet
+      </div>`;
+  }else{
+    document.getElementById("recentSales").innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${recent.map(s=>`
+              <tr>
+                <td>${escapeHTML(s.invoiceNo)}</td>
+                <td>${escapeHTML(s.customerName || "Walk-in")}</td>
+                <td>${money(s.total)}</td>
+                <td>${statusBadge(s.paymentStatus)}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  const low = db.products
+    .filter(p=>Number(p.stock || 0) <= Number(p.lowStock || 0))
+    .slice(0,5);
+
+  if(!low.length){
+    document.getElementById("stockAlerts").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">✓</div>
+        No low-stock products
+      </div>`;
+  }else{
+    document.getElementById("stockAlerts").innerHTML = `
+      <div class="kpi-list" style="padding:14px">
+        ${low.map(p=>`
+          <div class="kpi-item">
+            <span class="kpi-name">${escapeHTML(p.name)}</span>
+            <span class="badge badge-danger">${money(p.stock)} ${escapeHTML(p.unit)}</span>
+          </div>
+        `).join("")}
+      </div>`;
+  }
+}
+
+function statusBadge(status){
+  const s = String(status || "Active");
+
+  if(s === "Paid" || s === "Active"){
+    return `<span class="badge badge-success">${escapeHTML(s)}</span>`;
+  }
+
+  if(s === "Credit" || s === "Partial"){
+    return `<span class="badge badge-warning">${escapeHTML(s)}</span>`;
+  }
+
+  return `<span class="badge badge-neutral">${escapeHTML(s)}</span>`;
 }
 
 function renderSales(){
-  const t=totals();
+  const db = getDB();
+  const search = (document.getElementById("salesSearch")?.value || "")
+    .toLowerCase()
+    .trim();
 
-  $("salesCount").textContent=db.sales.length;
-  $("salesRevenue").textContent=money(t.revenue);
-  $("salesPaid").textContent=money(t.paid);
-  $("salesReceivable").textContent=money(t.receivable);
+  const rows = db.sales.filter(s=>{
+    const text = [
+      s.invoiceNo,
+      s.customerName,
+      s.productName
+    ].join(" ").toLowerCase();
 
-  const body=$("salesTable");
+    return text.includes(search);
+  }).slice().reverse();
 
-  if(!db.sales.length){
-    body.innerHTML=
-      '<tr><td colspan="8"><div class="empty">No sales yet</div></td></tr>';
+  if(!rows.length){
+    document.getElementById("salesTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">▣</div>
+        No sales records
+      </div>`;
     return;
   }
 
-  body.innerHTML=[...db.sales].reverse().map(s=>{
-    return `
-      <tr>
-        <td>${esc(s.date)}</td>
-        <td><strong>${esc(s.invoice)}</strong></td>
-        <td>${esc(s.customerName)}</td>
-        <td>${esc(s.productName)}</td>
-        <td>${num(s.qty)}</td>
-        <td><strong>${money(s.total)}</strong></td>
-        <td>
-          <span class="badge ${s.payment==="Paid"
-            ?"badge-green":"badge-orange"}">
-            ${esc(s.payment)}
-          </span>
-        </td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-                  onclick="deleteSale('${s.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+  document.getElementById("salesTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Balance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(s=>`
+            <tr>
+              <td><strong>${escapeHTML(s.invoiceNo)}</strong></td>
+              <td>${escapeHTML(s.date)}</td>
+              <td>${escapeHTML(s.customerName || "Walk-in")}</td>
+              <td>${escapeHTML(s.productName)}</td>
+              <td>${money(s.qty)}</td>
+              <td>${money(s.total)}</td>
+              <td>${money(s.paidAmount)}</td>
+              <td>${money(s.balanceDue)}</td>
+              <td>${statusBadge(s.paymentStatus)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
-function deleteSale(saleId){
-  const s=db.sales.find(x=>x.id===saleId);
-  if(!s) return;
+function renderCustomers(){
+  const db = getDB();
 
-  if(!confirm("Delete this sale?")) return;
+  const search = (document.getElementById("customerSearch")?.value || "")
+    .toLowerCase()
+    .trim();
 
-  const product=db.products.find(p=>p.id===s.productId);
-  if(product){
-    product.stock=num(product.stock)+num(s.qty);
-  }
-
-  db.sales=db.sales.filter(x=>x.id!==saleId);
-
-  saveDB();
-  renderAll();
-  toast("Sale deleted");
-}
-
-/* CRM */
-
-function saveCustomer(){
-  const name=$("customerName").value.trim();
-
-  if(!name){
-    toast("Customer name ထည့်ပါ");
-    return;
-  }
-
-  db.customers.push({
-    id:id(),
-    name,
-    phone:$("customerPhone").value.trim(),
-    type:$("customerType").value
+  const rows = db.customers.filter(c=>{
+    return [c.name,c.phone,c.address]
+      .join(" ")
+      .toLowerCase()
+      .includes(search);
   });
 
-  saveDB();
-  closeModal("customerModal");
-
-  $("customerName").value="";
-  $("customerPhone").value="";
-
-  renderAll();
-  toast("Customer saved");
-}
-
-function renderCRM(){
-  $("crmCustomers").textContent=db.customers.length;
-  $("crmRetail").textContent=
-    db.customers.filter(c=>c.type==="Retail").length;
-  $("crmBusiness").textContent=
-    db.customers.filter(c=>c.type==="Business").length;
-
-  const body=$("customerTable");
-
-  if(!db.customers.length){
-    body.innerHTML=
-      '<tr><td colspan="5"><div class="empty">No customers yet</div></td></tr>';
+  if(!rows.length){
+    document.getElementById("customersTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">♙</div>
+        No customers
+      </div>`;
     return;
   }
 
-  body.innerHTML=db.customers.map(c=>{
-    const total=db.sales
-      .filter(s=>s.customerId===c.id)
-      .reduce((a,b)=>a+num(b.total),0);
+  document.getElementById("customersTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Credit Limit</th>
+            <th>Receivable</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(c=>{
+            const receivable = db.sales
+              .filter(s=>s.customerId === c.id)
+              .reduce((sum,s)=>sum + Number(s.balanceDue || 0),0);
 
-    return `
-      <tr>
-        <td><strong>${esc(c.name)}</strong></td>
-        <td>${esc(c.phone||"-")}</td>
-        <td><span class="badge badge-blue">${esc(c.type)}</span></td>
-        <td>${money(total)}</td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-                  onclick="deleteCustomer('${c.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+            return `
+              <tr>
+                <td><strong>${escapeHTML(c.name)}</strong></td>
+                <td>${escapeHTML(c.phone)}</td>
+                <td>${escapeHTML(c.address)}</td>
+                <td>${money(c.creditLimit)}</td>
+                <td>${money(receivable)}</td>
+              </tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
-function deleteCustomer(customerId){
-  if(!confirm("Delete this customer?")) return;
+function renderSuppliers(){
+  const db = getDB();
 
-  db.customers=db.customers.filter(c=>c.id!==customerId);
+  const search = (document.getElementById("supplierSearch")?.value || "")
+    .toLowerCase()
+    .trim();
 
-  saveDB();
-  renderAll();
-  toast("Customer deleted");
-}
-
-/* PURCHASE */
-
-function populatePurchaseProducts(){
-  $("purchaseProduct").innerHTML=
-    '<option value="">Select Product</option>'+
-    db.products.map(p=>
-      `<option value="${esc(p.id)}">${esc(p.name)}</option>`
-    ).join("");
-}
-
-function savePurchase(){
-  const product=db.products.find(
-    p=>p.id===$("purchaseProduct").value
-  );
-
-  const supplier=$("purchaseSupplier").value.trim();
-  const qty=num($("purchaseQty").value);
-  const cost=num($("purchaseCost").value);
-
-  if(!product){
-    toast("Product ရွေးပါ");
-    return;
-  }
-
-  if(!supplier){
-    toast("Supplier ထည့်ပါ");
-    return;
-  }
-
-  if(qty<=0||cost<=0){
-    toast("Quantity နှင့် Cost မှန်ကန်စွာထည့်ပါ");
-    return;
-  }
-
-  db.purchases.push({
-    id:id(),
-    po:"PO-"+Date.now().toString().slice(-7),
-    date:$("purchaseDate").value||today(),
-    supplier,
-    productId:product.id,
-    productName:product.name,
-    qty,
-    cost,
-    total:qty*cost
+  const rows = db.suppliers.filter(s=>{
+    return [s.name,s.phone,s.address]
+      .join(" ")
+      .toLowerCase()
+      .includes(search);
   });
 
-  product.stock=num(product.stock)+qty;
+  if(!rows.length){
+    document.getElementById("suppliersTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">⇄</div>
+        No suppliers
+      </div>`;
+    return;
+  }
 
-  saveDB();
-  closeModal("purchaseModal");
-  renderAll();
-  go("purchases");
-  toast("Purchase saved");
+  document.getElementById("suppliersTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Supplier</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Credit Limit</th>
+            <th>Payable</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(s=>{
+            const payable = db.purchases
+              .filter(p=>p.supplierId === s.id)
+              .reduce((sum,p)=>sum + Number(p.balanceDue || 0),0);
+
+            return `
+              <tr>
+                <td><strong>${escapeHTML(s.name)}</strong></td>
+                <td>${escapeHTML(s.phone)}</td>
+                <td>${escapeHTML(s.address)}</td>
+                <td>${money(s.creditLimit)}</td>
+                <td>${money(payable)}</td>
+              </tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderProducts(){
+  const db = getDB();
+
+  const search = (document.getElementById("productSearch")?.value || "")
+    .toLowerCase()
+    .trim();
+
+  const rows = db.products.filter(p=>{
+    return [p.name,p.sku,p.category]
+      .join(" ")
+      .toLowerCase()
+      .includes(search);
+  });
+
+  if(!rows.length){
+    document.getElementById("productsTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">□</div>
+        No products
+      </div>`;
+    return;
+  }
+
+  document.getElementById("productsTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>SKU</th>
+            <th>Category</th>
+            <th>Unit</th>
+            <th>Cost</th>
+            <th>Selling</th>
+            <th>Stock</th>
+            <th>Stock Value</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(p=>{
+            const low = Number(p.stock || 0) <= Number(p.lowStock || 0);
+
+            return `
+              <tr>
+                <td><strong>${escapeHTML(p.name)}</strong></td>
+                <td>${escapeHTML(p.sku)}</td>
+                <td>${escapeHTML(p.category)}</td>
+                <td>${escapeHTML(p.unit)}</td>
+                <td>${money(p.cost)}</td>
+                <td>${money(p.price)}</td>
+                <td>${money(p.stock)}</td>
+                <td>${money(Number(p.stock||0)*Number(p.cost||0))}</td>
+                <td>
+                  ${low
+                    ? `<span class="badge badge-danger">Low Stock</span>`
+                    : `<span class="badge badge-success">Healthy</span>`
+                  }
+                </td>
+              </tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function renderPurchases(){
-  const total=db.purchases.reduce((a,b)=>a+num(b.total),0);
+  const db = getDB();
+  const rows = db.purchases.slice().reverse();
 
-  $("purchaseCount").textContent=db.purchases.length;
-  $("purchaseValue").textContent=money(total);
-
-  const suppliers=new Set(
-    db.purchases.map(x=>x.supplier).filter(Boolean)
-  );
-
-  $("supplierCount").textContent=suppliers.size;
-
-  const body=$("purchaseTable");
-
-  if(!db.purchases.length){
-    body.innerHTML=
-      '<tr><td colspan="7"><div class="empty">No purchases yet</div></td></tr>';
+  if(!rows.length){
+    document.getElementById("purchasesTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">◫</div>
+        No purchase records
+      </div>`;
     return;
   }
 
-  body.innerHTML=[...db.purchases].reverse().map(p=>{
-    return `
-      <tr>
-        <td>${esc(p.date)}</td>
-        <td><strong>${esc(p.po)}</strong></td>
-        <td>${esc(p.supplier)}</td>
-        <td>${esc(p.productName)}</td>
-        <td>${num(p.qty)}</td>
-        <td>${money(p.total)}</td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-                  onclick="deletePurchase('${p.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
-}
-
-function deletePurchase(purchaseId){
-  const p=db.purchases.find(x=>x.id===purchaseId);
-  if(!p) return;
-
-  if(!confirm("Delete this purchase?")) return;
-
-  const product=db.products.find(x=>x.id===p.productId);
-
-  if(product){
-    product.stock=Math.max(
-      0,
-      num(product.stock)-num(p.qty)
-    );
-  }
-
-  db.purchases=db.purchases.filter(x=>x.id!==purchaseId);
-
-  saveDB();
-  renderAll();
-  toast("Purchase deleted");
-}
-
-/* INVENTORY */
-
-function saveProduct(){
-  const name=$("productName").value.trim();
-
-  if(!name){
-    toast("Product name ထည့်ပါ");
-    return;
-  }
-
-  const cost=num($("productCost").value);
-  const price=num($("productPrice").value);
-  const stock=num($("productStock").value);
-  const low=num($("productLow").value);
-
-  if(cost<0||price<0||stock<0){
-    toast("Number values မှန်ကန်စွာထည့်ပါ");
-    return;
-  }
-
-  db.products.push({
-    id:id(),
-    name,
-    category:$("productCategory").value.trim()||"General",
-    unit:$("productUnit").value,
-    cost,
-    price,
-    stock,
-    low
-  });
-
-  saveDB();
-  closeModal("productModal");
-  renderAll();
-  toast("Product saved");
-}
-
-function renderInventory(){
-  const units=db.products.reduce(
-    (s,p)=>s+num(p.stock),0
-  );
-
-  const value=db.products.reduce(
-    (s,p)=>s+num(p.stock)*num(p.cost),0
-  );
-
-  const low=db.products.filter(
-    p=>num(p.stock)<=num(p.low)
-  ).length;
-
-  $("invProducts").textContent=db.products.length;
-  $("invUnits").textContent=units.toLocaleString();
-  $("invValue").textContent=money(value);
-  $("invLow").textContent=low;
-
-  const body=$("productTable");
-
-  if(!db.products.length){
-    body.innerHTML=
-      '<tr><td colspan="8"><div class="empty">No products yet</div></td></tr>';
-    return;
-  }
-
-  body.innerHTML=db.products.map(p=>{
-    const margin=p.price>0
-      ?((p.price-p.cost)/p.price)*100
-      :0;
-
-    const lowStock=num(p.stock)<=num(p.low);
-
-    return `
-      <tr>
-        <td><strong>${esc(p.name)}</strong></td>
-        <td>${esc(p.category)}</td>
-        <td>${money(p.cost)}</td>
-        <td>${money(p.price)}</td>
-        <td>${num(p.stock)} ${esc(p.unit)}</td>
-        <td>${margin.toFixed(1)}%</td>
-        <td>
-          <span class="badge ${
-            lowStock?"badge-red":"badge-green"
-          }">
-            ${lowStock?"LOW STOCK":"OK"}
-          </span>
-        </td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-                  onclick="deleteProduct('${p.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
-}
-
-function deleteProduct(productId){
-  const used=db.sales.some(s=>s.productId===productId)||
-             db.purchases.some(p=>p.productId===productId);
-
-  if(used){
-    toast("Transaction ရှိပြီးသား Product ဖြစ်လို့ Delete မလုပ်နိုင်ပါ");
-    return;
-  }
-
-  if(!confirm("Delete this product?")) return;
-
-  db.products=db.products.filter(p=>p.id!==productId);
-
-  saveDB();
-  renderAll();
-  toast("Product deleted");
-}
-
-/* ACCOUNTING */
-
-function renderAccounting(){
-  const t=totals();
-
-  $("accRevenue").textContent=money(t.revenue);
-  $("accCogs").textContent=money(t.cogs);
-  $("accGross").textContent=money(t.gross);
-  $("accNet").textContent=money(t.net);
-
-  const gm=t.revenue
-    ?(t.gross/t.revenue)*100:0;
-
-  const nm=t.revenue
-    ?(t.net/t.revenue)*100:0;
-
-  const er=t.revenue
-    ?(t.expenses/t.revenue)*100:0;
-
-  $("grossMargin").textContent=gm.toFixed(1)+"%";
-  $("netMargin").textContent=nm.toFixed(1)+"%";
-  $("expenseRatio").textContent=er.toFixed(1)+"%";
-}
-
-/* EXPENSE */
-
-function saveExpense(){
-  const amount=num($("expenseAmount").value);
-
-  if(amount<=0){
-    toast("Amount ထည့်ပါ");
-    return;
-  }
-
-  db.expenses.push({
-    id:id(),
-    date:$("expenseDate").value||today(),
-    category:$("expenseCategory").value,
-    description:$("expenseDescription").value.trim(),
-    amount
-  });
-
-  saveDB();
-  closeModal("expenseModal");
-  renderAll();
-  toast("Expense saved");
+  document.getElementById("purchasesTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Purchase</th>
+            <th>Date</th>
+            <th>Supplier</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Balance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(p=>`
+            <tr>
+              <td><strong>${escapeHTML(p.purchaseNo)}</strong></td>
+              <td>${escapeHTML(p.date)}</td>
+              <td>${escapeHTML(p.supplierName || "-")}</td>
+              <td>${escapeHTML(p.productName)}</td>
+              <td>${money(p.qty)}</td>
+              <td>${money(p.total)}</td>
+              <td>${money(p.paidAmount)}</td>
+              <td>${money(p.balanceDue)}</td>
+              <td>${statusBadge(p.paymentStatus)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function renderExpenses(){
-  const total=db.expenses.reduce(
-    (s,x)=>s+num(x.amount),0
-  );
+  const db = getDB();
+  const rows = db.expenses.slice().reverse();
 
-  $("expenseTotal").textContent=money(total);
-  $("expenseCount").textContent=db.expenses.length;
-
-  $("expenseAverage").textContent=money(
-    db.expenses.length?total/db.expenses.length:0
-  );
-
-  const body=$("expenseTable");
-
-  if(!db.expenses.length){
-    body.innerHTML=
-      '<tr><td colspan="5"><div class="empty">No expenses yet</div></td></tr>';
+  if(!rows.length){
+    document.getElementById("expensesTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">−</div>
+        No expenses
+      </div>`;
     return;
   }
 
-  body.innerHTML=[...db.expenses].reverse().map(e=>{
-    return `
-      <tr>
-        <td>${esc(e.date)}</td>
-        <td><span class="badge badge-orange">${esc(e.category)}</span></td>
-        <td>${esc(e.description||"-")}</td>
-        <td><strong>${money(e.amount)}</strong></td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-                  onclick="deleteExpense('${e.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
-}
-
-function deleteExpense(expenseId){
-  if(!confirm("Delete this expense?")) return;
-
-  db.expenses=db.expenses.filter(x=>x.id!==expenseId);
-
-  saveDB();
-  renderAll();
-  toast("Expense deleted");
-}
-
-/* EMPLOYEES */
-
-function saveEmployee(){
-  const name=$("employeeName").value.trim();
-
-  if(!name){
-    toast("Employee name ထည့်ပါ");
-    return;
-  }
-
-  db.employees.push({
-    id:id(),
-    name,
-    department:$("employeeDepartment").value.trim()||"General",
-    position:$("employeePosition").value.trim()||"-",
-    salary:num($("employeeSalary").value)
-  });
-
-  saveDB();
-  closeModal("employeeModal");
-  renderAll();
-  toast("Employee saved");
+  document.getElementById("expensesTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(e=>`
+            <tr>
+              <td>${escapeHTML(e.date)}</td>
+              <td>${escapeHTML(e.category)}</td>
+              <td>${escapeHTML(e.description)}</td>
+              <td><strong>${money(e.amount)}</strong></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function renderEmployees(){
-  $("empCount").textContent=db.employees.length;
-
-  const payroll=db.employees.reduce(
-    (s,x)=>s+num(x.salary),0
-  );
-
-  $("empPayroll").textContent=money(payroll);
-
-  const departments=new Set(
-    db.employees.map(x=>x.department).filter(Boolean)
-  );
-
-  $("empDepartments").textContent=departments.size;
-
-  const body=$("employeeTable");
+  const db = getDB();
 
   if(!db.employees.length){
-    body.innerHTML=
-      '<tr><td colspan="5"><div class="empty">No employees yet</div></td></tr>';
+    document.getElementById("employeesTable").innerHTML =
+      `<div class="empty">
+        <div class="empty-icon">♟</div>
+        No employees
+      </div>`;
     return;
   }
 
-  body.innerHTML=db.employees.map(e=>{
-    return `
-      <tr>
-        <td><strong>${esc(e.name)}</strong></td>
-        <td>${esc(e.department)}</td>
-        <td>${esc(e.position)}</td>
-        <td>${money(e.salary)}</td>
-        <td>
-          <button class="btn btn-danger btn-sm"
-                  onclick="deleteEmployee('${e.id}')">
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+  document.getElementById("employeesTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Phone</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${db.employees.map(e=>`
+            <tr>
+              <td><strong>${escapeHTML(e.name)}</strong></td>
+              <td>${escapeHTML(e.role)}</td>
+              <td>${escapeHTML(e.phone)}</td>
+              <td>${money(e.salary)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
-function deleteEmployee(employeeId){
-  if(!confirm("Delete this employee?")) return;
+function renderReports(t){
+  document.getElementById("reportRevenue").textContent = money(t.revenue);
+  document.getElementById("reportCOGS").textContent = money(t.cogs);
+  document.getElementById("reportExpenses").textContent = money(t.expenses);
+  document.getElementById("reportNet").textContent = money(t.net);
 
-  db.employees=db.employees.filter(x=>x.id!==employeeId);
+  const db = getDB();
 
-  saveDB();
-  renderAll();
-  toast("Employee deleted");
-}
+  const grossMargin = t.revenue > 0
+    ? (t.gross/t.revenue)*100
+    : 0;
 
-/* USERS */
+  const netMargin = t.revenue > 0
+    ? (t.net/t.revenue)*100
+    : 0;
 
-function saveUser(){
-  const name=$("userName").value.trim();
-  const email=$("userEmail").value.trim();
+  const aov = db.sales.length
+    ? t.revenue/db.sales.length
+    : 0;
 
-  if(!name||!email){
-    toast("Name နှင့် Email ထည့်ပါ");
-    return;
-  }
-
-  db.users.push({
-    id:id(),
-    name,
-    email,
-    role:$("userRole").value,
-    status:"Active"
-  });
-
-  saveDB();
-  closeModal("userModal");
-  renderAll();
-  toast("User added");
-}
-
-function renderUsers(){
-  $("userCount").textContent=db.users.length;
-
-  $("adminCount").textContent=db.users.filter(
-    u=>u.role==="Admin"||u.role==="Owner"
-  ).length;
-
-  $("activeUsers").textContent=db.users.filter(
-    u=>u.status==="Active"
-  ).length;
-
-  const body=$("userTable");
-
-  body.innerHTML=db.users.map(u=>{
-    return `
-      <tr>
-        <td><strong>${esc(u.name)}</strong></td>
-        <td>${esc(u.email)}</td>
-        <td><span class="badge badge-blue">${esc(u.role)}</span></td>
-        <td><span class="badge badge-green">${esc(u.status)}</span></td>
-        <td>
-          ${
-            u.role==="Owner"
-            ?'<span class="small muted">Primary Owner</span>'
-            :`<button class="btn btn-danger btn-sm"
-               onclick="deleteUser('${u.id}')">Delete</button>`
-          }
-        </td>
-      </tr>
-    `;
-  }).join("");
-}
-
-function deleteUser(userId){
-  const user=db.users.find(x=>x.id===userId);
-
-  if(user?.role==="Owner"){
-    toast("Owner account cannot be deleted");
-    return;
-  }
-
-  if(!confirm("Delete this user?")) return;
-
-  db.users=db.users.filter(x=>x.id!==userId);
-
-  saveDB();
-  renderAll();
-  toast("User deleted");
-}
-
-/* REPORTS */
-
-function renderReports(){
-  const t=totals();
-
-  $("rSales").textContent=money(t.revenue);
-  $("rPurchase").textContent=money(t.purchases);
-  $("rExpense").textContent=money(t.expenses);
-  $("rNet").textContent=money(t.net);
-
-  const paid=t.paid;
-  const credit=t.receivable;
-
-  $("salesReport").innerHTML=`
-    <div class="stage">
-      <strong>Paid Sales <span>${money(paid)}</span></strong>
-      <small>Cash / completed payment</small>
+  document.getElementById("reportKpis").innerHTML = `
+    <div class="kpi-item">
+      <span class="kpi-name">Gross Margin</span>
+      <span class="kpi-value">${grossMargin.toFixed(1)}%</span>
     </div>
-    <div class="stage">
-      <strong>Credit Sales <span>${money(credit)}</span></strong>
-      <small>Accounts receivable</small>
+    <div class="kpi-item">
+      <span class="kpi-name">Net Margin</span>
+      <span class="kpi-value">${netMargin.toFixed(1)}%</span>
     </div>
-    <div class="stage">
-      <strong>Total Invoices <span>${db.sales.length}</span></strong>
-      <small>Recorded transactions</small>
+    <div class="kpi-item">
+      <span class="kpi-name">Average Order Value</span>
+      <span class="kpi-value">${money(aov)}</span>
+    </div>
+    <div class="kpi-item">
+      <span class="kpi-name">Stock Value</span>
+      <span class="kpi-value">${money(t.stockValue)}</span>
+    </div>
+    <div class="kpi-item">
+      <span class="kpi-name">Payable</span>
+      <span class="kpi-value">${money(t.payable)}</span>
     </div>
   `;
 
-  const low=db.products.filter(
-    p=>num(p.stock)<=num(p.low)
-  );
-
-  $("inventoryReport").innerHTML=
-    low.length
-    ?low.map(p=>`
-      <div class="stage">
-        <strong>${esc(p.name)}</strong>
-        <small>Stock: ${num(p.stock)} ${esc(p.unit)}</small>
-        <span class="badge badge-red">LOW STOCK</span>
-      </div>
-    `).join("")
-    :`
-      <div class="stage">
-        <strong class="green">No critical stock alerts</strong>
-        <small>Current inventory is above configured low-stock levels</small>
-      </div>
-    `;
+  renderRevenueChart();
 }
 
-/* GROWTH */
+function renderRevenueChart(){
+  const db = getDB();
+
+  const months = [];
+
+  for(let i=5;i>=0;i--){
+    const d = new Date();
+    d.setMonth(d.getMonth()-i);
+
+    const key = d.toISOString().slice(0,7);
+
+    months.push({
+      key,
+      label:d.toLocaleDateString("en-US",{month:"short"}),
+      value:0
+    });
+  }
+
+  db.sales.forEach(s=>{
+    const key = String(s.date || "").slice(0,7);
+    const m = months.find(x=>x.key === key);
+
+    if(m){
+      m.value += Number(s.total || 0);
+    }
+  });
+
+  const max = Math.max(...months.map(m=>m.value),1);
+
+  document.getElementById("revenueChart").innerHTML =
+    months.map(m=>{
+      const h = Math.max((m.value/max)*150,4);
+
+      return `
+        <div class="bar-wrap">
+          <div class="bar-value">${money(m.value)}</div>
+          <div class="bar" style="height:${h}px"></div>
+          <div class="bar-label">${m.label}</div>
+        </div>`;
+    }).join("");
+}
 
 function getGrowthStage(revenue){
-  const target=num(db.settings.target)||100000000;
-  const pct=(revenue/target)*100;
-
-  if(pct<10){
+  if(revenue >= 900000000){
     return {
-      name:"Foundation",
-      description:"Build products, pricing, customer and basic sales systems"
+      name:"900 → 1000 Systemized Business",
+      pct:95
     };
   }
 
-  if(pct<20){
-    return {
-      name:"100 → 200 Foundation",
-      description:"Stabilize operations and repeatable sales"
-    };
-  }
-
-  if(pct<35){
-    return {
-      name:"200 → 300 Sales System",
-      description:"Build predictable sales pipeline and KPI"
-    };
-  }
-
-  if(pct<55){
-    return {
-      name:"300 → 500 Customer Growth",
-      description:"Grow customers, team and distribution"
-    };
-  }
-
-  if(pct<75){
-    return {
-      name:"500 → 700 Scale",
-      description:"Standardize systems and improve productivity"
-    };
-  }
-
-  if(pct<90){
+  if(revenue >= 700000000){
     return {
       name:"700 → 900 Expansion",
-      description:"Expand territory, channels and product portfolio"
+      pct:80
+    };
+  }
+
+  if(revenue >= 500000000){
+    return {
+      name:"500 → 700 Scale",
+      pct:65
+    };
+  }
+
+  if(revenue >= 300000000){
+    return {
+      name:"300 → 500 Customer Growth",
+      pct:50
+    };
+  }
+
+  if(revenue >= 200000000){
+    return {
+      name:"200 → 300 Sales System",
+      pct:30
     };
   }
 
   return {
-    name:"900 → 1000 Systemized Business",
-    description:"Build a scalable management system"
+    name:"100 → 200 Foundation",
+    pct:15
   };
 }
 
-function renderGrowth(){
-  const t=totals();
-  const target=num(db.settings.target)||1;
+function renderGrowth(t){
+  const db = getDB();
+  const current = t.revenue;
+  const target = Number(db.settings.target || 0);
+  const gap = Math.max(target-current,0);
+  const achievement = target > 0
+    ? (current/target)*100
+    : 0;
 
-  $("gCurrent").textContent=money(t.revenue);
-  $("gTarget").textContent=money(target);
+  document.getElementById("gCurrent").textContent = money(current);
+  document.getElementById("gTarget").textContent = money(target);
+  document.getElementById("gGap").textContent = money(gap);
+  document.getElementById("gAchievement").textContent =
+    achievement.toFixed(1) + "%";
 
-  const required=t.revenue
-    ?Math.max(0,((target/t.revenue)-1)*100)
-    :100;
-
-  $("gRequired").textContent=
-    required.toFixed(1)+"%";
-
-  const pct=Math.min(100,(t.revenue/target)*100);
-
-  const stages=[
-    ["100 → 200","Foundation & Control"],
-    ["200 → 300","Sales System"],
-    ["300 → 500","Customer Growth"],
-    ["500 → 700","Scale"],
-    ["700 → 900","Expansion"],
-    ["900 → 1000","Systemized Business"]
+  const stages = [
+    {
+      range:"100 → 200",
+      name:"Foundation",
+      action:"Cash flow, pricing, product margin, customer database"
+    },
+    {
+      range:"200 → 300",
+      name:"Sales System",
+      action:"Sales target, salesperson KPI, pipeline, repeat sales"
+    },
+    {
+      range:"300 → 500",
+      name:"Customer Growth",
+      action:"Distribution, customer segments, territory expansion"
+    },
+    {
+      range:"500 → 700",
+      name:"Scale",
+      action:"Team structure, process, inventory and management controls"
+    },
+    {
+      range:"700 → 900",
+      name:"Expansion",
+      action:"New markets, channels and product portfolio"
+    },
+    {
+      range:"900 → 1000",
+      name:"Systemized Business",
+      action:"Management system, KPI, finance control and delegation"
+    }
   ];
 
-  $("roadmap").innerHTML=stages.map((s,i)=>{
-    const threshold=[20,30,50,70,90,100][i];
-    const complete=pct>=threshold;
-
-    return `
-      <div class="stage">
-        <strong>
-          <span>${esc(s[0])}</span>
-          <span class="badge ${
-            complete?"badge-green":"badge-gray"
-          }">
-            ${complete?"ACTIVE / REACHED":"NEXT"}
-          </span>
-        </strong>
-        <small>${esc(s[1])}</small>
+  document.getElementById("growthStages").innerHTML =
+    stages.map((s,i)=>`
+      <div class="progress-row">
+        <div class="progress-info">
+          <span>${escapeHTML(s.range)} • ${escapeHTML(s.name)}</span>
+          <span>${i < 2 ? "Build" : i < 4 ? "Scale" : "Systemize"}</span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width:${Math.min((i+1)/6*100,100)}%"></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">
+          ${escapeHTML(s.action)}
+        </div>
       </div>
-    `;
-  }).join("");
+    `).join("");
 }
 
-/* AI BUSINESS COACH */
+function renderCoach(){
+  const db = getDB();
+  const t = getTotals();
 
-function aiPreset(type){
-  const questions={
-    sales:"Sales မတက်ဘူး၊ Sales တက်အောင် ဘာတွေစလုပ်သင့်လဲ",
-    profit:"Profit margin နည်းနေတယ်၊ ဘာတွေစစ်ပြီး ဘယ်လိုတိုးရမလဲ",
-    stock:"Stock ပိတ်နေတယ်၊ Inventory ကို ဘယ်လိုထိန်းချုပ်ရမလဲ",
-    growth:"Business ကို 100 ကနေ 1000 အထိ ဘယ်လိုတိုးချဲ့ရမလဲ"
-  };
+  let problem = "Business data မလုံလောက်သေးပါ";
+  let cause = "Sales transactions နဲ့ product data ပိုထည့်ဖို့လိုပါတယ်";
+  let action = "Customer, Product နဲ့ Sales records ကို စနစ်တကျထည့်ပါ";
+  let kpi = "Daily Sales, Gross Margin, Receivable";
+  let plan = [
+    "Customer list ပြည့်စုံအောင်လုပ်ပါ",
+    "Top selling products သတ်မှတ်ပါ",
+    "Daily sales target သတ်မှတ်ပါ",
+    "Credit customers ကို follow-up လုပ်ပါ",
+    "Low-stock items စစ်ပါ",
+    "Gross margin စစ်ပါ",
+    "7-day result review လုပ်ပါ"
+  ];
 
-  $("aiQuestion").value=questions[type]||"";
-  askAI();
+  if(t.revenue > 0){
+
+    if(t.receivable > t.revenue * .3){
+      problem = "Customer Receivable မြင့်နေပါတယ်";
+      cause = "Credit sales များပြီး collection cycle မထိန်းချုပ်ထားနိုင်ပါတယ်";
+      action = "Credit limit သတ်မှတ်ပြီး overdue customer follow-up system လုပ်ပါ";
+      kpi = "Collection Rate, DSO, Receivable";
+      plan = [
+        "Overdue customer list ပြုစုပါ",
+        "Customer တစ်ဦးချင်း credit limit စစ်ပါ",
+        "Payment due date သတ်မှတ်ပါ",
+        "Daily collection call လုပ်ပါ",
+        "Partial payment plan စီစဉ်ပါ",
+        "New credit sales ကို control လုပ်ပါ",
+        "Collection result review လုပ်ပါ"
+      ];
+    }
+    else if(t.gross < t.revenue * .2){
+      problem = "Gross Margin နည်းနေပါတယ်";
+      cause = "Product pricing သို့မဟုတ် COGS control အားနည်းနိုင်ပါတယ်";
+      action = "Product-level margin စစ်ပြီး low-margin items ရဲ့ pricing ပြန်သုံးသပ်ပါ";
+      kpi = "Gross Margin %, Product Margin, COGS";
+      plan = [
+        "Top 10 products margin တွက်ပါ",
+        "Supplier cost ပြန်ညှိပါ",
+        "Discount policy စစ်ပါ",
+        "Low-margin product list ပြုစုပါ",
+        "Price revision candidate ရွေးပါ",
+        "Sales team ကို margin target ပေးပါ",
+        "Margin result review လုပ်ပါ"
+      ];
+    }
+    else if(t.expenses > t.gross * .6){
+      problem = "Operating Expense မြင့်နေပါတယ်";
+      cause = "Expense structure က Gross Profit ကို ဖိအားပေးနေပါတယ်";
+      action = "Expense category အလိုက် budget နဲ့ actual ကို နှိုင်းယှဉ်ပါ";
+      kpi = "Expense Ratio, Net Margin, Cost per Sale";
+      plan = [
+        "Expense category အားလုံးစစ်ပါ",
+        "Fixed vs Variable cost ခွဲပါ",
+        "Unnecessary expense ရှာပါ",
+        "Monthly budget သတ်မှတ်ပါ",
+        "Transport/marketing cost စစ်ပါ",
+        "Approval rule သတ်မှတ်ပါ",
+        "Weekly expense review လုပ်ပါ"
+      ];
+    }
+    else{
+      problem = "Business Growth ကို ပိုမိုမြန်ဆန်အောင် Sales System တည်ဆောက်နိုင်ပါတယ်";
+      cause = "Revenue ရှိနေပြီး data-driven sales management ကို ပိုတိုးတက်အောင်လုပ်နိုင်ပါတယ်";
+      action = "Top customers, products နဲ့ salesperson performance ကို KPI နဲ့စီမံပါ";
+      kpi = "Revenue, Gross Margin, AOV, Repeat Sales";
+      plan = [
+        "Top 20 customers စာရင်းထုတ်ပါ",
+        "Top products စာရင်းထုတ်ပါ",
+        "Daily sales target သတ်မှတ်ပါ",
+        "Average Order Value တိုးရန် bundle စီစဉ်ပါ",
+        "Repeat customer follow-up လုပ်ပါ",
+        "Low-stock items ပြန်ဖြည့်ပါ",
+        "7-day KPI review လုပ်ပါ"
+      ];
+    }
+  }
+
+  document.getElementById("coachResult").innerHTML = `
+    <div class="ai-box">
+      <div class="ai-title">Business Coach Analysis</div>
+
+      <div class="ai-section">
+        <strong>Problem</strong>
+        <div>${escapeHTML(problem)}</div>
+      </div>
+
+      <div class="ai-section">
+        <strong>Possible Cause</strong>
+        <div>${escapeHTML(cause)}</div>
+      </div>
+
+      <div class="ai-section">
+        <strong>Recommended Action</strong>
+        <div>${escapeHTML(action)}</div>
+      </div>
+
+      <div class="ai-section">
+        <strong>KPI</strong>
+        <div>${escapeHTML(kpi)}</div>
+      </div>
+
+      <div class="ai-section">
+        <strong>7-Day Plan</strong>
+        <div>
+          <ol style="margin:8px 0;padding-left:20px">
+            ${plan.map(x=>`<li style="margin:5px 0">${escapeHTML(x)}</li>`).join("")}
+          </ol>
+        </div>
+      </div>
+    </div>`;
 }
 
-function askAI(){
-  const q=$("aiQuestion").value.trim().toLowerCase();
-  const t=totals();
-
-  let title="Business Management Plan";
-  let answer="";
-
-  if(q.includes("sales")||q.includes("ရောင်း")||q.includes("အရောင်း")){
-    title="Sales Growth Plan";
-
-    answer=
-`Problem
-Sales performance ကို transaction data နဲ့ စနစ်တကျတိုင်းတာဖို့လိုပါတယ်
-
-Cause Check
-1. Target vs Actual
-2. Customer count
-3. Average order value
-4. Repeat purchase
-5. Salesperson productivity
-
-Action
-• Top 20% customers ကို identify လုပ်ပါ
-• Daily sales target သတ်မှတ်ပါ
-• Lost customer follow-up ပြန်လုပ်ပါ
-• Bundle / upsell offer စမ်းပါ
-• Salesperson တစ်ယောက်ချင်း KPI ထားပါ
-
-Current Revenue
-${money(t.revenue)}
-
-KPI
-• Daily Sales
-• Achievement %
-• New Customers
-• Repeat Customers
-• Average Order Value
-
-7-Day Plan
-Day 1 — Sales data review
-Day 2 — Top customer list
-Day 3 — Lost customer follow-up
-Day 4 — New offer
-Day 5 — Salesperson KPI
-Day 6 — Result review
-Day 7 — Next target`;
-  }
-
-  else if(
-    q.includes("profit")||
-    q.includes("အမြတ်")||
-    q.includes("margin")
-  ){
-    title="Profit Improvement Plan";
-
-    answer=
-`Problem
-Profit တိုးဖို့ Revenue တစ်ခုတည်းမကြည့်ဘဲ Gross Margin နဲ့ Expense ကိုပါထိန်းရပါမယ်
-
-Current Revenue
-${money(t.revenue)}
-
-Current Gross Profit
-${money(t.gross)}
-
-Current Net Profit
-${money(t.net)}
-
-Action
-• Product တစ်ခုချင်း Margin စစ်ပါ
-• Low-margin product pricing ပြန်စစ်ပါ
-• Discount policy ထိန်းပါ
-• Unnecessary expenses ဖြတ်ပါ
-• Fast-moving profitable products ကို ဦးစားပေးပါ
-
-KPI
-• Gross Margin %
-• Net Margin %
-• Expense Ratio
-• Product Contribution
-
-7-Day Plan
-1. Product margin audit
-2. Discount audit
-3. Expense audit
-4. Pricing review
-5. Top profitable products
-6. Cost reduction
-7. New margin target`;
-  }
-
-  else if(
-    q.includes("stock")||
-    q.includes("inventory")||
-    q.includes("ကုန်")||
-    q.includes("ပစ္စည်း")
-  ){
-    title="Inventory Control Plan";
-
-    const low=db.products.filter(
-      p=>num(p.stock)<=num(p.low)
-    );
-
-    answer=
-`Problem
-Stock ကို Revenue မဟုတ်ဘဲ Cash Flow နဲ့လည်းချိတ်ပြီး စီမံရပါမယ်
-
-Current Products
-${db.products.length}
-
-Low Stock
-${low.length}
-
-Action
-• Fast-moving / slow-moving ခွဲပါ
-• Reorder level သတ်မှတ်ပါ
-• Dead stock list ပြုလုပ်ပါ
-• Purchase quantity ကို demand နဲ့ချိန်ပါ
-• Stock valuation ကိုအပတ်စဉ်စစ်ပါ
-
-KPI
-• Stock Turnover
-• Days of Inventory
-• Stock-out Rate
-• Dead Stock Value
-• Inventory Accuracy
-
-Manager Rule
-မရောင်းရတဲ့ stock ကို အလွန်အကျွံမဝယ်ပါနှင့်
-Fast-moving profitable SKU ကို ဦးစားပေးပါ`;
-  }
-
-  else if(
-    q.includes("growth")||
-    q.includes("1000")||
-    q.includes("တိုး")
-  ){
-    title="100 → 1000 Growth Plan";
-
-    const stage=getGrowthStage(t.revenue);
-
-    answer=
-`Current Stage
-${stage.name}
-
-Current Revenue
-${money(t.revenue)}
-
-Target
-${money(db.settings.target)}
-
-Growth Strategy
-1. Revenue engine
-2. Customer engine
-3. Team engine
-4. Distribution engine
-5. Profit engine
-6. Management system
-
-Priority
-Revenue တိုးတာနဲ့အတူ Profit Margin မကျစေရန် စောင့်ကြည့်ပါ
-
-KPI
-• Revenue
-• Gross Profit
-• Net Profit
-• Customers
-• Repeat Rate
-• AOV
-• Stock Turnover
-• Cash Flow
-
-Next 30 Days
-• Sales target
-• Customer acquisition
-• Existing customer retention
-• Product margin review
-• Expense control
-• Team KPI
-
-Goal
-Business owner မရှိတဲ့အချိန်မှာပါ system က အလုပ်လုပ်နိုင်တဲ့ business တစ်ခုတည်ဆောက်ရန်`;
-  }
-
-  else{
-    title="Business Diagnostic";
-
-    answer=
-`သင့် Business ကို စစ်ဆေးဖို့ အောက်ပါ 5 ခုကနေ စပါ
-
-1. Sales
-Revenue ဘယ်လောက်ရလဲ
-
-2. Profit
-Gross Margin / Net Margin ဘယ်လောက်လဲ
-
-3. Customers
-New customer နဲ့ Repeat customer ဘယ်လောက်လဲ
-
-4. Inventory
-Fast-moving / Slow-moving / Dead stock ဘယ်လိုခွဲထားလဲ
-
-5. Cash Flow
-Cash ဝင်တာနဲ့ Cash ထွက်တာ ဘယ်လိုဖြစ်နေလဲ
-
-Current Revenue
-${money(t.revenue)}
-
-Current Net Profit
-${money(t.net)}
-
-AI Coach ကို Sales, Profit, Stock, Growth တစ်ခုခုကို တိတိကျကျမေးရင် Action Plan ပိုတိကျလာပါမယ်`;
-  }
-
-  $("aiResult").innerHTML=`
-    <div class="card-title">✦ ${esc(title)}</div>
-    <div class="ai-answer" style="margin-top:12px">
-      ${esc(answer)}
-    </div>
-  `;
+function runCoach(){
+  renderCoach();
+  showToast("Business analysis updated");
 }
 
-/* TOOLS */
+function renderUsers(){
+  const db = getDB();
 
-function calcProfit(){
-  const sell=num($("calcSell").value);
-  const cost=num($("calcCost").value);
-
-  if(sell<=0){
-    $("profitResult").innerHTML=
-      '<span class="red">Selling Price ထည့်ပါ</span>';
-    return;
-  }
-
-  const profit=sell-cost;
-  const margin=(profit/sell)*100;
-
-  $("profitResult").innerHTML=`
-    <div class="stage">
-      <strong>Profit <span class="green">${money(profit)}</span></strong>
-      <small>Gross Margin: ${margin.toFixed(1)}%</small>
-    </div>
-  `;
+  document.getElementById("usersTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${db.users.map(u=>`
+            <tr>
+              <td><strong>${escapeHTML(u.name)}</strong></td>
+              <td>${escapeHTML(u.email)}</td>
+              <td><span class="badge badge-info">${escapeHTML(u.role)}</span></td>
+              <td>${statusBadge(u.status)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
-
-function calcGrowthTool(){
-  const current=num($("calcCurrent").value);
-  const target=num($("calcTarget").value);
-  const rate=num($("calcGrowth").value)/100;
-
-  if(current<=0||target<=0||rate<=0){
-    $("growthResult").innerHTML=
-      '<span class="red">Values အားလုံးထည့်ပါ</span>';
-    return;
-  }
-
-  let value=current;
-  let months=0;
-
-  while(value<target&&months<240){
-    value*=1+rate;
-    months++;
-  }
-
-  $("growthResult").innerHTML=`
-    <div class="stage">
-      <strong>Estimated Time <span>${months} months</span></strong>
-      <small>
-        Final estimated revenue: ${money(value)}
-      </small>
-    </div>
-  `;
-}
-
-/* SETTINGS */
 
 function renderSettings(){
-  $("setCompany").value=db.settings.company||"";
-  $("setOwner").value=db.settings.owner||"";
-  $("setTarget").value=db.settings.target||0;
-  $("setCurrency").value=db.settings.currency||"MMK";
+  const db = getDB();
+
+  document.getElementById("settingCompany").value =
+    db.settings.company || "";
+
+  document.getElementById("settingOwner").value =
+    db.settings.owner || "";
+
+  document.getElementById("settingTarget").value =
+    db.settings.target || 0;
+
+  document.getElementById("settingCurrency").value =
+    db.settings.currency || "MMK";
 }
 
 function saveSettings(){
-  db.settings.company=
-    $("setCompany").value.trim()||"Aung Business";
+  const db = getDB();
 
-  db.settings.owner=
-    $("setOwner").value.trim()||"Owner";
+  db.settings.company =
+    document.getElementById("settingCompany").value.trim() ||
+    "Aung Business";
 
-  db.settings.target=
-    num($("setTarget").value)||100000000;
+  db.settings.owner =
+    document.getElementById("settingOwner").value.trim() ||
+    "Aung Zar Ni Win";
 
-  db.settings.currency=
-    $("setCurrency").value;
+  db.settings.target =
+    Number(document.getElementById("settingTarget").value || 0);
 
-  saveDB();
+  db.settings.currency =
+    document.getElementById("settingCurrency").value;
+
+  saveDB(db);
+
+  document.getElementById("companyLabel").textContent =
+    db.settings.company;
+
+  showToast("Settings saved");
   renderAll();
-
-  $("companyTop").textContent=db.settings.company;
-
-  toast("Settings saved");
 }
 
-/* EXPORT */
+function saveCustomer(e){
+  e.preventDefault();
 
-function exportReport(){
-  const t=totals();
+  const db = getDB();
 
-  const report={
-    generatedAt:new Date().toISOString(),
-    company:db.settings.company,
-    settings:db.settings,
-    summary:{
-      revenue:t.revenue,
-      cogs:t.cogs,
-      grossProfit:t.gross,
-      expenses:t.expenses,
-      netProfit:t.net,
-      customers:db.customers.length,
-      products:db.products.length,
-      employees:db.employees.length
-    },
-    sales:db.sales,
-    customers:db.customers,
-    products:db.products,
-    purchases:db.purchases,
-    expenses:db.expenses,
-    employees:db.employees
-  };
+  db.customers.push({
+    id:uid("cus"),
+    name:document.getElementById("customerName").value.trim(),
+    phone:document.getElementById("customerPhone").value.trim(),
+    address:document.getElementById("customerAddress").value.trim(),
+    creditLimit:Number(document.getElementById("customerCredit").value || 0),
+    openingBalance:0
+  });
 
-  const blob=new Blob(
-    [JSON.stringify(report,null,2)],
-    {type:"application/json"}
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("customerModal");
+  renderAll();
+  showToast("Customer added");
+}
+
+function saveSupplier(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  db.suppliers.push({
+    id:uid("sup"),
+    name:document.getElementById("supplierName").value.trim(),
+    phone:document.getElementById("supplierPhone").value.trim(),
+    address:document.getElementById("supplierAddress").value.trim(),
+    creditLimit:Number(document.getElementById("supplierCredit").value || 0),
+    openingBalance:0
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("supplierModal");
+  renderAll();
+  showToast("Supplier added");
+}
+
+function saveProduct(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  db.products.push({
+    id:uid("prd"),
+    name:document.getElementById("productName").value.trim(),
+    sku:document.getElementById("productSku").value.trim(),
+    category:document.getElementById("productCategory").value.trim(),
+    unit:document.getElementById("productUnit").value,
+    cost:Number(document.getElementById("productCost").value || 0),
+    price:Number(document.getElementById("productPrice").value || 0),
+    stock:Number(document.getElementById("productStock").value || 0),
+    lowStock:Number(document.getElementById("productLow").value || 5)
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("productModal");
+  renderAll();
+  showToast("Product added");
+}
+
+function prepareSaleModal(){
+  const db = getDB();
+
+  const customerSelect = document.getElementById("saleCustomer");
+
+  customerSelect.innerHTML =
+    `<option value="">Walk-in Customer</option>` +
+    db.customers.map(c=>
+      `<option value="${escapeHTML(c.id)}">${escapeHTML(c.name)}</option>`
+    ).join("");
+
+  const productSelect = document.getElementById("saleProduct");
+
+  productSelect.innerHTML =
+    `<option value="">Select Product</option>` +
+    db.products.map(p=>
+      `<option value="${escapeHTML(p.id)}">
+        ${escapeHTML(p.name)} — Stock ${money(p.stock)}
+      </option>`
+    ).join("");
+
+  document.getElementById("saleQty").value = 1;
+  document.getElementById("salePaid").value = 0;
+  document.getElementById("salePrice").value = 0;
+  document.getElementById("saleTotalPreview").textContent = "0";
+}
+
+function updateSalePrice(){
+  const db = getDB();
+  const id = document.getElementById("saleProduct").value;
+  const product = db.products.find(p=>p.id === id);
+
+  document.getElementById("salePrice").value =
+    product ? Number(product.price || 0) : 0;
+
+  updateSaleTotal();
+}
+
+function updateSaleTotal(){
+  const qty = Number(document.getElementById("saleQty").value || 0);
+  const price = Number(document.getElementById("salePrice").value || 0);
+
+  document.getElementById("saleTotalPreview").textContent =
+    money(qty*price);
+}
+
+function updatePaidField(){
+  const status = document.getElementById("salePaymentStatus").value;
+  const db = getDB();
+
+  const qty = Number(document.getElementById("saleQty").value || 0);
+  const price = Number(document.getElementById("salePrice").value || 0);
+  const total = qty*price;
+
+  if(status === "Paid"){
+    document.getElementById("salePaid").value = total;
+  }
+
+  if(status === "Credit"){
+    document.getElementById("salePaid").value = 0;
+  }
+
+  if(status === "Partial"){
+    document.getElementById("salePaid").value =
+      Math.floor(total/2);
+  }
+}
+
+function saveSale(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  const customerId =
+    document.getElementById("saleCustomer").value;
+
+  const productId =
+    document.getElementById("saleProduct").value;
+
+  const qty =
+    Number(document.getElementById("saleQty").value || 0);
+
+  const price =
+    Number(document.getElementById("salePrice").value || 0);
+
+  const paymentStatus =
+    document.getElementById("salePaymentStatus").value;
+
+  const paidAmount =
+    Number(document.getElementById("salePaid").value || 0);
+
+  if(!productId){
+    showToast("Product ရွေးပါ");
+    return;
+  }
+
+  if(qty <= 0){
+    showToast("Quantity မှန်ကန်စွာထည့်ပါ");
+    return;
+  }
+
+  const product = db.products.find(p=>p.id === productId);
+
+  if(!product){
+    showToast("Product မတွေ့ပါ");
+    return;
+  }
+
+  if(Number(product.stock || 0) < qty){
+    showToast("Stock မလုံလောက်ပါ");
+    return;
+  }
+
+  const customer = db.customers.find(c=>c.id === customerId);
+
+  const total = qty * price;
+  const costTotal = qty * Number(product.cost || 0);
+
+  if(paidAmount > total){
+    showToast("Paid amount က total ထက် မများရပါ");
+    return;
+  }
+
+  product.stock =
+    Number(product.stock || 0) - qty;
+
+  db.sales.push({
+    id:uid("sale"),
+    invoiceNo:"INV-" + Date.now().toString().slice(-8),
+    date:today(),
+    customerId:customerId || "",
+    customerName:customer?.name || "Walk-in",
+    productId,
+    productName:product.name,
+    qty,
+    price,
+    total,
+    costTotal,
+    paymentStatus,
+    paidAmount,
+    balanceDue:Math.max(total-paidAmount,0)
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("saleModal");
+  renderAll();
+  showToast("Sales invoice created");
+}
+
+function preparePurchaseModal(){
+  const db = getDB();
+
+  document.getElementById("purchaseSupplier").innerHTML =
+    `<option value="">Select Supplier</option>` +
+    db.suppliers.map(s=>
+      `<option value="${escapeHTML(s.id)}">${escapeHTML(s.name)}</option>`
+    ).join("");
+
+  document.getElementById("purchaseProduct").innerHTML =
+    `<option value="">Select Product</option>` +
+    db.products.map(p=>
+      `<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`
+    ).join("");
+}
+
+document.getElementById("purchaseProduct").addEventListener("change",()=>{
+  const db = getDB();
+  const id = document.getElementById("purchaseProduct").value;
+  const p = db.products.find(x=>x.id===id);
+
+  document.getElementById("purchaseCost").value =
+    p ? Number(p.cost || 0) : 0;
+});
+
+function savePurchase(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  const supplierId =
+    document.getElementById("purchaseSupplier").value;
+
+  const productId =
+    document.getElementById("purchaseProduct").value;
+
+  const qty =
+    Number(document.getElementById("purchaseQty").value || 0);
+
+  const cost =
+    Number(document.getElementById("purchaseCost").value || 0);
+
+  const paymentStatus =
+    document.getElementById("purchasePaymentStatus").value;
+
+  if(!productId || qty <= 0){
+    showToast("Product နဲ့ Quantity စစ်ပါ");
+    return;
+  }
+
+  const product = db.products.find(p=>p.id===productId);
+  const supplier = db.suppliers.find(s=>s.id===supplierId);
+
+  if(!product){
+    showToast("Product မတွေ့ပါ");
+    return;
+  }
+
+  const total = qty*cost;
+  const paidAmount = paymentStatus === "Paid" ? total : 0;
+
+  product.stock =
+    Number(product.stock || 0) + qty;
+
+  db.purchases.push({
+    id:uid("pur"),
+    purchaseNo:"PUR-" + Date.now().toString().slice(-8),
+    date:today(),
+    supplierId:supplierId || "",
+    supplierName:supplier?.name || "Unknown Supplier",
+    productId,
+    productName:product.name,
+    qty,
+    cost,
+    total,
+    paymentStatus,
+    paidAmount,
+    balanceDue:Math.max(total-paidAmount,0)
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("purchaseModal");
+  renderAll();
+  showToast("Purchase recorded");
+}
+
+function saveExpense(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  db.expenses.push({
+    id:uid("exp"),
+    date:today(),
+    category:document.getElementById("expenseCategory").value,
+    amount:Number(document.getElementById("expenseAmount").value || 0),
+    description:document.getElementById("expenseDescription").value.trim()
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("expenseModal");
+  renderAll();
+  showToast("Expense saved");
+}
+
+function saveEmployee(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  db.employees.push({
+    id:uid("emp"),
+    name:document.getElementById("employeeName").value.trim(),
+    role:document.getElementById("employeeRole").value.trim(),
+    phone:document.getElementById("employeePhone").value.trim(),
+    salary:Number(document.getElementById("employeeSalary").value || 0)
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("employeeModal");
+  renderAll();
+  showToast("Employee added");
+}
+
+function saveUser(e){
+  e.preventDefault();
+
+  const db = getDB();
+
+  db.users.push({
+    id:uid("usr"),
+    name:document.getElementById("userName").value.trim(),
+    email:document.getElementById("userEmail").value.trim(),
+    role:document.getElementById("userRole").value,
+    status:"Active"
+  });
+
+  saveDB(db);
+
+  e.target.reset();
+  closeModal("userModal");
+  renderAll();
+  showToast("User added");
+}
+
+/* =========================
+   BUSINESS TOOLS
+   ========================= */
+
+function calcGross(){
+  const revenue = Number(document.getElementById("toolRevenue").value || 0);
+  const cost = Number(document.getElementById("toolCost").value || 0);
+
+  const result = revenue-cost;
+
+  document.getElementById("toolGrossResult").textContent =
+    "Gross Profit = " + money(result);
+}
+
+function calcMargin(){
+  const revenue = Number(document.getElementById("marginRevenue").value || 0);
+  const profit = Number(document.getElementById("marginProfit").value || 0);
+
+  if(revenue <= 0){
+    document.getElementById("marginResult").textContent =
+      "Revenue ထည့်ပါ";
+    return;
+  }
+
+  document.getElementById("marginResult").textContent =
+    "Margin = " + ((profit/revenue)*100).toFixed(2) + "%";
+}
+
+function calcBreakEven(){
+  const fixed = Number(document.getElementById("beFixed").value || 0);
+  const margin = Number(document.getElementById("beMargin").value || 0);
+
+  if(margin <= 0){
+    document.getElementById("beResult").textContent =
+      "Margin % ထည့်ပါ";
+    return;
+  }
+
+  const result = fixed/(margin/100);
+
+  document.getElementById("beResult").textContent =
+    "Break-even = " + money(result);
+}
+
+function calcPrice(){
+  const cost = Number(document.getElementById("priceCost").value || 0);
+  const margin = Number(document.getElementById("priceMargin").value || 0);
+
+  if(margin >= 100){
+    document.getElementById("priceResult").textContent =
+      "Margin % < 100 ဖြစ်ရပါမယ်";
+    return;
+  }
+
+  const price = cost/(1-margin/100);
+
+  document.getElementById("priceResult").textContent =
+    "Selling Price = " + money(price);
+}
+
+function calcGrowth(){
+  const prev = Number(document.getElementById("growthPrev").value || 0);
+  const now = Number(document.getElementById("growthNow").value || 0);
+
+  if(prev <= 0){
+    document.getElementById("growthResult").textContent =
+      "Previous Revenue ထည့်ပါ";
+    return;
+  }
+
+  const growth = ((now-prev)/prev)*100;
+
+  document.getElementById("growthResult").textContent =
+    "Growth = " + growth.toFixed(2) + "%";
+}
+
+function calcAOV(){
+  const revenue = Number(document.getElementById("aovRevenue").value || 0);
+  const orders = Number(document.getElementById("aovOrders").value || 0);
+
+  if(orders <= 0){
+    document.getElementById("aovResult").textContent =
+      "Orders ထည့်ပါ";
+    return;
+  }
+
+  document.getElementById("aovResult").textContent =
+    "AOV = " + money(revenue/orders);
+}
+
+/* =========================
+   EXPORT
+   ========================= */
+
+function exportCSV(type){
+  const db = getDB();
+
+  const rows = db[type] || [];
+
+  if(!rows.length){
+    showToast("Export လုပ်စရာ data မရှိပါ");
+    return;
+  }
+
+  const headers = Object.keys(rows[0]);
+
+  const csv = [
+    headers.join(","),
+    ...rows.map(row=>
+      headers.map(h=>{
+        const value = String(row[h] ?? "")
+          .replace(/"/g,'""');
+        return `"${value}"`;
+      }).join(",")
+    )
+  ].join("\n");
+
+  downloadFile(
+    type + "_" + today() + ".csv",
+    csv,
+    "text/csv;charset=utf-8"
+  );
+}
+
+function exportAll(){
+  const db = getDB();
+
+  downloadFile(
+    "aung-smart-business-backup-" + today() + ".json",
+    JSON.stringify(db,null,2),
+    "application/json"
   );
 
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
+  showToast("Backup exported");
+}
 
-  a.href=url;
-  a.download=
-    "aung-smart-business-erp-backup-"+today()+".json";
+function downloadFile(name,content,type){
+  const blob = new Blob([content],{type});
+  const url = URL.createObjectURL(blob);
 
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
   document.body.appendChild(a);
   a.click();
   a.remove();
 
   URL.revokeObjectURL(url);
-
-  toast("Backup exported");
 }
-
-/* RESET */
 
 function resetData(){
-  const ok=confirm(
-    "All ERP data will be deleted from this browser. Continue?"
+  const yes = confirm(
+    "Demo data အားလုံးကို reset လုပ်မှာ သေချာပါသလား?"
   );
 
-  if(!ok) return;
+  if(!yes) return;
 
   localStorage.removeItem(DB_KEY);
-  db=defaultDB();
-  saveDB();
-  renderAll();
-  go("dashboard");
 
-  toast("ERP data reset");
+  const db = defaultDB();
+  saveDB(db);
+
+  renderAll();
+  showToast("Data reset");
 }
 
-/* KEYBOARD */
+/* =========================
+   API FOUNDATION
+   ========================= */
 
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){
-    document.querySelectorAll(".modal.show")
-      .forEach(m=>m.classList.remove("show"));
+async function apiRequest(path,options={}){
+  if(!API_BASE){
+    throw new Error("API mode is disabled");
   }
-});
 
-/* INIT */
+  const token =
+    localStorage.getItem("aung_smart_business_token");
 
-document.addEventListener("DOMContentLoaded",()=>{
-  $("saleDate").value=today();
-  $("purchaseDate").value=today();
-  $("expenseDate").value=today();
+  const headers = {
+    "Content-Type":"application/json",
+    ...(options.headers || {})
+  };
 
-  initAuth();
-});
+  if(token){
+    headers.Authorization = "Bearer " + token;
+  }
+
+  const res = await fetch(API_BASE + path,{
+    ...options,
+    headers
+  });
+
+  const data = await res.json().catch(()=>({}));
+
+  if(!res.ok){
+    throw new Error(data.message || "API request failed");
+  }
+
+  return data;
+}
+
+/* =========================
+   INITIALIZE
+   ========================= */
+
+(function init(){
+
+  getDB();
+
+  const session = getSession();
+
+  if(session){
+    startApp();
+  }
+
+})();
 </script>
 
 </body>
