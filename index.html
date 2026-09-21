@@ -1,998 +1,1920 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aung's 369 Manifesting</title>
+<title>AUNG SMART BUSINESS 100→1000</title>
 
 <style>
-*{box-sizing:border-box}
-
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f7fb;
+  --card:#fff;
+  --text:#172033;
+  --muted:#6b7280;
+  --border:#e7eaf0;
+  --dark:#111827;
+  --green:#16a34a;
+  --orange:#f59e0b;
+  --red:#dc2626;
+  --purple:#7c3aed;
+  --shadow:0 8px 28px rgba(15,23,42,.07);
+}
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f0ff;
-color:#222;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:var(--dark);
+  color:white;
+  position:fixed;
+  left:0;top:0;bottom:0;
+  padding:22px 16px;
+  overflow-y:auto;
+  z-index:1000;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:4px 8px 25px;
+}
+.brand-icon{
+  width:42px;height:42px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#22c55e,#84cc16);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  color:white;
+}
+.brand h1{font-size:15px;line-height:1.25}
+.brand span{font-size:11px;color:#9ca3af}
+.nav-title{
+  color:#6b7280;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1px;
+  padding:15px 10px 8px;
+}
+.nav-btn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#cbd5e1;
+  background:transparent;
+  padding:11px 12px;
+  border-radius:10px;
+  text-align:left;
+  margin-bottom:3px;
+  transition:.2s;
+}
+.nav-btn:hover{background:#1f2937;color:white}
+.nav-btn.active{background:#166534;color:white}
+.nav-icon{width:20px;text-align:center}
+.sidebar-bottom{
+  margin-top:22px;
+  padding:15px 10px;
+  border-top:1px solid #273244;
+}
+.owner{font-size:13px;font-weight:700}
+.role{font-size:11px;color:#9ca3af;margin-top:3px}
+
+/* MAIN */
+.main{
+  margin-left:260px;
+  width:calc(100% - 260px);
+}
+.topbar{
+  height:72px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  position:sticky;
+  top:0;
+  z-index:500;
+}
+.page-title{font-size:20px;font-weight:800}
+.page-subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.top-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{
+  width:38px;height:38px;
+  border:1px solid var(--border);
+  background:white;
+  border-radius:10px;
+}
+.avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:#111827;color:white;
+  display:grid;place-items:center;font-weight:800;
+}
+.mobile-menu{
+  display:none;
+  width:40px;height:40px;
+  background:white;border:1px solid var(--border);
+  border-radius:10px;
 }
 
-.container{
-max-width:600px;
-margin:auto;
-padding:20px;
+/* CONTENT */
+.content{padding:28px;max-width:1500px;margin:auto}
+.page{display:none}
+.page.active{display:block}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#111827,#1f2937);
+  color:white;
+  border-radius:18px;
+  padding:26px;
+  margin-bottom:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
 }
+.hero h2{font-size:24px;margin-bottom:7px}
+.hero p{color:#cbd5e1;font-size:13px}
+.hero-target{text-align:right}
+.hero-target small{color:#9ca3af}
+.hero-target strong{display:block;font-size:30px;color:#86efac}
 
-h1{text-align:center;margin-bottom:5px}
-
-.subtitle{
-text-align:center;
-color:#666;
-margin-bottom:20px;
+/* CARDS */
+.grid{
+  display:grid;
+  gap:16px;
 }
-
+.stats{
+  grid-template-columns:repeat(5,1fr);
+  margin-bottom:22px;
+}
 .card{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:18px;
-box-shadow:0 4px 15px rgba(0,0,0,.08);
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:var(--shadow);
 }
-
-.dashboard{
-background:linear-gradient(135deg,#7b3ff2,#a66cff);
-color:white;
-padding:25px;
-border-radius:22px;
-margin-bottom:20px;
-}
-
-.dashboard-stats{
-display:flex;
-gap:10px;
-margin-top:20px;
-}
-
-.stat{
-flex:1;
-background:rgba(255,255,255,.18);
-padding:15px 5px;
-border-radius:14px;
-text-align:center;
-}
-
-.stat-number{
-font-size:25px;
-font-weight:bold;
-}
-
 .stat-label{
-font-size:12px;
-margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
 }
-
-label{
-display:block;
-margin-top:12px;
-font-weight:bold;
+.stat-value{
+  font-size:25px;
+  font-weight:850;
+  margin-top:9px;
 }
-
-textarea,input{
-width:100%;
-padding:12px;
-margin-top:8px;
-border:1px solid #ccc;
-border-radius:10px;
-font-size:16px;
+.stat-change{
+  font-size:11px;
+  margin-top:8px;
 }
+.up{color:var(--green)}
+.warn{color:var(--orange)}
+.down{color:var(--red)}
 
-button{
-width:100%;
-padding:14px;
-margin-top:12px;
-border:0;
-border-radius:10px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+.two-col{
+  grid-template-columns:1.35fr .65fr;
 }
-
-.save,.journal-btn{
-background:#7b3ff2;
-color:white;
+.three-col{
+  grid-template-columns:repeat(3,1fr);
 }
-
-.practice{
-background:#222;
-color:white;
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
 }
+.section-head h3{font-size:16px}
+.section-head span{font-size:11px;color:var(--muted)}
 
-.reminder-box{
-background:#fff5d6;
-padding:15px;
-border-radius:12px;
-margin-top:15px;
-text-align:center;
-font-weight:bold;
+.progress-wrap{margin-top:15px}
+.progress{
+  height:11px;
+  background:#edf0f4;
+  border-radius:99px;
+  overflow:hidden;
 }
-
-.progress-box{
-background:#f1ebff;
-padding:20px;
-border-radius:15px;
-text-align:center;
-}
-
-.progress-number{
-font-size:38px;
-font-weight:bold;
-}
-
 .progress-bar{
-width:100%;
-height:15px;
-background:#ddd;
-border-radius:10px;
-overflow:hidden;
-margin-top:12px;
+  height:100%;
+  width:0%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#16a34a,#84cc16);
+  transition:width .5s;
+}
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin-top:8px;
+  color:var(--muted);
 }
 
-.progress-fill{
-height:100%;
-width:0%;
-background:#7b3ff2;
-transition:.3s;
+.metric-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+.metric-row:last-child{border-bottom:0}
+.metric-row strong{font-weight:800}
+
+.action{
+  padding:13px;
+  border-radius:12px;
+  background:#f8fafc;
+  margin-bottom:9px;
+  font-size:12px;
+  border-left:4px solid var(--orange);
+}
+.action strong{display:block;margin-bottom:4px}
+
+.btn{
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:750;
+  font-size:12px;
+}
+.btn-primary{background:#111827;color:white}
+.btn-green{background:#16a34a;color:white}
+.btn-light{background:#f1f5f9;color:#334155}
+.btn-danger{background:#dc2626;color:white}
+
+/* FORMS */
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+.field input,.field select{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:11px 12px;
+  outline:none;
+  background:white;
+}
+.field input:focus,.field select:focus{
+  border-color:#16a34a;
+}
+.form-actions{
+  margin-top:18px;
+  display:flex;
+  gap:8px;
 }
 
-.counter{
-display:flex;
-gap:10px;
-margin-top:15px;
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:12px;
+}
+th{font-size:11px;color:var(--muted);background:#f8fafc}
+
+/* GROWTH */
+.stage{
+  position:relative;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:white;
+}
+.stage-number{
+  width:34px;height:34px;border-radius:10px;
+  display:grid;place-items:center;
+  background:#111827;color:white;
+  font-weight:800;
+  margin-bottom:12px;
+}
+.stage h4{font-size:15px}
+.stage p{font-size:11px;color:var(--muted);margin-top:5px}
+.stage.current{border:2px solid #16a34a}
+.stage.current .stage-number{background:#16a34a}
+
+/* CALCULATOR */
+.result-box{
+  background:#111827;
+  color:white;
+  padding:20px;
+  border-radius:14px;
+  margin-top:18px;
+}
+.result-big{font-size:30px;font-weight:900;color:#86efac}
+.result-label{font-size:11px;color:#9ca3af}
+
+/* AI */
+.chat{
+  height:360px;
+  overflow-y:auto;
+  padding:15px;
+  background:#f8fafc;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+.msg{
+  max-width:85%;
+  padding:11px 13px;
+  border-radius:12px;
+  margin-bottom:10px;
+  font-size:12px;
+  line-height:1.55;
+}
+.msg.ai{background:white;border:1px solid var(--border)}
+.msg.user{background:#111827;color:white;margin-left:auto}
+.chat-input{display:flex;gap:8px}
+.chat-input input{
+  flex:1;padding:12px;border:1px solid var(--border);border-radius:9px;
 }
 
-.box{
-flex:1;
-text-align:center;
-padding:18px 5px;
-background:#f1ebff;
-border-radius:12px;
-font-size:20px;
-font-weight:bold;
+/* TOAST */
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#111827;
+  color:white;
+  padding:13px 17px;
+  border-radius:10px;
+  font-size:12px;
+  opacity:0;
+  transform:translateY(15px);
+  pointer-events:none;
+  transition:.25s;
+  z-index:3000;
 }
+.toast.show{opacity:1;transform:translateY(0)}
 
-.small{
-display:block;
-font-size:13px;
-margin-top:5px;
-color:#666;
+/* MOBILE */
+@media(max-width:1100px){
+  .stats{grid-template-columns:repeat(3,1fr)}
 }
-
-.streak{
-text-align:center;
-font-size:25px;
-font-weight:bold;
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+  .mobile-menu{display:block}
+  .topbar{padding:0 15px}
+  .content{padding:16px}
+  .hero{align-items:flex-start;flex-direction:column}
+  .hero-target{text-align:left}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .two-col,.three-col{grid-template-columns:1fr}
 }
-
-.badge{
-text-align:center;
-margin-top:12px;
-font-size:18px;
-}
-
-.journal-entry{
-background:#f8f5ff;
-padding:12px;
-border-radius:10px;
-margin-top:10px;
-}
-
-.journal-date{
-font-weight:bold;
-color:#7b3ff2;
-margin-bottom:5px;
-}
-
-.history{
-line-height:1.8;
-color:#555;
-}
-
-.message{
-text-align:center;
-margin-top:15px;
-font-weight:bold;
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .card{padding:15px}
+  .stat-value{font-size:21px}
+  .form-grid{grid-template-columns:1fr}
+  .page-title{font-size:17px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>✨ Aung's 369 Manifesting</h1>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
 
-<div class="subtitle">
-369 Method • Daily Manifestation
+  <div class="brand">
+    <div class="brand-icon">A</div>
+    <div>
+      <h1>AUNG SMART BUSINESS</h1>
+      <span>100 → 1000 Growth System</span>
+    </div>
+  </div>
+
+  <div class="nav-title">MAIN</div>
+
+  <button class="nav-btn active" data-page="dashboard">
+    <span class="nav-icon">⌂</span> Dashboard
+  </button>
+
+  <button class="nav-btn" data-page="sales">
+    <span class="nav-icon">↗</span> Sales
+  </button>
+
+  <button class="nav-btn" data-page="customers">
+    <span class="nav-icon">♙</span> Customers
+  </button>
+
+  <button class="nav-btn" data-page="products">
+    <span class="nav-icon">▣</span> Products
+  </button>
+
+  <button class="nav-btn" data-page="finance">
+    <span class="nav-icon">◉</span> Finance
+  </button>
+
+  <button class="nav-btn" data-page="inventory">
+    <span class="nav-icon">▤</span> Inventory
+  </button>
+
+  <div class="nav-title">GROWTH</div>
+
+  <button class="nav-btn" data-page="growth">
+    <span class="nav-icon">◆</span> 100 → 1000 Roadmap
+  </button>
+
+  <button class="nav-btn" data-page="kpi">
+    <span class="nav-icon">◈</span> KPI Center
+  </button>
+
+  <button class="nav-btn" data-page="calculator">
+    <span class="nav-icon">⌗</span> Smart Calculators
+  </button>
+
+  <button class="nav-btn" data-page="coach">
+    <span class="nav-icon">✦</span> AI Business Coach
+  </button>
+
+  <div class="nav-title">SYSTEM</div>
+
+  <button class="nav-btn" data-page="reports">
+    <span class="nav-icon">▥</span> Reports
+  </button>
+
+  <button class="nav-btn" data-page="settings">
+    <span class="nav-icon">⚙</span> Settings
+  </button>
+
+  <div class="sidebar-bottom">
+    <div class="owner">Aung Zar Ni Win</div>
+    <div class="role">Business Owner</div>
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="mobile-menu" id="mobileMenu">☰</button>
+    <div>
+      <div class="page-title" id="pageTitle">Business Dashboard</div>
+      <div class="page-subtitle">သင့်လုပ်ငန်းကို သိန်း ၁၀၀ → သိန်း ၁,၀၀၀ အထိ စနစ်တကျ တိုးတက်စေရန်</div>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" id="resetBtn" title="Reset">↻</button>
+    <div class="avatar">AZ</div>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<section class="page active" id="dashboard">
+
+  <div class="hero">
+    <div>
+      <h2>100 → 1000 Business Growth</h2>
+      <p>Track your business. Control your numbers. Build your growth system.</p>
+    </div>
+    <div class="hero-target">
+      <small>Growth Target</small>
+      <strong>1,000 သိန်း</strong>
+    </div>
+  </div>
+
+  <div class="grid stats">
+
+    <div class="card">
+      <div class="stat-label">ဒီလ ရောင်းအား</div>
+      <div class="stat-value" id="dashSales">385 သိန်း</div>
+      <div class="stat-change up">▲ 12.5% vs last month</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Gross Profit</div>
+      <div class="stat-value" id="dashGross">96.2 သိန်း</div>
+      <div class="stat-change up">25.0% Margin</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Net Profit</div>
+      <div class="stat-value" id="dashNet">61.2 သိန်း</div>
+      <div class="stat-change up">15.9% Margin</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Monthly Target</div>
+      <div class="stat-value">500 သိန်း</div>
+      <div class="stat-change warn">Gap 115 သိန်း</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Growth Progress</div>
+      <div class="stat-value" id="growthPercent">38.5%</div>
+      <div class="stat-change up">385 / 1,000 သိန်း</div>
+    </div>
+
+  </div>
+
+  <div class="grid two-col">
+
+    <div class="card">
+      <div class="section-head">
+        <h3>100 → 1,000 Growth Progress</h3>
+        <span id="growthText">385 / 1,000 သိန်း</span>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress">
+          <div class="progress-bar" id="mainProgress"></div>
+        </div>
+        <div class="progress-info">
+          <span>Start 100 သိန်း</span>
+          <strong id="progressPercent">38.5%</strong>
+          <span>Target 1,000 သိန်း</span>
+        </div>
+      </div>
+
+      <div style="margin-top:22px" class="grid three-col">
+        <div>
+          <div class="stat-label">Current</div>
+          <strong>385 သိန်း</strong>
+        </div>
+        <div>
+          <div class="stat-label">Remaining</div>
+          <strong>615 သိန်း</strong>
+        </div>
+        <div>
+          <div class="stat-label">Required Growth</div>
+          <strong>159.7%</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-head">
+        <h3>CEO Attention</h3>
+        <span>Today</span>
+      </div>
+
+      <div class="action">
+        <strong>⚠ Sales Gap</strong>
+        Monthly target ထက် 115 သိန်း လိုနေပါသည်
+      </div>
+
+      <div class="action">
+        <strong>⚡ Customer Recovery</strong>
+        Inactive customers 15 ယောက်ကို follow-up လုပ်ပါ
+      </div>
+
+      <div class="action">
+        <strong>📦 Inventory</strong>
+        Slow-moving stock ကို စစ်ဆေးပါ
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="section-head">
+      <h3>Business Health</h3>
+      <span>Live calculation</span>
+    </div>
+
+    <div class="grid three-col">
+
+      <div>
+        <div class="metric-row">
+          <span>Sales Achievement</span>
+          <strong>77%</strong>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width:77%"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="metric-row">
+          <span>Profit Margin</span>
+          <strong>15.9%</strong>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width:64%"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="metric-row">
+          <span>Customer Retention</span>
+          <strong>82%</strong>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" style="width:82%"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- SALES -->
+<section class="page" id="sales">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>Sales Management</h3>
+      <button class="btn btn-green" id="addSaleBtn">+ Add Sale</button>
+    </div>
+
+    <div class="grid stats">
+      <div class="card">
+        <div class="stat-label">Today</div>
+        <div class="stat-value">18.5 L</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">This Month</div>
+        <div class="stat-value">385 L</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Orders</div>
+        <div class="stat-value">146</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Avg Order</div>
+        <div class="stat-value">2.64 L</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Achievement</div>
+        <div class="stat-value">77%</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Amount</th>
+            <th>Profit</th>
+          </tr>
+        </thead>
+        <tbody id="salesTable">
+          <tr>
+            <td>21 Sep</td>
+            <td>ABC Distribution</td>
+            <td>Product A</td>
+            <td>5.20 L</td>
+            <td class="up">1.30 L</td>
+          </tr>
+          <tr>
+            <td>21 Sep</td>
+            <td>Golden Store</td>
+            <td>Product B</td>
+            <td>3.80 L</td>
+            <td class="up">0.95 L</td>
+          </tr>
+          <tr>
+            <td>20 Sep</td>
+            <td>City Mart</td>
+            <td>Product C</td>
+            <td>2.60 L</td>
+            <td class="up">0.65 L</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+<section class="page" id="customers">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>Customer Management</h3>
+      <button class="btn btn-green" id="addCustomerBtn">+ Add Customer</button>
+    </div>
+
+    <div class="grid three-col">
+      <div class="card">
+        <div class="stat-label">Total Customers</div>
+        <div class="stat-value">248</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Active</div>
+        <div class="stat-value">198</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Inactive</div>
+        <div class="stat-value">50</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px" class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Type</th>
+            <th>Total Sales</th>
+            <th>Last Order</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ABC Distribution</td>
+            <td>Distributor</td>
+            <td>85.5 L</td>
+            <td>Today</td>
+            <td class="up">Active</td>
+          </tr>
+          <tr>
+            <td>Golden Store</td>
+            <td>Retail</td>
+            <td>42.8 L</td>
+            <td>Yesterday</td>
+            <td class="up">Active</td>
+          </tr>
+          <tr>
+            <td>City Mart</td>
+            <td>Retail</td>
+            <td>21.4 L</td>
+            <td>15 days ago</td>
+            <td class="warn">Follow-up</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+<section class="page" id="products">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>Products</h3>
+      <button class="btn btn-green" id="addProductBtn">+ Add Product</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Cost</th>
+            <th>Price</th>
+            <th>Margin</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Product A</td>
+            <td>Main</td>
+            <td>8,000</td>
+            <td>10,000</td>
+            <td class="up">20%</td>
+            <td>420</td>
+          </tr>
+          <tr>
+            <td>Product B</td>
+            <td>Main</td>
+            <td>12,000</td>
+            <td>15,000</td>
+            <td class="up">20%</td>
+            <td>180</td>
+          </tr>
+          <tr>
+            <td>Product C</td>
+            <td>Premium</td>
+            <td>20,000</td>
+            <td>28,000</td>
+            <td class="up">28.6%</td>
+            <td>75</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- FINANCE -->
+<section class="page" id="finance">
+
+  <div class="grid stats">
+
+    <div class="card">
+      <div class="stat-label">Revenue</div>
+      <div class="stat-value">385 L</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">COGS</div>
+      <div class="stat-value">288.8 L</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Gross Profit</div>
+      <div class="stat-value">96.2 L</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Expenses</div>
+      <div class="stat-value">35 L</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-label">Net Profit</div>
+      <div class="stat-value">61.2 L</div>
+    </div>
+
+  </div>
+
+  <div class="grid two-col">
+
+    <div class="card">
+      <div class="section-head">
+        <h3>Profit & Loss</h3>
+        <span>September 2026</span>
+      </div>
+
+      <div class="metric-row">
+        <span>Sales Revenue</span>
+        <strong>385.0 L</strong>
+      </div>
+
+      <div class="metric-row">
+        <span>Cost of Goods Sold</span>
+        <strong>288.8 L</strong>
+      </div>
+
+      <div class="metric-row">
+        <span>Gross Profit</span>
+        <strong class="up">96.2 L</strong>
+      </div>
+
+      <div class="metric-row">
+        <span>Operating Expenses</span>
+        <strong>35.0 L</strong>
+      </div>
+
+      <div class="metric-row">
+        <span>Net Profit</span>
+        <strong class="up">61.2 L</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-head">
+        <h3>Cash Flow</h3>
+        <span>This Month</span>
+      </div>
+
+      <div class="metric-row">
+        <span>Cash In</span>
+        <strong class="up">350 L</strong>
+      </div>
+
+      <div class="metric-row">
+        <span>Cash Out</span>
+        <strong>290 L</strong>
+      </div>
+
+      <div class="metric-row">
+        <span>Net Cash Flow</span>
+        <strong class="up">60 L</strong>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INVENTORY -->
+<section class="page" id="inventory">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>Inventory Control</h3>
+      <button class="btn btn-primary" id="stockBtn">+ Stock In</button>
+    </div>
+
+    <div class="grid three-col">
+      <div class="card">
+        <div class="stat-label">Stock Value</div>
+        <div class="stat-value">185 L</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Low Stock</div>
+        <div class="stat-value warn">8</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Dead Stock</div>
+        <div class="stat-value down">14</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px" class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Current Stock</th>
+            <th>Reorder Level</th>
+            <th>Stock Value</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Product A</td>
+            <td>420</td>
+            <td>100</td>
+            <td>33.6 L</td>
+            <td class="up">Healthy</td>
+          </tr>
+          <tr>
+            <td>Product B</td>
+            <td>45</td>
+            <td>80</td>
+            <td>5.4 L</td>
+            <td class="warn">Reorder</td>
+          </tr>
+          <tr>
+            <td>Product C</td>
+            <td>12</td>
+            <td>30</td>
+            <td>2.4 L</td>
+            <td class="down">Low</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- GROWTH -->
+<section class="page" id="growth">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>100 → 1000 Growth Roadmap</h3>
+      <span>Business Scaling System</span>
+    </div>
+
+    <div class="grid three-col">
+
+      <div class="stage">
+        <div class="stage-number">1</div>
+        <h4>100 → 200 သိန်း</h4>
+        <p>Foundation & Sales Discipline</p>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+        </div>
+      </div>
+
+      <div class="stage current">
+        <div class="stage-number">2</div>
+        <h4>200 → 300 သိန်း</h4>
+        <p>Sales System & Customer Growth</p>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:80%"></div></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-number">3</div>
+        <h4>300 → 500 သိန်း</h4>
+        <p>Team & Distribution</p>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:45%"></div></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-number">4</div>
+        <h4>500 → 700 သိန်း</h4>
+        <p>Scale Operations</p>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:20%"></div></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-number">5</div>
+        <h4>700 → 900 သိန်း</h4>
+        <p>Expansion</p>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:8%"></div></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-number">6</div>
+        <h4>900 → 1,000 သိန်း</h4>
+        <p>Systemized Business</p>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:2%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="section-head">
+      <h3>90-Day Growth Plan</h3>
+      <button class="btn btn-green" id="planBtn">Generate Plan</button>
+    </div>
+
+    <div id="planOutput">
+      <div class="grid three-col">
+
+        <div class="action">
+          <strong>Days 1–30</strong>
+          Customer + Sales Foundation
+        </div>
+
+        <div class="action">
+          <strong>Days 31–60</strong>
+          Sales Growth + Profit Improvement
+        </div>
+
+        <div class="action">
+          <strong>Days 61–90</strong>
+          Team + Scale System
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- KPI -->
+<section class="page" id="kpi">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>KPI Center</h3>
+      <span>Key Business Numbers</span>
+    </div>
+
+    <div class="grid three-col">
+
+      <div class="card">
+        <div class="stat-label">Sales Achievement</div>
+        <div class="stat-value">77%</div>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:77%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Gross Margin</div>
+        <div class="stat-value">25%</div>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Net Margin</div>
+        <div class="stat-value">15.9%</div>
+        <div class="progress-wrap">
+          <div class="progress"><div class="progress-bar" style="width:64%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Customer Retention</div>
+        <div class="stat-value">82%</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Average Order Value</div>
+        <div class="stat-value">2.64 L</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Repeat Customer</div>
+        <div class="stat-value">68%</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- CALCULATOR -->
+<section class="page" id="calculator">
+
+  <div class="grid two-col">
+
+    <div class="card">
+      <div class="section-head">
+        <h3>100 → 1000 Target Calculator</h3>
+        <span>Smart Planning</span>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Current Sales (သိန်း)</label>
+          <input id="currentSales" type="number" value="100">
+        </div>
+
+        <div class="field">
+          <label>Target Sales (သိန်း)</label>
+          <input id="targetSales" type="number" value="1000">
+        </div>
+
+        <div class="field">
+          <label>Target Period (Months)</label>
+          <input id="targetMonths" type="number" value="12">
+        </div>
+
+        <div class="field">
+          <label>Gross Margin %</label>
+          <input id="margin" type="number" value="25">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-green" id="calculateBtn">Calculate Growth Plan</button>
+      </div>
+
+      <div class="result-box">
+        <div class="result-label">Required Monthly Average</div>
+        <div class="result-big" id="monthlyRequired">75 သိန်း</div>
+
+        <div style="margin-top:15px" class="grid three-col">
+          <div>
+            <div class="result-label">Revenue Gap</div>
+            <strong id="revenueGap">900 L</strong>
+          </div>
+
+          <div>
+            <div class="result-label">Monthly Growth</div>
+            <strong id="monthlyGrowth">21.15%</strong>
+          </div>
+
+          <div>
+            <div class="result-label">Potential Gross Profit</div>
+            <strong id="potentialProfit">225 L</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="section-head">
+        <h3>Profit Calculator</h3>
+        <span>Margin Control</span>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Selling Price</label>
+          <input id="sellPrice" type="number" value="10000">
+        </div>
+
+        <div class="field">
+          <label>Cost</label>
+          <input id="costPrice" type="number" value="7500">
+        </div>
+
+        <div class="field">
+          <label>Quantity</label>
+          <input id="quantity" type="number" value="100">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" id="profitBtn">Calculate Profit</button>
+      </div>
+
+      <div class="result-box">
+        <div class="result-label">Total Profit</div>
+        <div class="result-big" id="profitResult">250,000 Ks</div>
+        <div style="margin-top:10px">
+          <span class="result-label">Margin: </span>
+          <strong id="profitMargin">25%</strong>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- AI COACH -->
+<section class="page" id="coach">
+
+  <div class="card">
+
+    <div class="section-head">
+      <div>
+        <h3>✦ AI Business Coach</h3>
+        <span>Ask about your business</span>
+      </div>
+    </div>
+
+    <div class="chat" id="chat">
+
+      <div class="msg ai">
+        မင်္ဂလာပါ 👋<br><br>
+        ကျွန်တော်က သင့် Business Growth Coach ပါ<br><br>
+        Sales, Profit, Customer, Team, Cash Flow နဲ့
+        100 → 1000 Growth အကြောင်း မေးနိုင်ပါတယ်
+      </div>
+
+    </div>
+
+    <div class="chat-input">
+      <input id="chatInput" placeholder="ဥပမာ — ရောင်းအားတိုးဖို့ ဘာလုပ်ရမလဲ">
+      <button class="btn btn-primary" id="sendChat">Send</button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REPORTS -->
+<section class="page" id="reports">
+
+  <div class="card">
+    <div class="section-head">
+      <h3>Business Reports</h3>
+      <button class="btn btn-primary" id="exportBtn">Export Report</button>
+    </div>
+
+    <div class="grid three-col">
+
+      <div class="card">
+        <div class="stat-label">Monthly Sales</div>
+        <div class="stat-value">385 L</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Monthly Profit</div>
+        <div class="stat-value">61.2 L</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Growth</div>
+        <div class="stat-value">12.5%</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="metric-row">
+        <span>Sales Report</span>
+        <button class="btn btn-light" onclick="showToast('Sales Report opened')">Open</button>
+      </div>
+
+      <div class="metric-row">
+        <span>Profit Report</span>
+        <button class="btn btn-light" onclick="showToast('Profit Report opened')">Open</button>
+      </div>
+
+      <div class="metric-row">
+        <span>Customer Report</span>
+        <button class="btn btn-light" onclick="showToast('Customer Report opened')">Open</button>
+      </div>
+
+      <div class="metric-row">
+        <span>Inventory Report</span>
+        <button class="btn btn-light" onclick="showToast('Inventory Report opened')">Open</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+<section class="page" id="settings">
+
+  <div class="card">
+
+    <div class="section-head">
+      <h3>Business Settings</h3>
+      <span>Configuration</span>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Business Name</label>
+        <input id="businessName" value="My Business">
+      </div>
+
+      <div class="field">
+        <label>Owner Name</label>
+        <input id="ownerName" value="Business Owner">
+      </div>
+
+      <div class="field">
+        <label>Starting Capital (သိန်း)</label>
+        <input id="startingCapital" type="number" value="100">
+      </div>
+
+      <div class="field">
+        <label>Growth Target (သိန်း)</label>
+        <input id="growthTarget" type="number" value="1000">
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-green" id="saveSettings">Save Settings</button>
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+</main>
 </div>
 
-
-<div class="dashboard">
-
-<h2>🌟 Today's Dashboard</h2>
-
-<div id="dashboardGoal">
-Set your goal below ✨
-</div>
-
-<div id="dashboardAffirmation">
-Set your affirmation below 💫
-</div>
-
-<div class="dashboard-stats">
-
-<div class="stat">
-<div class="stat-number" id="dashboardProgress">0%</div>
-<div class="stat-label">Progress</div>
-</div>
-
-<div class="stat">
-<div class="stat-number" id="dashboardStreak">0</div>
-<div class="stat-label">Day Streak</div>
-</div>
-
-</div>
-
-<div class="reminder-box" id="reminder">
-✨ Start your 369 practice today
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>🌟 My Intention</h2>
-
-<label>My Goal</label>
-
-<textarea id="goal" rows="3"
-placeholder="Write your goal..."></textarea>
-
-<label>My Affirmation</label>
-
-<textarea id="affirmation" rows="3"
-placeholder="Write your affirmation..."></textarea>
-
-<button class="save" onclick="saveGoal()">
-💾 Save My Goal
-</button>
-<button class="practice" onclick="enableNotifications()">
-🔔 Enable Notifications
-</button>
-</div>
-
-
-<!-- REMINDER TIME -->
-
-<div class="card">
-
-<h2>⏰ My Reminder Time</h2>
-
-<label>☀️ Morning 3</label>
-<input type="time" id="morningTime">
-
-<label>🌤️ Afternoon 6</label>
-<input type="time" id="afternoonTime">
-
-<label>🌙 Night 9</label>
-<input type="time" id="nightTime">
-
-<button class="save" onclick="saveReminder()">
-⏰ Save Reminder Times
-</button>
-    <button class="practice" onclick="enableNotifications()">
-🔔 Enable Notifications
-</button>
-<button class="practice" onclick="enableNotifications()">
-🔔 Enable Notifications
-</button>
-<div class="message" id="reminderMessage"></div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📊 Today's Progress</h2>
-
-<div class="progress-box">
-
-<div class="progress-number" id="progress">
-0%
-</div>
-
-<div class="progress-bar">
-<div class="progress-fill" id="progressFill"></div>
-</div>
-
-</div>
-
-<div class="counter">
-
-<div class="box">
-<span id="morning">0</span>
-<span class="small">Morning / 3</span>
-</div>
-
-<div class="box">
-<span id="afternoon">0</span>
-<span class="small">Afternoon / 6</span>
-</div>
-
-<div class="box">
-<span id="night">0</span>
-<span class="small">Night / 9</span>
-</div>
-
-</div>
-
-<button class="practice" onclick="completeMorning()">
-☀️ Complete Morning 3
-</button>
-
-<button class="practice" onclick="completeAfternoon()">
-🌤️ Complete Afternoon 6
-</button>
-
-<button class="practice" onclick="completeNight()">
-🌙 Complete Night 9
-</button>
-
-<div class="message" id="message">
-Start your 369 practice today ✨
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="streak">
-🔥 Streak: <span id="streak">0</span> Days
-</div>
-
-<div class="badge" id="badge">
-🌱 Start Your Journey
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📝 Daily Journal</h2>
-
-<label>How do I feel today?</label>
-
-<textarea id="journal" rows="5"
-placeholder="Write your thoughts, feelings, gratitude or manifestation..."></textarea>
-
-<button class="journal-btn" onclick="saveJournal()">
-📖 Save Today's Journal
-</button>
-
-<div class="message" id="journalMessage"></div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📖 Journal History</h2>
-
-<div id="journalHistory">
-No journal entries yet.
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h2>📜 369 Practice History</h2>
-
-<div class="history" id="history">
-No completed days yet.
-</div>
-
-</div>
-
-</div>
-
+<div class="toast" id="toast"></div>
 
 <script>
+"use strict";
 
-function getToday(){
+/* =========================
+   BASIC HELPERS
+========================= */
 
-const d=new Date();
+const $ = id => document.getElementById(id);
 
-return d.getFullYear()+"-"+
-String(d.getMonth()+1).padStart(2,"0")+"-"+
-String(d.getDate()).padStart(2,"0");
+function showToast(message){
+  const toast=$("toast");
+  toast.textContent=message;
+  toast.classList.add("show");
 
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
 }
 
-
-function checkNewDay(){
-
-const today=getToday();
-
-const savedDate=
-localStorage.getItem("practiceDate");
-
-if(savedDate!==today){
-
-localStorage.setItem("practiceDate",today);
-
-localStorage.setItem("morning","0");
-localStorage.setItem("afternoon","0");
-localStorage.setItem("night","0");
-
-}
-
-}
-
-
-function saveGoal(){
-
-const goal=document.getElementById("goal").value;
-
-const affirmation=
-document.getElementById("affirmation").value;
-
-localStorage.setItem("goal",goal);
-
-localStorage.setItem(
-"affirmation",
-affirmation
-);
-
-updateDashboard();
-
-document.getElementById("message").innerHTML=
-"✅ Goal and affirmation saved!";
-
-}
-
-
-function saveReminder(){
-
-localStorage.setItem(
-"morningTime",
-document.getElementById("morningTime").value
-);
-
-localStorage.setItem(
-"afternoonTime",
-document.getElementById("afternoonTime").value
-);
-
-localStorage.setItem(
-"nightTime",
-document.getElementById("nightTime").value
-);
-
-document.getElementById(
-"reminderMessage"
-).innerHTML=
-"✅ Reminder times saved!";
-
-}
-
-
-function updateDashboard(){
-
-const goal=
-localStorage.getItem("goal")||
-"Set your goal below ✨";
-
-const affirmation=
-localStorage.getItem("affirmation")||
-"Set your affirmation below 💫";
-
-document.getElementById(
-"dashboardGoal"
-).innerText=goal;
-
-document.getElementById(
-"dashboardAffirmation"
-).innerText=affirmation;
-
-document.getElementById(
-"dashboardProgress"
-).innerText=
-document.getElementById("progress").innerText;
-
-document.getElementById(
-"dashboardStreak"
-).innerText=
-document.getElementById("streak").innerText;
-
-updateReminder();
-
-}
-
-
-function updateProgress(){
-
-const morning=
-localStorage.getItem("morning")==="3";
-
-const afternoon=
-localStorage.getItem("afternoon")==="6";
-
-const night=
-localStorage.getItem("night")==="9";
-
-let progress=0;
-
-if(morning)progress+=33.33;
-
-if(afternoon)progress+=33.33;
-
-if(night)progress+=33.34;
-
-const percent=
-Math.round(progress)+"%";
-
-document.getElementById(
-"progress"
-).innerText=percent;
-
-document.getElementById(
-"progressFill"
-).style.width=progress+"%";
-
-document.getElementById(
-"dashboardProgress"
-).innerText=percent;
-
-updateReminder();
-
-}
-
-
-function updateReminder(){
-
-const morning=
-localStorage.getItem("morning")==="3";
-
-const afternoon=
-localStorage.getItem("afternoon")==="6";
-
-const night=
-localStorage.getItem("night")==="9";
-
-let text="✨ Start your 369 practice today";
-
-if(!morning){
-
-const time=
-localStorage.getItem("morningTime");
-
-text=time ?
-"☀️ Morning 3 • "+time :
-"☀️ Morning: Write 3 times";
-
-}else if(!afternoon){
-
-const time=
-localStorage.getItem("afternoonTime");
-
-text=time ?
-"🌤️ Afternoon 6 • "+time :
-"🌤️ Afternoon: Write 6 times";
-
-}else if(!night){
-
-const time=
-localStorage.getItem("nightTime");
-
-text=time ?
-"🌙 Night 9 • "+time :
-"🌙 Night: Write 9 times";
-
-}else{
-
-text="🎉 Today's 369 is complete!";
-
-}
-
-document.getElementById(
-"reminder"
-).innerText=text;
-
-}
-
-
-function completeMorning(){
-
-localStorage.setItem("morning","3");
-
-document.getElementById(
-"morning"
-).innerText="3";
-
-updateProgress();
-
-document.getElementById(
-"message"
-).innerHTML=
-"☀️ Morning 3 completed!";
-
-}
-
-
-function completeAfternoon(){
-
-localStorage.setItem("afternoon","6");
-
-document.getElementById(
-"afternoon"
-).innerText="6";
-
-updateProgress();
-
-document.getElementById(
-"message"
-).innerHTML=
-"🌤️ Afternoon 6 completed!";
-
-}
-
-
-function completeNight(){
-
-const today=getToday();
-
-if(
-localStorage.getItem("completedToday")===today
-){
-
-document.getElementById(
-"message"
-).innerHTML=
-"✅ Today's 369 is already complete!";
-
-return;
-
-}
-
-localStorage.setItem("night","9");
-
-document.getElementById(
-"night"
-).innerText="9";
-
-updateProgress();
-
-let history=
-JSON.parse(
-localStorage.getItem("history")||"[]"
-);
-
-if(!history.includes(today)){
-
-history.push(today);
-
-localStorage.setItem(
-"history",
-JSON.stringify(history)
-);
-
-}
-
-localStorage.setItem(
-"completedToday",
-today
-);
-
-calculateStreak();
-
-document.getElementById(
-"message"
-).innerHTML=
-"🎉 Today's 369 practice is complete!";
-
-showHistory();
-
-updateDashboard();
-
-}
-
-
-function calculateStreak(){
-
-const history=
-JSON.parse(
-localStorage.getItem("history")||"[]"
-);
-
-if(history.length===0){
-
-document.getElementById("streak").innerText="0";
-
-document.getElementById(
-"dashboardStreak"
-).innerText="0";
-
-updateBadge(0);
-
-return;
-
-}
-
-const dates=history
-.map(date=>new Date(date))
-.sort((a,b)=>b-a);
-
-let streak=1;
-
-for(let i=0;i<dates.length-1;i++){
-
-const difference=Math.round(
-(dates[i]-dates[i+1])/
-(1000*60*60*24)
-);
-
-if(difference===1){
-
-streak++;
-
-}else{
-
-break;
-
-}
-
-}
-
-document.getElementById(
-"streak"
-).innerText=streak;
-
-document.getElementById(
-"dashboardStreak"
-).innerText=streak;
-
-updateBadge(streak);
-
-}
-
-
-function updateBadge(streak){
-
-let badge="🌱 Start Your Journey";
-
-if(streak>=7)
-badge="🏆 7 Days Streak!";
-
-if(streak>=30)
-badge="🥇 30 Days Streak!";
-
-if(streak>=100)
-badge="👑 100 Days Master!";
-
-document.getElementById(
-"badge"
-).innerText=badge;
-
-}
-
-
-function showHistory(){
-
-const history=
-JSON.parse(
-localStorage.getItem("history")||"[]"
-);
-
-const box=
-document.getElementById("history");
-
-if(history.length===0){
-
-box.innerHTML=
-"No completed days yet.";
-
-return;
-
-}
-
-box.innerHTML=
-history
-.slice()
-.reverse()
-.slice(0,10)
-.map(date=>"✅ "+date)
-.join("<br>");
-
-}
-
-
-function saveJournal(){
-
-const today=getToday();
-
-const text=
-document.getElementById("journal")
-.value.trim();
-
-if(!text){
-
-document.getElementById(
-"journalMessage"
-).innerHTML=
-"✍️ Please write something first.";
-
-return;
-
-}
-
-let journals=
-JSON.parse(
-localStorage.getItem("journals")||"{}"
-);
-
-journals[today]=text;
-
-localStorage.setItem(
-"journals",
-JSON.stringify(journals)
-);
-
-document.getElementById(
-"journalMessage"
-).innerHTML=
-"✅ Today's journal saved!";
-
-showJournalHistory();
-
-}
-
-
-function showJournalHistory(){
-
-const journals=
-JSON.parse(
-localStorage.getItem("journals")||"{}"
-);
-
-const box=
-document.getElementById(
-"journalHistory"
-);
-
-const dates=
-Object.keys(journals)
-.sort()
-.reverse()
-.slice(0,10);
-
-if(dates.length===0){
-
-box.innerHTML=
-"No journal entries yet.";
-
-return;
-
-}
-
-box.innerHTML=
-dates.map(date=>{
-
-return `
-<div class="journal-entry">
-
-<div class="journal-date">
-📅 ${date}
-</div>
-
-<div>
-${escapeHTML(journals[date])}
-</div>
-
-</div>
-`;
-
-}).join("");
-
-}
-
-
-function escapeHTML(text){
-
-return text
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-window.onload=function(){
-
-checkNewDay();
-
-document.getElementById("goal").value=
-localStorage.getItem("goal")||"";
-
-document.getElementById("affirmation").value=
-localStorage.getItem("affirmation")||"";
-
-document.getElementById("morning").innerText=
-localStorage.getItem("morning")||"0";
-
-document.getElementById("afternoon").innerText=
-localStorage.getItem("afternoon")||"0";
-
-document.getElementById("night").innerText=
-localStorage.getItem("night")||"0";
-
-document.getElementById("morningTime").value=
-localStorage.getItem("morningTime")||"07:30";
-
-document.getElementById("afternoonTime").value=
-localStorage.getItem("afternoonTime")||"13:00";
-
-document.getElementById("nightTime").value=
-localStorage.getItem("nightTime")||"20:00";
-
-const journals=
-JSON.parse(
-localStorage.getItem("journals")||"{}"
-);
-
-const today=getToday();
-
-if(journals[today]){
-
-document.getElementById(
-"journal"
-).value=journals[today];
-
-}
-
-calculateStreak();
-updateProgress();
-showHistory();
-showJournalHistory();
-updateDashboard();
-  updateDashboard();
-
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+const pageTitles={
+  dashboard:"Business Dashboard",
+  sales:"Sales Management",
+  customers:"Customer Management",
+  products:"Products",
+  finance:"Finance & Profit",
+  inventory:"Inventory Control",
+  growth:"100 → 1000 Growth Roadmap",
+  kpi:"KPI Center",
+  calculator:"Smart Calculators",
+  coach:"AI Business Coach",
+  reports:"Business Reports",
+  settings:"Business Settings"
 };
 
-// V8 Reminder Notification
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const page=btn.dataset.page;
 
-function enableNotifications(){
+    document.querySelectorAll(".nav-btn").forEach(b=>{
+      b.classList.remove("active");
+    });
 
-if(!("Notification" in window)){
-alert("ဒီ Browser မှာ Notification မရပါ။");
-return;
-}
+    btn.classList.add("active");
 
-Notification.requestPermission().then(permission=>{
+    document.querySelectorAll(".page").forEach(p=>{
+      p.classList.remove("active");
+    });
 
-if(permission==="granted"){
+    const target=$(page);
+    if(target) target.classList.add("active");
 
-alert("🔔 Notifications Enabled!");
+    $("pageTitle").textContent=pageTitles[page] || "AUNG SMART BUSINESS";
 
-}else{
+    $("sidebar").classList.remove("open");
 
-alert("⚠️ Notification Permission မရပါ။");
-
-}
-
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  });
 });
 
+/* =========================
+   MOBILE MENU
+========================= */
+
+$("mobileMenu").addEventListener("click",()=>{
+  $("sidebar").classList.toggle("open");
+});
+
+/* =========================
+   GROWTH CALCULATOR
+========================= */
+
+function calculateGrowth(){
+
+  const current=Math.max(0,Number($("currentSales").value)||0);
+  const target=Math.max(current,Number($("targetSales").value)||0);
+  const months=Math.max(1,Number($("targetMonths").value)||1);
+  const margin=Math.max(0,Number($("margin").value)||0);
+
+  const gap=target-current;
+  const monthly=target/months;
+
+  let monthlyGrowth=0;
+
+  if(current>0){
+    monthlyGrowth=(Math.pow(target/current,1/months)-1)*100;
+  }
+
+  const profit=target*(margin/100);
+
+  $("monthlyRequired").textContent=monthly.toFixed(1)+" သိန်း";
+  $("revenueGap").textContent=gap.toFixed(1)+" သိန်း";
+  $("monthlyGrowth").textContent=monthlyGrowth.toFixed(2)+"%";
+  $("potentialProfit").textContent=profit.toFixed(1)+" သိန်း";
+
+  showToast("Growth Plan calculated");
 }
+
+$("calculateBtn").addEventListener("click",calculateGrowth);
+
+/* =========================
+   PROFIT CALCULATOR
+========================= */
+
+function calculateProfit(){
+
+  const sell=Math.max(0,Number($("sellPrice").value)||0);
+  const cost=Math.max(0,Number($("costPrice").value)||0);
+  const qty=Math.max(0,Number($("quantity").value)||0);
+
+  const profitPerUnit=sell-cost;
+  const totalProfit=profitPerUnit*qty;
+
+  let margin=0;
+
+  if(sell>0){
+    margin=(profitPerUnit/sell)*100;
+  }
+
+  $("profitResult").textContent=
+    totalProfit.toLocaleString()+" Ks";
+
+  $("profitMargin").textContent=
+    margin.toFixed(2)+"%";
+
+  showToast("Profit calculated");
+}
+
+$("profitBtn").addEventListener("click",calculateProfit);
+
+/* =========================
+   SALES
+========================= */
+
+$("addSaleBtn").addEventListener("click",()=>{
+
+  const amount=prompt("Sale Amount (သိန်း) ထည့်ပါ");
+
+  if(amount===null) return;
+
+  const value=Number(amount);
+
+  if(!Number.isFinite(value) || value<=0){
+    showToast("မှန်ကန်သော amount ထည့်ပါ");
+    return;
+  }
+
+  const row=document.createElement("tr");
+
+  row.innerHTML=`
+    <td>21 Sep</td>
+    <td>New Customer</td>
+    <td>New Sale</td>
+    <td>${value.toFixed(2)} L</td>
+    <td class="up">${(value*.25).toFixed(2)} L</td>
+  `;
+
+  $("salesTable").prepend(row);
+
+  showToast("Sale added successfully");
+});
+
+/* =========================
+   CUSTOMER
+========================= */
+
+$("addCustomerBtn").addEventListener("click",()=>{
+  const name=prompt("Customer Name ထည့်ပါ");
+
+  if(!name || !name.trim()){
+    showToast("Customer name မရှိပါ");
+    return;
+  }
+
+  showToast(name.trim()+" added successfully");
+});
+
+/* =========================
+   PRODUCT
+========================= */
+
+$("addProductBtn").addEventListener("click",()=>{
+  const name=prompt("Product Name ထည့်ပါ");
+
+  if(!name || !name.trim()){
+    showToast("Product name မရှိပါ");
+    return;
+  }
+
+  showToast(name.trim()+" added successfully");
+});
+
+/* =========================
+   INVENTORY
+========================= */
+
+$("stockBtn").addEventListener("click",()=>{
+  const qty=prompt("Stock Quantity ထည့်ပါ");
+
+  if(qty===null) return;
+
+  if(!Number.isFinite(Number(qty)) || Number(qty)<=0){
+    showToast("မှန်ကန်သော quantity ထည့်ပါ");
+    return;
+  }
+
+  showToast("Stock added successfully");
+});
+
+/* =========================
+   90 DAY PLAN
+========================= */
+
+$("planBtn").addEventListener("click",()=>{
+
+  $("planOutput").innerHTML=`
+
+    <div class="grid three-col">
+
+      <div class="action">
+        <strong>Days 1–30 — Foundation</strong>
+        <br>
+        • Top 20 Customers identify လုပ်ပါ<br>
+        • Inactive customers recover လုပ်ပါ<br>
+        • Daily sales target သတ်မှတ်ပါ<br>
+        • Product margin စစ်ပါ
+      </div>
+
+      <div class="action">
+        <strong>Days 31–60 — Growth</strong>
+        <br>
+        • Average Order Value တိုးပါ<br>
+        • Repeat purchase တိုးပါ<br>
+        • Best-selling products scale လုပ်ပါ<br>
+        • Salesperson KPI စတင်ပါ
+      </div>
+
+      <div class="action">
+        <strong>Days 61–90 — Scale</strong>
+        <br>
+        • Team system တည်ဆောက်ပါ<br>
+        • Distribution တိုးပါ<br>
+        • Cash flow control လုပ်ပါ<br>
+        • SOP တည်ဆောက်ပါ
+      </div>
+
+    </div>
+  `;
+
+  showToast("90-Day Growth Plan generated");
+});
+
+/* =========================
+   AI BUSINESS COACH
+========================= */
+
+function addMessage(text,type){
+
+  const msg=document.createElement("div");
+
+  msg.className="msg "+type;
+
+  msg.innerHTML=text;
+
+  $("chat").appendChild(msg);
+
+  $("chat").scrollTop=$("chat").scrollHeight;
+}
+
+function coachReply(question){
+
+  const q=question.toLowerCase();
+
+  if(
+    q.includes("sales") ||
+    q.includes("ရောင်း") ||
+    q.includes("ရောင်းအား")
+  ){
+    return `
+      <strong>Sales Growth Plan</strong><br><br>
+      1. Top customers 20 ယောက်ကို identify လုပ်ပါ<br>
+      2. Inactive customers ကို follow-up လုပ်ပါ<br>
+      3. Salesperson တစ်ယောက်ချင်း Daily KPI ထားပါ<br>
+      4. Average Order Value တိုးဖို့ bundle/upsell သုံးပါ<br>
+      5. Daily target vs actual ကို စစ်ပါ
+    `;
+  }
+
+  if(
+    q.includes("profit") ||
+    q.includes("အမြတ်")
+  ){
+    return `
+      <strong>Profit Improvement</strong><br><br>
+      အမြတ်တိုးဖို့ Sales တိုးရုံနဲ့မလုံလောက်ပါ<br><br>
+      • Product Margin စစ်ပါ<br>
+      • Discount control လုပ်ပါ<br>
+      • COGS လျှော့ပါ<br>
+      • Unnecessary expenses ဖြတ်ပါ<br>
+      • High-margin products ကို scale လုပ်ပါ
+    `;
+  }
+
+  if(
+    q.includes("customer") ||
+    q.includes("ဖောက်သည်")
+  ){
+    return `
+      <strong>Customer Growth</strong><br><br>
+      Customer ကို New / Active / Inactive / VIP ခွဲပြီး စီမံပါ<br><br>
+      အရင်ဆုံး Inactive customer 15 ယောက်ကို ပြန်ဆက်သွယ်ပြီး
+      repeat purchase ပြန်ရအောင်လုပ်ပါ
+    `;
+  }
+
+  if(
+    q.includes("1000") ||
+    q.includes("100 → 1000") ||
+    q.includes("သိန်း")
+  ){
+    return `
+      <strong>100 → 1,000 Growth Strategy</strong><br><br>
+      Target ကို တစ်ခါတည်း 1,000 လို့မကြည့်ဘဲ<br><br>
+      100 → 200 → 300 → 500 → 700 → 1,000<br><br>
+      ဆိုပြီး stage ခွဲပြီး KPI သတ်မှတ်ပါ
+    `;
+  }
+
+  return `
+    <strong>Business Coach Recommendation</strong><br><br>
+    လက်ရှိ Dashboard data အရ<br>
+    Sales Achievement, Profit Margin, Customer Retention
+    သုံးခုကို အဓိကစောင့်ကြည့်ပါ<br><br>
+    သင့်လုပ်ငန်းရဲ့ problem ကို
+    Sales / Profit / Customer / Team / Cash Flow
+    ထဲက ဘယ်ဟာလဲဆိုတာ သတ်မှတ်ပြီး action plan ဆွဲပါ
+  `;
+}
+
+$("sendChat").addEventListener("click",()=>{
+
+  const input=$("chatInput");
+  const question=input.value.trim();
+
+  if(!question){
+    showToast("မေးခွန်းထည့်ပါ");
+    return;
+  }
+
+  addMessage(question,"user");
+
+  input.value="";
+
+  setTimeout(()=>{
+    addMessage(coachReply(question),"ai");
+  },350);
+});
+
+$("chatInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    $("sendChat").click();
+  }
+});
+
+/* =========================
+   REPORT
+========================= */
+
+$("exportBtn").addEventListener("click",()=>{
+
+  const report=
+`AUNG SMART BUSINESS 100→1000
+Business Report
+
+Sales: 385 သိန်း
+Gross Profit: 96.2 သိန်း
+Net Profit: 61.2 သိန်း
+Monthly Target: 500 သိန်း
+Achievement: 77%
+Growth Target: 1,000 သိန်း
+`;
+
+  const blob=new Blob([report],{
+    type:"text/plain;charset=utf-8"
+  });
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="business-report.txt";
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  showToast("Report exported");
+});
+
+/* =========================
+   SETTINGS
+========================= */
+
+$("saveSettings").addEventListener("click",()=>{
+
+  const data={
+    businessName:$("businessName").value.trim(),
+    ownerName:$("ownerName").value.trim(),
+    startingCapital:Number($("startingCapital").value)||0,
+    growthTarget:Number($("growthTarget").value)||0
+  };
+
+  localStorage.setItem(
+    "aung_smart_business_settings",
+    JSON.stringify(data)
+  );
+
+  showToast("Settings saved");
+});
+
+function loadSettings(){
+
+  try{
+
+    const raw=
+      localStorage.getItem(
+        "aung_smart_business_settings"
+      );
+
+    if(!raw) return;
+
+    const data=JSON.parse(raw);
+
+    if(typeof data.businessName==="string"){
+      $("businessName").value=data.businessName;
+    }
+
+    if(typeof data.ownerName==="string"){
+      $("ownerName").value=data.ownerName;
+    }
+
+    if(Number.isFinite(data.startingCapital)){
+      $("startingCapital").value=data.startingCapital;
+    }
+
+    if(Number.isFinite(data.growthTarget)){
+      $("growthTarget").value=data.growthTarget;
+    }
+
+  }catch(error){
+
+    console.warn("Settings load failed",error);
+
+  }
+}
+
+/* =========================
+   RESET
+========================= */
+
+$("resetBtn").addEventListener("click",()=>{
+
+  const ok=confirm(
+    "Demo data ကို reset လုပ်မလား?"
+  );
+
+  if(!ok) return;
+
+  localStorage.removeItem(
+    "aung_smart_business_settings"
+  );
+
+  location.reload();
+});
+
+/* =========================
+   INITIALIZE
+========================= */
+
+function init(){
+
+  loadSettings();
+
+  const current=385;
+  const target=1000;
+
+  const percent=Math.min(
+    100,
+    (current/target)*100
+  );
+
+  $("mainProgress").style.width=
+    percent+"%";
+
+  $("growthPercent").textContent=
+    percent.toFixed(1)+"%";
+
+  $("progressPercent").textContent=
+    percent.toFixed(1)+"%";
+
+  $("growthText").textContent=
+    current+" / "+target+" သိန်း";
+
+  calculateGrowth();
+  calculateProfit();
+}
+
+init();
+
+</script>
+
+</body>
+</html>
+```
