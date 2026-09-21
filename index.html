@@ -1,691 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>AUNG SMART BUSINESS ERP V5</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>AUNG SMART BUSINESS ERP</title>
 
 <style>
+*{box-sizing:border-box}
 :root{
-  --bg:#f4f6f8;
-  --card:#ffffff;
-  --text:#17202a;
+  --bg:#f3f4f6;
+  --card:#fff;
+  --text:#111827;
   --muted:#6b7280;
-  --line:#e5e7eb;
+  --border:#e5e7eb;
   --primary:#111827;
-  --accent:#16a34a;
-  --danger:#dc2626;
+  --primary2:#1f2937;
+  --success:#059669;
   --warning:#d97706;
+  --danger:#dc2626;
+  --info:#2563eb;
   --sidebar:260px;
   --radius:16px;
 }
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-button,input,select,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* LOGIN */
+html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Myanmar",sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
 .login-screen{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:24px;
+  padding:20px;
   background:
-    radial-gradient(circle at top right,#dbeafe 0,transparent 35%),
-    linear-gradient(135deg,#f8fafc,#eef2f7);
+    radial-gradient(circle at top right,#374151 0,#111827 45%,#030712 100%);
 }
-
-.login-card{
-  width:100%;
-  max-width:430px;
+.login-box{
+  width:min(430px,100%);
   background:#fff;
-  padding:32px;
   border-radius:24px;
-  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  padding:30px;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
 }
-
-.brand{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:-.5px;
+.brand{text-align:center;margin-bottom:25px}
+.brand-mark{
+  width:62px;height:62px;border-radius:18px;
+  background:#111827;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 15px;font-weight:900;font-size:22px;
 }
-
-.brand-sub{
-  color:var(--muted);
-  margin-top:6px;
-  margin-bottom:28px;
-}
-
-.field{
-  margin-bottom:15px;
-}
-
-.field label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:7px;
-}
-
-.field input,
-.field select,
-.field textarea{
+.brand h1{font-size:22px;margin:0 0 5px}
+.brand p{margin:0;color:var(--muted);font-size:13px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+input,select,textarea{
   width:100%;
-  border:1px solid var(--line);
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
   border-radius:11px;
   padding:12px 13px;
   outline:none;
-  background:#fff;
 }
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:#111827;
-  box-shadow:0 0 0 3px rgba(17,24,39,.06);
-}
+input:focus,select:focus,textarea:focus{border-color:#6b7280;box-shadow:0 0 0 3px rgba(107,114,128,.12)}
+textarea{min-height:100px;resize:vertical}
 
 .btn{
-  border:0;
-  border-radius:11px;
-  padding:11px 15px;
-  font-weight:700;
-  transition:.2s;
+  border:0;border-radius:11px;padding:11px 15px;
+  font-weight:750;display:inline-flex;align-items:center;
+  justify-content:center;gap:7px;
+}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-secondary{background:#f3f4f6;color:#111827;border:1px solid var(--border)}
+.btn-success{background:#059669;color:#fff}
+.btn-warning{background:#d97706;color:#fff}
+.btn-danger{background:#dc2626;color:#fff}
+.btn-info{background:#2563eb;color:#fff}
+.btn-full{width:100%}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+.login-switch{
+  text-align:center;margin-top:18px;font-size:13px;color:var(--muted)
+}
+.login-switch button{
+  border:0;background:none;color:#111827;font-weight:800
+}
+.login-msg{
+  min-height:20px;margin:10px 0;text-align:center;
+  font-size:13px;font-weight:700
 }
 
-.btn:hover{
-  transform:translateY(-1px);
-}
-
-.btn-primary{
-  background:#111827;
-  color:#fff;
-}
-
-.btn-success{
-  background:#16a34a;
-  color:#fff;
-}
-
-.btn-danger{
-  background:#dc2626;
-  color:#fff;
-}
-
-.btn-light{
-  background:#f3f4f6;
-  color:#111827;
-}
-
-.btn-block{
-  width:100%;
-}
-
-.message{
-  margin-top:12px;
-  padding:10px 12px;
-  border-radius:10px;
-  font-size:13px;
-}
-
-.message.error{
-  background:#fef2f2;
-  color:#b91c1c;
-}
-
-.message.success{
-  background:#f0fdf4;
-  color:#15803d;
-}
-
-/* APP */
-
-.app{
-  min-height:100vh;
-}
-
+.app{min-height:100vh}
 .sidebar{
-  position:fixed;
-  inset:0 auto 0 0;
-  width:var(--sidebar);
-  background:#111827;
-  color:#fff;
-  padding:20px 14px;
-  z-index:50;
+  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);
+  background:#111827;color:#fff;padding:18px 12px;z-index:50;
   overflow-y:auto;
 }
-
-.sidebar-brand{
-  padding:10px 12px 24px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  margin-bottom:15px;
+.logo{
+  padding:10px 12px 20px;border-bottom:1px solid rgba(255,255,255,.1);
+  margin-bottom:12px
 }
-
-.sidebar-brand strong{
-  display:block;
-  font-size:17px;
+.logo strong{display:block;font-size:17px}
+.logo span{font-size:11px;color:#9ca3af}
+.nav-section{
+  color:#6b7280;font-size:10px;font-weight:900;
+  padding:13px 12px 6px;text-transform:uppercase
 }
-
-.sidebar-brand span{
-  color:#9ca3af;
-  font-size:11px;
+.nav-btn{
+  width:100%;border:0;background:transparent;color:#d1d5db;
+  padding:11px 12px;border-radius:10px;text-align:left;
+  display:flex;align-items:center;gap:10px;font-size:13px;
+  margin:2px 0
 }
-
-.nav-item{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  background:transparent;
-  color:#cbd5e1;
-  border:0;
-  padding:11px 12px;
-  border-radius:10px;
-  text-align:left;
-  margin:3px 0;
-}
-
-.nav-item:hover{
-  background:#1f2937;
-  color:#fff;
-}
-
-.nav-item.active{
-  background:#fff;
-  color:#111827;
-}
+.nav-btn:hover,.nav-btn.active{background:#1f2937;color:#fff}
+.nav-icon{width:22px;text-align:center}
+.logout{margin-top:15px;color:#fca5a5}
 
 .main{
   margin-left:var(--sidebar);
   min-height:100vh;
 }
-
 .topbar{
-  height:70px;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 25px;
-  position:sticky;
-  top:0;
-  z-index:20;
+  position:sticky;top:0;z-index:30;
+  height:68px;background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
 }
-
-.menu-btn{
-  display:none;
-  border:0;
-  background:#f3f4f6;
-  border-radius:10px;
-  width:42px;
-  height:42px;
+.top-left{display:flex;align-items:center;gap:12px}
+.menu-toggle{
+  display:none;border:0;background:#f3f4f6;border-radius:10px;
+  width:40px;height:40px
 }
+.page-title{font-weight:850;font-size:18px}
+.top-user{font-size:12px;color:var(--muted)}
+.content{padding:24px;max-width:1500px;margin:auto}
 
-.user-box{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.welcome{
+  background:#111827;color:#fff;border-radius:20px;
+  padding:24px;margin-bottom:20px;
 }
+.welcome h2{margin:0 0 7px;font-size:23px}
+.welcome p{margin:0;color:#d1d5db;font-size:13px}
 
-.avatar{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#111827;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-weight:800;
+.cards{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:14px;margin-bottom:20px
 }
-
-.content{
-  padding:25px;
-  max-width:1500px;
-  margin:auto;
-}
-
-.page-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:15px;
-  margin-bottom:22px;
-}
-
-.page-title{
-  margin:0;
-  font-size:27px;
-  letter-spacing:-.8px;
-}
-
-.page-sub{
-  color:var(--muted);
-  margin-top:5px;
-  font-size:14px;
-}
-
-/* DASHBOARD */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.stat{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:20px;
-}
-
-.stat-label{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.stat-value{
-  font-size:25px;
-  font-weight:800;
-  margin-top:8px;
-}
-
-/* CARD */
-
 .card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:20px;
-  margin-bottom:20px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px
 }
+.stat-label{font-size:12px;color:var(--muted);font-weight:700}
+.stat-value{font-size:25px;font-weight:900;margin-top:8px}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:5px}
 
-.card-title{
-  font-size:16px;
-  font-weight:800;
-  margin-bottom:15px;
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-bottom:15px
 }
-
-.toolbar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:18px;
-}
-
-.search{
-  flex:1;
-  min-width:220px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:11px 13px;
-}
-
-/* PRODUCT */
-
-.product-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
-.product-card{
-  border:1px solid var(--line);
-  border-radius:16px;
-  overflow:hidden;
-  background:#fff;
-  transition:.2s;
-}
-
-.product-card:hover{
-  box-shadow:0 10px 30px rgba(0,0,0,.07);
-  transform:translateY(-2px);
-}
-
-.product-image{
-  width:100%;
-  height:190px;
-  object-fit:cover;
-  background:#f3f4f6;
-  display:block;
-}
-
-.product-image.empty{
-  display:grid;
-  place-items:center;
-  color:#9ca3af;
-  font-size:45px;
-}
-
-.product-body{
-  padding:15px;
-}
-
-.product-name{
-  font-weight:800;
-  font-size:16px;
-}
-
-.product-sku{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.product-meta{
-  display:flex;
-  justify-content:space-between;
-  margin-top:13px;
-  gap:8px;
-}
-
-.product-price{
-  font-weight:800;
-}
-
-.stock{
-  font-size:12px;
-  padding:5px 8px;
-  border-radius:20px;
-  background:#ecfdf5;
-  color:#15803d;
-}
-
-.stock.low{
-  background:#fff7ed;
-  color:#c2410c;
-}
-
-.product-actions{
-  display:flex;
-  gap:8px;
-  margin-top:13px;
-}
-
-.product-actions .btn{
-  flex:1;
-  padding:8px;
-  font-size:12px;
-}
-
-/* TABLE */
+.section-head h3{margin:0;font-size:17px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
 
 .table-wrap{
-  overflow:auto;
+  overflow:auto;border:1px solid var(--border);border-radius:13px
 }
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:700px;
-}
-
-th,td{
-  text-align:left;
-  padding:12px 10px;
-  border-bottom:1px solid var(--line);
-  font-size:13px;
-}
-
-th{
-  color:var(--muted);
-  font-size:12px;
-  text-transform:uppercase;
-}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{padding:12px 13px;border-bottom:1px solid var(--border);text-align:left;font-size:12px}
+th{background:#f9fafb;color:#4b5563;font-weight:800}
+tr:last-child td{border-bottom:0}
 
 .badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:700;
+  display:inline-flex;padding:5px 8px;border-radius:999px;
+  font-size:10px;font-weight:800
 }
+.badge-success{background:#d1fae5;color:#065f46}
+.badge-warning{background:#fef3c7;color:#92400e}
+.badge-danger{background:#fee2e2;color:#991b1b}
+.badge-info{background:#dbeafe;color:#1e40af}
 
-.badge.green{
-  background:#ecfdf5;
-  color:#15803d;
+.product-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px
 }
-
-.badge.orange{
-  background:#fff7ed;
-  color:#c2410c;
+.product-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:15px;overflow:hidden
 }
-
-.badge.red{
-  background:#fef2f2;
-  color:#b91c1c;
+.product-img{
+  height:155px;background:#f3f4f6;
+  display:flex;align-items:center;justify-content:center;
+  color:#9ca3af;font-size:40px;overflow:hidden
 }
-
-/* MODAL */
+.product-img img{width:100%;height:100%;object-fit:cover}
+.product-body{padding:14px}
+.product-name{font-weight:850;margin-bottom:4px}
+.product-meta{font-size:11px;color:var(--muted);margin-bottom:10px}
+.price{font-weight:900;font-size:17px}
+.stock{font-size:11px;color:var(--muted);margin-top:5px}
 
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:100;
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:100;display:flex;align-items:center;justify-content:center;
+  padding:15px
 }
-
-.modal-card{
-  width:100%;
-  max-width:720px;
-  max-height:90vh;
-  overflow:auto;
-  background:#fff;
-  border-radius:20px;
-  padding:23px;
+.modal-box{
+  width:min(650px,100%);max-height:92vh;overflow:auto;
+  background:#fff;border-radius:20px;padding:22px
 }
-
 .modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:18px
 }
-
-.modal-title{
-  font-size:20px;
-  font-weight:800;
-}
-
+.modal-head h3{margin:0}
 .close{
-  width:36px;
-  height:36px;
-  border:0;
-  border-radius:10px;
-  background:#f3f4f6;
+  width:35px;height:35px;border:0;border-radius:9px;
+  background:#f3f4f6;font-size:18px
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-full{grid-column:1/-1}
+
+.search{
+  max-width:330px
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
+.empty{
+  text-align:center;padding:35px 15px;color:var(--muted);
+  font-size:13px
+}
+.loading{text-align:center;padding:30px;color:var(--muted)}
+.error-box{
+  padding:12px 14px;border-radius:11px;background:#fee2e2;
+  color:#991b1b;font-size:12px;margin-bottom:15px
+}
+.success-box{
+  padding:12px 14px;border-radius:11px;background:#d1fae5;
+  color:#065f46;font-size:12px;margin-bottom:15px
 }
 
-.full{
-  grid-column:1/-1;
+.growth-stage{
+  border-left:4px solid #111827;padding:15px;
+  background:#fff;border:1px solid var(--border);
+  border-left-width:4px;border-radius:12px;margin-bottom:10px
 }
+.growth-stage strong{display:block;margin-bottom:5px}
+.growth-stage span{font-size:12px;color:var(--muted)}
 
-.image-upload{
-  border:2px dashed #d1d5db;
-  border-radius:15px;
-  padding:18px;
-  text-align:center;
+.tool-card{
+  cursor:pointer;transition:.15s
 }
-
-.image-preview{
-  width:180px;
-  height:180px;
-  margin:0 auto 15px;
-  object-fit:cover;
-  border-radius:14px;
-  background:#f3f4f6;
-  display:block;
-}
-
-.image-preview.empty{
-  display:grid;
-  place-items:center;
-  font-size:50px;
-  color:#9ca3af;
-}
-
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:22px;
-}
-
-/* OVERLAY */
+.tool-card:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.07)}
+.tool-icon{font-size:25px;margin-bottom:10px}
+.tool-card h4{margin:0 0 5px}
+.tool-card p{margin:0;font-size:12px;color:var(--muted)}
 
 .overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.4);
-  z-index:40;
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
+  z-index:45
 }
-
-.overlay.show{
-  display:block;
-}
-
-/* TOAST */
-
-.toast{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:200;
-  background:#111827;
-  color:#fff;
-  padding:13px 17px;
-  border-radius:11px;
-  opacity:0;
-  transform:translateY(10px);
-  pointer-events:none;
-  transition:.25s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* RESPONSIVE */
 
 @media(max-width:1100px){
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .product-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .product-grid{grid-template-columns:repeat(3,1fr)}
 }
-
 @media(max-width:800px){
   .sidebar{
     transform:translateX(-100%);
-    transition:.25s;
+    transition:.2s
   }
-
-  .sidebar.open{
-    transform:translateX(0);
-  }
-
-  .main{
-    margin-left:0;
-  }
-
-  .menu-btn{
-    display:block;
-  }
-
-  .topbar{
-    padding:0 15px;
-  }
-
-  .content{
-    padding:17px;
-  }
-
-  .product-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full{
-    grid-column:auto;
-  }
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .menu-toggle{display:block}
+  .overlay.show{display:block}
+  .content{padding:15px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .topbar{padding:0 15px}
 }
-
 @media(max-width:520px){
-  .stats{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .stat{
-    padding:14px;
-  }
-
-  .stat-value{
-    font-size:19px;
-  }
-
-  .product-grid{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .product-image{
-    height:135px;
-  }
-
-  .product-body{
-    padding:11px;
-  }
-
-  .page-title{
-    font-size:22px;
-  }
-
-  .modal{
-    padding:10px;
-  }
-
-  .modal-card{
-    padding:17px;
-  }
+  .cards{grid-template-columns:1fr 1fr;gap:10px}
+  .card{padding:14px}
+  .stat-value{font-size:20px}
+  .product-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .product-img{height:120px}
+  .form-grid{grid-template-columns:1fr}
+  .form-full{grid-column:auto}
+  .login-box{padding:22px}
 }
 </style>
 </head>
@@ -693,362 +298,433 @@ th{
 <body>
 
 <!-- LOGIN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
 
-<section id="loginScreen" class="login-screen">
-  <div class="login-card">
-    <div class="brand">AUNG SMART BUSINESS</div>
-    <div class="brand-sub">ERP • Business Growth Operating System</div>
-
-    <div class="field">
-      <label>Email</label>
-      <input id="loginEmail" type="email" placeholder="owner@example.com">
+    <div class="brand">
+      <div class="brand-mark">AS</div>
+      <h1>AUNG SMART BUSINESS</h1>
+      <p>100 → 1000 Business Growth ERP</p>
     </div>
 
-    <div class="field">
-      <label>Password</label>
-      <input id="loginPassword" type="password" placeholder="Password">
-    </div>
-
-    <button class="btn btn-primary btn-block" onclick="login()">
-      Sign In
-    </button>
-
-    <button class="btn btn-light btn-block" style="margin-top:9px" onclick="showRegister()">
-      Create New Account
-    </button>
-
-    <div id="loginMsg"></div>
-  </div>
-</section>
-
-
-<!-- APP -->
-
-<section id="app" class="app hidden">
-
-  <aside id="sidebar" class="sidebar">
-
-    <div class="sidebar-brand">
-      <strong>AUNG SMART BUSINESS</strong>
-      <span>ERP V5 • Professional</span>
-    </div>
-
-    <button class="nav-item active" onclick="navigate('dashboard',this)">
-      📊 Dashboard
-    </button>
-
-    <button class="nav-item" onclick="navigate('sales',this)">
-      🧾 Sales
-    </button>
-
-    <button class="nav-item" onclick="navigate('customers',this)">
-      👥 CRM / Customers
-    </button>
-
-    <button class="nav-item" onclick="navigate('purchases',this)">
-      🛒 Purchases
-    </button>
-
-    <button class="nav-item" onclick="navigate('inventory',this)">
-      📦 Inventory
-    </button>
-
-    <button class="nav-item" onclick="navigate('accounting',this)">
-      💰 Accounting
-    </button>
-
-    <button class="nav-item" onclick="navigate('expenses',this)">
-      💳 Expenses
-    </button>
-
-    <button class="nav-item" onclick="navigate('employees',this)">
-      👨‍💼 Employees
-    </button>
-
-    <button class="nav-item" onclick="navigate('users',this)">
-      🔐 Users & Roles
-    </button>
-
-    <button class="nav-item" onclick="navigate('growth',this)">
-      🚀 100 → 1000 Growth
-    </button>
-
-    <button class="nav-item" onclick="navigate('coach',this)">
-      🤖 AI Business Coach
-    </button>
-
-    <button class="nav-item" onclick="navigate('settings',this)">
-      ⚙️ Settings
-    </button>
-
-    <button class="nav-item" onclick="logout()" style="margin-top:20px">
-      🚪 Logout
-    </button>
-
-  </aside>
-
-  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-
-      <div></div>
-
-      <div class="user-box">
-        <div>
-          <strong id="topUserName">Owner</strong>
-          <div style="font-size:11px;color:#6b7280" id="topCompany">
-            Aung Business
-          </div>
-        </div>
-
-        <div class="avatar" id="avatar">A</div>
+    <div id="loginForm">
+      <div class="field">
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="you@example.com">
       </div>
 
-    </header>
+      <div class="field">
+        <label>Password</label>
+        <input id="loginPassword" type="password" placeholder="Password">
+      </div>
 
-    <div id="content" class="content"></div>
+      <div id="loginMsg" class="login-msg"></div>
 
-  </main>
+      <button class="btn btn-primary btn-full" onclick="login()">
+        Sign In
+      </button>
 
-</section>
-
-
-<!-- REGISTER MODAL -->
-
-<div id="registerModal" class="modal hidden">
-  <div class="modal-card" style="max-width:500px">
-
-    <div class="modal-head">
-      <div class="modal-title">Create Business Account</div>
-      <button class="close" onclick="closeRegister()">✕</button>
+      <div class="login-switch">
+        Don't have an account?
+        <button onclick="showRegister()">Create Account</button>
+      </div>
     </div>
 
-    <div class="field">
-      <label>Company Name</label>
-      <input id="regCompany" placeholder="My Business">
+    <div id="registerForm" class="hidden">
+      <div class="field">
+        <label>Your Name</label>
+        <input id="regName" placeholder="Aung Zar Ni Win">
+      </div>
+
+      <div class="field">
+        <label>Company Name</label>
+        <input id="regCompany" placeholder="My Business">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input id="regEmail" type="email" placeholder="you@example.com">
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input id="regPassword" type="password" placeholder="Minimum 6 characters">
+      </div>
+
+      <div id="registerMsg" class="login-msg"></div>
+
+      <button class="btn btn-primary btn-full" onclick="register()">
+        Create Account
+      </button>
+
+      <div class="login-switch">
+        Already have an account?
+        <button onclick="showLogin()">Sign In</button>
+      </div>
     </div>
-
-    <div class="field">
-      <label>Your Name</label>
-      <input id="regName" placeholder="Owner Name">
-    </div>
-
-    <div class="field">
-      <label>Email</label>
-      <input id="regEmail" type="email" placeholder="owner@example.com">
-    </div>
-
-    <div class="field">
-      <label>Password</label>
-      <input id="regPassword" type="password" placeholder="Minimum 6 characters">
-    </div>
-
-    <button class="btn btn-primary btn-block" onclick="register()">
-      Create Account
-    </button>
-
-    <div id="registerMsg"></div>
 
   </div>
 </div>
 
+<!-- APP -->
+<div id="app" class="app hidden">
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="logo">
+      <strong>AUNG SMART BUSINESS</strong>
+      <span>100 → 1000 ERP</span>
+    </div>
+
+    <div class="nav-section">Main</div>
+
+    <button class="nav-btn active" data-page="dashboard" onclick="go('dashboard')">
+      <span class="nav-icon">⌂</span> Dashboard
+    </button>
+
+    <button class="nav-btn" data-page="sales" onclick="go('sales')">
+      <span class="nav-icon">↗</span> Sales
+    </button>
+
+    <button class="nav-btn" data-page="customers" onclick="go('customers')">
+      <span class="nav-icon">◉</span> CRM / Customers
+    </button>
+
+    <button class="nav-btn" data-page="suppliers" onclick="go('suppliers')">
+      <span class="nav-icon">◇</span> Suppliers
+    </button>
+
+    <button class="nav-btn" data-page="purchases" onclick="go('purchases')">
+      <span class="nav-icon">🛒</span> Purchases
+    </button>
+
+    <button class="nav-btn" data-page="inventory" onclick="go('inventory')">
+      <span class="nav-icon">▦</span> Inventory
+    </button>
+
+    <div class="nav-section">Finance</div>
+
+    <button class="nav-btn" data-page="accounting" onclick="go('accounting')">
+      <span class="nav-icon">₿</span> Accounting
+    </button>
+
+    <button class="nav-btn" data-page="expenses" onclick="go('expenses')">
+      <span class="nav-icon">−</span> Expenses
+    </button>
+
+    <button class="nav-btn" data-page="reports" onclick="go('reports')">
+      <span class="nav-icon">▤</span> Reports
+    </button>
+
+    <div class="nav-section">Growth</div>
+
+    <button class="nav-btn" data-page="growth" onclick="go('growth')">
+      <span class="nav-icon">↗</span> 100 → 1000 Growth
+    </button>
+
+    <button class="nav-btn" data-page="coach" onclick="go('coach')">
+      <span class="nav-icon">✦</span> AI Business Coach
+    </button>
+
+    <button class="nav-btn" data-page="tools" onclick="go('tools')">
+      <span class="nav-icon">⚙</span> Business Tools
+    </button>
+
+    <div class="nav-section">Administration</div>
+
+    <button class="nav-btn" data-page="employees" onclick="go('employees')">
+      <span class="nav-icon">♙</span> Employees
+    </button>
+
+    <button class="nav-btn" data-page="users" onclick="go('users')">
+      <span class="nav-icon">♚</span> Users & Roles
+    </button>
+
+    <button class="nav-btn" data-page="settings" onclick="go('settings')">
+      <span class="nav-icon">⚙</span> Settings
+    </button>
+
+    <button class="nav-btn logout" onclick="logout()">
+      <span class="nav-icon">↪</span> Logout
+    </button>
+
+  </aside>
+
+  <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="top-left">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div id="pageTitle" class="page-title">Dashboard</div>
+      </div>
+
+      <div id="topUser" class="top-user"></div>
+    </header>
+
+    <section id="content" class="content"></section>
+
+  </main>
+</div>
 
 <!-- PRODUCT MODAL -->
-
 <div id="productModal" class="modal hidden">
-
-  <div class="modal-card">
+  <div class="modal-box">
 
     <div class="modal-head">
-      <div class="modal-title" id="productModalTitle">
-        Add Product
-      </div>
-
-      <button class="close" onclick="closeProductModal()">✕</button>
+      <h3 id="productModalTitle">Add Product</h3>
+      <button class="close" onclick="closeProductModal()">×</button>
     </div>
 
-    <div class="image-upload">
+    <input type="hidden" id="productId">
 
-      <div id="imagePreviewBox" class="image-preview empty">
-        📦
-      </div>
-
-      <input
-        id="productImage"
-        type="file"
-        accept="image/*"
-        onchange="handleProductImage(event)"
-      >
-
-      <div style="font-size:12px;color:#6b7280;margin-top:8px">
-        JPG / PNG / WEBP • Image will be compressed automatically
-      </div>
-
-    </div>
-
-    <div class="form-grid" style="margin-top:20px">
+    <div class="form-grid">
 
       <div class="field">
         <label>Product Name *</label>
-        <input id="pName" placeholder="Product name">
+        <input id="productName" placeholder="Product name">
       </div>
 
       <div class="field">
         <label>SKU</label>
-        <input id="pSku" placeholder="SKU-001">
+        <input id="productSku" placeholder="SKU-001">
       </div>
 
       <div class="field">
         <label>Category</label>
-        <input id="pCategory" placeholder="Beverage">
+        <input id="productCategory" placeholder="Beverage">
       </div>
 
       <div class="field">
         <label>Unit</label>
-        <select id="pUnit">
+        <select id="productUnit">
           <option value="pcs">Pieces</option>
           <option value="box">Box</option>
           <option value="pack">Pack</option>
+          <option value="bottle">Bottle</option>
           <option value="carton">Carton</option>
           <option value="kg">Kg</option>
           <option value="liter">Liter</option>
-          <option value="bottle">Bottle</option>
-          <option value="can">Can</option>
         </select>
       </div>
 
       <div class="field">
         <label>Cost Price</label>
-        <input id="pCost" type="number" min="0" placeholder="0">
+        <input id="productCost" type="number" min="0" step="0.01">
       </div>
 
       <div class="field">
-        <label>Selling Price *</label>
-        <input id="pPrice" type="number" min="0" placeholder="0">
+        <label>Selling Price</label>
+        <input id="productPrice" type="number" min="0" step="0.01">
       </div>
 
       <div class="field">
         <label>Opening Stock</label>
-        <input id="pStock" type="number" min="0" placeholder="0">
+        <input id="productStock" type="number" min="0" step="0.01">
       </div>
 
       <div class="field">
         <label>Low Stock Alert</label>
-        <input id="pLowStock" type="number" min="0" value="10">
+        <input id="productLowStock" type="number" min="0" step="0.01" value="10">
+      </div>
+
+      <div class="field form-full">
+        <label>Product Image</label>
+        <input id="productImage" type="file" accept="image/*" onchange="previewProductImage(event)">
+      </div>
+
+      <div class="field form-full">
+        <div id="imagePreview" class="product-img" style="height:180px;border-radius:12px">
+          📦
+        </div>
       </div>
 
     </div>
 
-    <div class="modal-actions">
-      <button class="btn btn-light" onclick="closeProductModal()">
-        Cancel
-      </button>
-
-      <button class="btn btn-primary" onclick="saveProduct()">
-        Save Product
-      </button>
+    <div class="actions" style="margin-top:15px">
+      <button class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
     </div>
 
   </div>
 </div>
 
+<!-- CUSTOMER MODAL -->
+<div id="customerModal" class="modal hidden">
+  <div class="modal-box">
 
-<div id="toast" class="toast"></div>
+    <div class="modal-head">
+      <h3>Add Customer</h3>
+      <button class="close" onclick="closeCustomerModal()">×</button>
+    </div>
 
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Customer Name *</label>
+        <input id="customerName">
+      </div>
+
+      <div class="field">
+        <label>Phone</label>
+        <input id="customerPhone">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input id="customerEmail">
+      </div>
+
+      <div class="field">
+        <label>Credit Limit</label>
+        <input id="customerCredit" type="number" min="0">
+      </div>
+
+      <div class="field form-full">
+        <label>Address</label>
+        <textarea id="customerAddress"></textarea>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="closeCustomerModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
+    </div>
+
+  </div>
+</div>
 
 <script>
-const API_BASE =
-  localStorage.getItem("aung_erp_api") ||
-  "https://YOUR-ERP-BACKEND.onrender.com";
+/* =========================================================
+   AUNG SMART BUSINESS ERP V5 CLOUD FRONTEND
+   ========================================================= */
+
+const API_BASE = "https://aung-smart-business.onrender.com";
 
 const TOKEN_KEY = "aung_smart_business_token";
-const IMAGE_KEY = "aung_smart_business_product_images";
+const USER_KEY = "aung_smart_business_user";
+const PRODUCT_IMAGE_KEY = "aung_smart_business_product_images";
 
 let currentUser = null;
-let productsCache = [];
-let editingProduct = null;
-let selectedImageData = "";
+let currentPage = "dashboard";
+let dashboardData = null;
+let customers = [];
+let suppliers = [];
+let products = [];
+let sales = [];
+let purchases = [];
+let expenses = [];
+let employees = [];
+let users = [];
 
-function $(id){
-  return document.getElementById(id);
-}
+let selectedProductImage = "";
+let productImages = JSON.parse(
+  localStorage.getItem(PRODUCT_IMAGE_KEY) || "{}"
+);
+
+const $ = id => document.getElementById(id);
 
 function money(value){
+  const n = Number(value || 0);
   return new Intl.NumberFormat("en-US",{
-    maximumFractionDigits:0
-  }).format(Number(value || 0));
+    maximumFractionDigits:2
+  }).format(n);
 }
 
-function showToast(message){
-  const el=$("toast");
-  el.textContent=message;
-  el.classList.add("show");
-
-  setTimeout(()=>{
-    el.classList.remove("show");
-  },2500);
-}
-
-function setMessage(id,message,type="error"){
-  const el=$(id);
-
-  if(!message){
-    el.innerHTML="";
-    return;
-  }
-
-  el.innerHTML=
-    '<div class="message '+type+'">'+escapeHtml(message)+'</div>';
-}
-
-function escapeHtml(value){
+function esc(value){
   return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function show(id){
+  $(id)?.classList.remove("hidden");
+}
+
+function hide(id){
+  $(id)?.classList.add("hidden");
+}
+
+function setMsg(id,message,type=""){
+  const el=$(id);
+  if(!el)return;
+  el.textContent=message;
+  el.style.color =
+    type==="error" ? "#dc2626" :
+    type==="success" ? "#059669" :
+    "#6b7280";
 }
 
 async function api(path,options={}){
-  const headers={
-    ...(options.headers || {})
-  };
-
   const token=localStorage.getItem(TOKEN_KEY);
+
+  const headers={
+    "Content-Type":"application/json",
+    ...(options.headers||{})
+  };
 
   if(token){
     headers.Authorization="Bearer "+token;
   }
 
-  if(options.body && !headers["Content-Type"]){
-    headers["Content-Type"]="application/json";
+  let response;
+
+  try{
+    response=await fetch(API_BASE+path,{
+      ...options,
+      headers
+    });
+  }catch(error){
+    throw new Error(
+      "Backend ကို ချိတ်မရပါ — Render service URL သို့မဟုတ် Network ကို စစ်ပါ"
+    );
   }
 
-  const response=await fetch(API_BASE+path,{
-    ...options,
-    headers
-  });
+  const text=await response.text();
 
   let data={};
 
   try{
-    data=await response.json();
-  }catch(e){}
+    data=text ? JSON.parse(text) : {};
+  }catch{
+    data={message:text};
+  }
 
   if(!response.ok){
-    throw new Error(data.error || data.message || "Request failed");
+    if(response.status===401){
+      logout();
+    }
+
+    throw new Error(
+      data.message ||
+      data.error ||
+      "Request failed ("+response.status+")"
+    );
   }
 
   return data;
 }
 
+/* =========================================================
+   AUTH
+   ========================================================= */
 
-/* AUTH */
+function showRegister(){
+  hide("loginForm");
+  show("registerForm");
+  setMsg("registerMsg","");
+}
+
+function showLogin(){
+  show("loginForm");
+  hide("registerForm");
+  setMsg("loginMsg","");
+}
 
 async function login(){
 
@@ -1056,11 +732,11 @@ async function login(){
   const password=$("loginPassword").value;
 
   if(!email || !password){
-    setMessage("loginMsg","Email and password are required");
+    setMsg("loginMsg","Email နှင့် Password ထည့်ပါ","error");
     return;
   }
 
-  setMessage("loginMsg","Signing in...","success");
+  setMsg("loginMsg","Signing in...");
 
   try{
 
@@ -1074,48 +750,44 @@ async function login(){
 
     localStorage.setItem(TOKEN_KEY,data.token);
 
-    currentUser=data.user;
+    if(data.user){
+      localStorage.setItem(USER_KEY,JSON.stringify(data.user));
+      currentUser=data.user;
+    }
 
-    $("loginScreen").classList.add("hidden");
-    $("app").classList.remove("hidden");
-
-    await loadUser();
-    navigate("dashboard");
+    await startApp();
 
   }catch(error){
-
-    setMessage("loginMsg",error.message);
-
+    setMsg("loginMsg",error.message,"error");
   }
 }
 
-
 async function register(){
 
-  const company=$("regCompany").value.trim();
   const name=$("regName").value.trim();
+  const company=$("regCompany").value.trim();
   const email=$("regEmail").value.trim();
   const password=$("regPassword").value;
 
-  if(!company || !name || !email || !password){
-    setMessage("registerMsg","Please complete all fields");
+  if(!name || !company || !email || !password){
+    setMsg("registerMsg","လိုအပ်တဲ့အချက်အလက်အားလုံးထည့်ပါ","error");
     return;
   }
 
   if(password.length<6){
-    setMessage("registerMsg","Password must be at least 6 characters");
+    setMsg("registerMsg","Password အနည်းဆုံး 6 characters ထည့်ပါ","error");
     return;
   }
 
-  setMessage("registerMsg","Creating account...","success");
+  setMsg("registerMsg","Creating account...");
 
   try{
 
     const data=await api("/api/auth/register",{
       method:"POST",
       body:JSON.stringify({
-        company,
         name,
+        company,
         email,
         password
       })
@@ -1123,1286 +795,2263 @@ async function register(){
 
     localStorage.setItem(TOKEN_KEY,data.token);
 
-    currentUser=data.user;
+    if(data.user){
+      localStorage.setItem(USER_KEY,JSON.stringify(data.user));
+      currentUser=data.user;
+    }
 
-    closeRegister();
-
-    $("loginScreen").classList.add("hidden");
-    $("app").classList.remove("hidden");
-
-    await loadUser();
-    navigate("dashboard");
+    await startApp();
 
   }catch(error){
-
-    setMessage("registerMsg",error.message);
-
+    setMsg("registerMsg",error.message,"error");
   }
 }
 
+async function startApp(){
 
-async function loadUser(){
+  hide("loginScreen");
+  show("app");
 
   try{
+    const me=await api("/api/auth/me");
 
-    const data=await api("/api/auth/me");
-
-    currentUser=data.user || data;
-
-    const name=currentUser.name || "Owner";
-    const company=
-      currentUser.company_name ||
-      currentUser.company ||
-      "Aung Business";
-
-    $("topUserName").textContent=name;
-    $("topCompany").textContent=company;
-
-    $("avatar").textContent=
-      name.charAt(0).toUpperCase();
-
+    if(me.user){
+      currentUser=me.user;
+      localStorage.setItem(USER_KEY,JSON.stringify(me.user));
+    }
   }catch(error){
-
-    logout();
-
+    console.error(error);
   }
+
+  $("topUser").textContent=
+    currentUser ?
+    `${currentUser.name || currentUser.email} • ${currentUser.role || "User"}` :
+    "";
+
+  go("dashboard");
 }
-
-
-function showRegister(){
-  $("registerModal").classList.remove("hidden");
-}
-
-function closeRegister(){
-  $("registerModal").classList.add("hidden");
-}
-
 
 function logout(){
 
   localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
 
   currentUser=null;
 
-  $("app").classList.add("hidden");
-  $("loginScreen").classList.remove("hidden");
+  hide("app");
+  show("loginScreen");
+
+  showLogin();
+
+  $("loginEmail").value="";
+  $("loginPassword").value="";
 }
 
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
 
-/* NAVIGATION */
+const titles={
+  dashboard:"Dashboard",
+  sales:"Sales",
+  customers:"CRM / Customers",
+  suppliers:"Suppliers",
+  purchases:"Purchases",
+  inventory:"Inventory",
+  accounting:"Accounting",
+  expenses:"Expenses",
+  reports:"Reports",
+  growth:"100 → 1000 Growth",
+  coach:"AI Business Coach",
+  tools:"Business Tools",
+  employees:"Employees",
+  users:"Users & Roles",
+  settings:"Settings"
+};
 
-function navigate(page,button){
+function go(page){
 
-  document.querySelectorAll(".nav-item")
-    .forEach(x=>x.classList.remove("active"));
+  currentPage=page;
 
-  if(button){
-    button.classList.add("active");
-  }
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.page===page
+    );
+  });
 
-  closeSidebar();
+  $("pageTitle").textContent=titles[page] || "Dashboard";
 
-  const pages={
+  closeMenu();
+
+  const renderers={
     dashboard:renderDashboard,
     sales:renderSales,
     customers:renderCustomers,
+    suppliers:renderSuppliers,
     purchases:renderPurchases,
     inventory:renderInventory,
     accounting:renderAccounting,
     expenses:renderExpenses,
-    employees:renderEmployees,
-    users:renderUsers,
+    reports:renderReports,
     growth:renderGrowth,
     coach:renderCoach,
+    tools:renderTools,
+    employees:renderEmployees,
+    users:renderUsers,
     settings:renderSettings
   };
 
-  if(pages[page]){
-    pages[page]();
+  if(renderers[page]){
+    renderers[page]();
   }
 }
 
+function toggleMenu(){
+  $("sidebar").classList.toggle("open");
+  $("overlay").classList.toggle("show");
+}
 
-/* DASHBOARD */
+function closeMenu(){
+  $("sidebar").classList.remove("open");
+  $("overlay").classList.remove("show");
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+async function loadDashboard(){
+
+  try{
+    dashboardData=await api("/api/dashboard");
+  }catch(error){
+    dashboardData=null;
+    console.error(error);
+  }
+}
 
 async function renderDashboard(){
 
   $("content").innerHTML=`
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Business Dashboard</h1>
-        <div class="page-sub">
-          AUNG SMART BUSINESS ERP V5
-        </div>
-      </div>
-    </div>
-
-    <div id="dashboardStats" class="stats">
-      <div class="stat">
-        <div class="stat-label">Loading</div>
-        <div class="stat-value">...</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Business Overview</div>
-      <div id="dashboardInfo">
-        Loading business data...
-      </div>
-    </div>
+    <div class="loading">Loading dashboard...</div>
   `;
 
-  try{
+  await loadDashboard();
 
-    const data=await api("/api/dashboard");
-
-    const revenue=Number(data.revenue||0);
-    const profit=Number(data.net_profit||0);
-    const receivable=Number(data.receivable||0);
-    const payable=Number(data.payable||0);
-
-    $("dashboardStats").innerHTML=`
-
-      <div class="stat">
-        <div class="stat-label">Revenue</div>
-        <div class="stat-value">${money(revenue)}</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">Net Profit</div>
-        <div class="stat-value">${money(profit)}</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">Receivable</div>
-        <div class="stat-value">${money(receivable)}</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">Payable</div>
-        <div class="stat-value">${money(payable)}</div>
-      </div>
-
-    `;
-
-    $("dashboardInfo").innerHTML=`
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
-
-        <div>
-          <div style="color:#6b7280;font-size:12px">
-            Sales Invoices
-          </div>
-          <strong>${data.invoice_count||0}</strong>
-        </div>
-
-        <div>
-          <div style="color:#6b7280;font-size:12px">
-            Customers
-          </div>
-          <strong>${data.customer_count||0}</strong>
-        </div>
-
-        <div>
-          <div style="color:#6b7280;font-size:12px">
-            Products
-          </div>
-          <strong>${data.product_count||0}</strong>
-        </div>
-
-      </div>
-    `;
-
-  }catch(error){
-
-    $("dashboardInfo").innerHTML=
-      `<div class="message error">${escapeHtml(error.message)}</div>`;
-
-  }
-}
-
-
-/* INVENTORY */
-
-async function renderInventory(){
+  const d=dashboardData || {};
 
   $("content").innerHTML=`
 
-    <div class="page-head">
+    <div class="welcome">
+      <h2>Welcome back, ${esc(currentUser?.name || "Business Manager")}</h2>
+      <p>သင့်လုပ်ငန်းကို စနစ်တကျ စီမံပြီး 100 → 1000 Growth ကို တည်ဆောက်ပါ</p>
+    </div>
 
-      <div>
-        <h1 class="page-title">Products</h1>
-        <div class="page-sub">
-          Product catalogue, stock and pricing
-        </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="stat-label">Revenue</div>
+        <div class="stat-value">${money(d.revenue)}</div>
+        <div class="stat-sub">Sales revenue</div>
       </div>
 
-      <button class="btn btn-primary" onclick="openProductModal()">
-        + Add Product
-      </button>
+      <div class="card">
+        <div class="stat-label">Gross Profit</div>
+        <div class="stat-value">${money(d.gross_profit)}</div>
+        <div class="stat-sub">Revenue − COGS</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Net Profit</div>
+        <div class="stat-value">${money(d.net_profit)}</div>
+        <div class="stat-sub">After expenses</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Receivable</div>
+        <div class="stat-value">${money(d.receivable)}</div>
+        <div class="stat-sub">Customer credit</div>
+      </div>
 
     </div>
 
-    <div class="card">
+    <div class="cards">
 
-      <div class="toolbar">
-
-        <input
-          id="productSearch"
-          class="search"
-          placeholder="Search product, SKU or category..."
-          oninput="filterProducts()"
-        >
-
-        <button class="btn btn-light" onclick="loadProducts()">
-          ↻ Refresh
-        </button>
-
+      <div class="card">
+        <div class="stat-label">Payable</div>
+        <div class="stat-value">${money(d.payable)}</div>
       </div>
 
-      <div id="productGrid" class="product-grid">
-        Loading products...
+      <div class="card">
+        <div class="stat-label">Stock Value</div>
+        <div class="stat-value">${money(d.stock_value)}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Customers</div>
+        <div class="stat-value">${money(d.customer_count)}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Low Stock</div>
+        <div class="stat-value">${money(d.low_stock)}</div>
+      </div>
+
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <div class="section-head">
+          <h3>Business Snapshot</h3>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <tbody>
+              <tr>
+                <td>Invoices</td>
+                <td><strong>${money(d.invoice_count)}</strong></td>
+              </tr>
+              <tr>
+                <td>Collected</td>
+                <td><strong>${money(d.collected)}</strong></td>
+              </tr>
+              <tr>
+                <td>Purchases</td>
+                <td><strong>${money(d.purchase_total)}</strong></td>
+              </tr>
+              <tr>
+                <td>Expenses</td>
+                <td><strong>${money(d.expenses)}</strong></td>
+              </tr>
+              <tr>
+                <td>Products</td>
+                <td><strong>${money(d.product_count)}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h3>Quick Actions</h3>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" onclick="go('sales')">
+            + New Sale
+          </button>
+
+          <button class="btn btn-secondary" onclick="openProductModal()">
+            + Product
+          </button>
+
+          <button class="btn btn-secondary" onclick="openCustomerModal()">
+            + Customer
+          </button>
+
+          <button class="btn btn-secondary" onclick="go('growth')">
+            100 → 1000
+          </button>
+        </div>
       </div>
 
     </div>
   `;
-
-  await loadProducts();
 }
 
+/* =========================================================
+   CUSTOMERS
+   ========================================================= */
+
+async function loadCustomers(){
+
+  try{
+    const data=await api("/api/customers");
+    customers=data.customers || data || [];
+  }catch(error){
+    customers=[];
+    console.error(error);
+  }
+}
+
+async function renderCustomers(){
+
+  $("content").innerHTML=`
+    <div class="card">
+      <div class="loading">Loading customers...</div>
+    </div>
+  `;
+
+  await loadCustomers();
+
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h3>Customers</h3>
+        </div>
+
+        <div class="actions">
+          <input class="search" id="customerSearch"
+            placeholder="Search customer..."
+            oninput="filterCustomers()">
+
+          <button class="btn btn-primary"
+            onclick="openCustomerModal()">
+            + Add Customer
+          </button>
+        </div>
+      </div>
+
+      <div id="customerTable"></div>
+
+    </div>
+  `;
+
+  renderCustomerTable(customers);
+}
+
+function filterCustomers(){
+
+  const q=$("customerSearch").value.toLowerCase();
+
+  renderCustomerTable(
+    customers.filter(c=>
+      String(c.name||"").toLowerCase().includes(q) ||
+      String(c.phone||"").toLowerCase().includes(q) ||
+      String(c.email||"").toLowerCase().includes(q)
+    )
+  );
+}
+
+function renderCustomerTable(list){
+
+  if(!list.length){
+    $("customerTable").innerHTML=`
+      <div class="empty">
+        No customers found
+      </div>
+    `;
+    return;
+  }
+
+  $("customerTable").innerHTML=`
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Credit Limit</th>
+            <th>Receivable</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          ${list.map(c=>`
+            <tr>
+              <td><strong>${esc(c.name)}</strong></td>
+              <td>${esc(c.phone)}</td>
+              <td>${esc(c.email)}</td>
+              <td>${money(c.credit_limit)}</td>
+              <td>${money(c.receivable)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openCustomerModal(){
+  $("customerModal").classList.remove("hidden");
+
+  $("customerName").value="";
+  $("customerPhone").value="";
+  $("customerEmail").value="";
+  $("customerCredit").value="0";
+  $("customerAddress").value="";
+}
+
+function closeCustomerModal(){
+  $("customerModal").classList.add("hidden");
+}
+
+async function saveCustomer(){
+
+  const name=$("customerName").value.trim();
+
+  if(!name){
+    alert("Customer Name ထည့်ပါ");
+    return;
+  }
+
+  try{
+
+    await api("/api/customers",{
+      method:"POST",
+      body:JSON.stringify({
+        name,
+        phone:$("customerPhone").value.trim(),
+        email:$("customerEmail").value.trim(),
+        credit_limit:Number($("customerCredit").value||0),
+        address:$("customerAddress").value.trim()
+      })
+    });
+
+    closeCustomerModal();
+
+    if(currentPage==="customers"){
+      renderCustomers();
+    }
+
+    alert("Customer saved successfully");
+
+  }catch(error){
+    alert(error.message);
+  }
+}
+
+/* =========================================================
+   SUPPLIERS
+   ========================================================= */
+
+async function loadSuppliers(){
+
+  try{
+    const data=await api("/api/suppliers");
+    suppliers=data.suppliers || data || [];
+  }catch(error){
+    suppliers=[];
+  }
+}
+
+async function renderSuppliers(){
+
+  $("content").innerHTML=`
+    <div class="card">
+      <div class="loading">Loading suppliers...</div>
+    </div>
+  `;
+
+  await loadSuppliers();
+
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+        <h3>Suppliers</h3>
+
+        <button class="btn btn-primary"
+          onclick="alert('Supplier creation API ကို နောက်အဆင့်မှာ ထပ်တိုးမယ်')">
+          + Add Supplier
+        </button>
+      </div>
+
+      ${
+        suppliers.length ?
+        `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Supplier</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Credit Limit</th>
+                <th>Payable</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${suppliers.map(s=>`
+                <tr>
+                  <td><strong>${esc(s.name)}</strong></td>
+                  <td>${esc(s.phone)}</td>
+                  <td>${esc(s.email)}</td>
+                  <td>${money(s.credit_limit)}</td>
+                  <td>${money(s.payable)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        `:
+        `<div class="empty">No suppliers found</div>`
+      }
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   PRODUCTS / INVENTORY
+   ========================================================= */
 
 async function loadProducts(){
 
   try{
-
     const data=await api("/api/products");
-
-    productsCache=
-      Array.isArray(data) ? data :
-      Array.isArray(data.products) ? data.products :
-      [];
-
-    filterProducts();
-
+    products=data.products || data || [];
   }catch(error){
-
-    $("productGrid").innerHTML=
-      `<div class="message error">${escapeHtml(error.message)}</div>`;
-
+    products=[];
+    console.error(error);
   }
 }
 
+async function renderInventory(){
 
-function getImageMap(){
+  $("content").innerHTML=`
+    <div class="card">
+      <div class="loading">Loading inventory...</div>
+    </div>
+  `;
 
-  try{
-    return JSON.parse(
-      localStorage.getItem(IMAGE_KEY) || "{}"
-    );
-  }catch(error){
-    return {};
-  }
+  await loadProducts();
+
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+
+        <div>
+          <h3>Products & Inventory</h3>
+          <div class="stat-sub">
+            Product catalogue and stock management
+          </div>
+        </div>
+
+        <div class="actions">
+
+          <input id="productSearch"
+            class="search"
+            placeholder="Search product..."
+            oninput="filterProducts()">
+
+          <button class="btn btn-primary"
+            onclick="openProductModal()">
+            + Add Product
+          </button>
+
+        </div>
+
+      </div>
+
+      <div id="productGrid" class="product-grid"></div>
+
+    </div>
+  `;
+
+  renderProductGrid(products);
 }
-
-
-function saveImageMap(map){
-
-  localStorage.setItem(
-    IMAGE_KEY,
-    JSON.stringify(map)
-  );
-
-}
-
-
-function productImage(product){
-
-  const map=getImageMap();
-
-  return map[product.id] || map[product.sku] || "";
-
-}
-
 
 function filterProducts(){
 
-  const grid=$("productGrid");
+  const q=$("productSearch").value.toLowerCase();
 
-  if(!grid)return;
+  renderProductGrid(
+    products.filter(p=>
+      String(p.name||"").toLowerCase().includes(q) ||
+      String(p.sku||"").toLowerCase().includes(q) ||
+      String(p.category||"").toLowerCase().includes(q)
+    )
+  );
+}
 
-  const input=$("productSearch");
-
-  const query=
-    input ?
-    input.value.trim().toLowerCase() :
-    "";
-
-  const list=productsCache.filter(p=>{
-
-    const text=[
-      p.name,
-      p.sku,
-      p.category
-    ].join(" ").toLowerCase();
-
-    return text.includes(query);
-
-  });
+function renderProductGrid(list){
 
   if(!list.length){
-
-    grid.innerHTML=`
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7280">
+    $("productGrid").innerHTML=`
+      <div class="empty" style="grid-column:1/-1">
         No products found
       </div>
     `;
-
     return;
   }
 
-  grid.innerHTML=list.map(product=>{
+  $("productGrid").innerHTML=list.map(p=>{
 
-    const image=productImage(product);
+    const image=productImages[p.id] || "";
 
-    const stock=Number(product.stock||0);
-    const low=Number(product.low_stock||0);
+    const low=
+      Number(p.stock||0)<=Number(p.low_stock||0);
 
     return `
 
       <div class="product-card">
 
-        ${
-          image
-          ?
-          `<img class="product-image" src="${image}" alt="">`
-          :
-          `<div class="product-image empty">📦</div>`
-        }
+        <div class="product-img">
+          ${
+            image
+            ? `<img src="${image}" alt="${esc(p.name)}">`
+            : `📦`
+          }
+        </div>
 
         <div class="product-body">
 
           <div class="product-name">
-            ${escapeHtml(product.name)}
-          </div>
-
-          <div class="product-sku">
-            ${escapeHtml(product.sku || "No SKU")}
+            ${esc(p.name)}
           </div>
 
           <div class="product-meta">
-
-            <div class="product-price">
-              ${money(product.selling_price)} MMK
-            </div>
-
-            <div class="stock ${stock<=low ? "low":""}">
-              Stock ${money(stock)}
-            </div>
-
+            ${esc(p.sku || "No SKU")}
+            ${p.category ? " • "+esc(p.category) : ""}
           </div>
 
-          <div style="margin-top:7px;font-size:12px;color:#6b7280">
-            Cost: ${money(product.cost_price)} MMK
+          <div class="price">
+            ${money(p.selling_price || p.price)}
           </div>
 
-          <div class="product-actions">
-
-            <button
-              class="btn btn-light"
-              onclick="editProduct('${escapeHtml(product.id)}')"
-            >
-              Edit
-            </button>
-
-            <button
-              class="btn btn-light"
-              onclick="changeProductImage('${escapeHtml(product.id)}')"
-            >
-              🖼️ Image
-            </button>
-
+          <div class="stock">
+            Stock:
+            <strong>${money(p.stock)}</strong>
+            ${esc(p.unit || "pcs")}
+            ${
+              low
+              ? `<span class="badge badge-danger">LOW</span>`
+              : `<span class="badge badge-success">OK</span>`
+            }
           </div>
 
         </div>
 
       </div>
-
     `;
 
   }).join("");
 }
 
+function openProductModal(product=null){
 
-/* PRODUCT IMAGE */
+  show("productModal");
 
-function handleProductImage(event){
+  selectedProductImage="";
 
-  const file=event.target.files[0];
+  $("productId").value=product?.id || "";
+  $("productName").value=product?.name || "";
+  $("productSku").value=product?.sku || "";
+  $("productCategory").value=product?.category || "";
+  $("productUnit").value=product?.unit || "pcs";
+  $("productCost").value=product?.cost_price || 0;
+  $("productPrice").value=product?.selling_price || product?.price || 0;
+  $("productStock").value=product?.stock || 0;
+  $("productLowStock").value=product?.low_stock || 10;
+
+  const existing=
+    product ? productImages[product.id] || "" : "";
+
+  selectedProductImage=existing;
+
+  $("imagePreview").innerHTML=
+    existing
+    ? `<img src="${existing}" alt="Product">`
+    : "📦";
+
+  $("productImage").value="";
+
+  $("productModalTitle").textContent=
+    product ? "Edit Product" : "Add Product";
+}
+
+function closeProductModal(){
+  hide("productModal");
+}
+
+function previewProductImage(event){
+
+  const file=event.target.files?.[0];
 
   if(!file)return;
 
-  if(!file.type.startsWith("image/")){
-    showToast("Please select an image");
+  if(file.size>8*1024*1024){
+    alert("Image size 8MB အောက်ဖြစ်ရပါမယ်");
+    event.target.value="";
     return;
   }
 
   const reader=new FileReader();
 
-  reader.onload=function(){
-
+  reader.onload=()=>{
     const img=new Image();
 
-    img.onload=function(){
+    img.onload=()=>{
 
-      const maxSize=700;
+      const max=700;
 
-      let width=img.width;
-      let height=img.height;
+      let w=img.width;
+      let h=img.height;
 
-      if(width>height){
-
-        if(width>maxSize){
-          height=Math.round(height*maxSize/width);
-          width=maxSize;
-        }
-
-      }else{
-
-        if(height>maxSize){
-          width=Math.round(width*maxSize/height);
-          height=maxSize;
-        }
-
+      if(w>max || h>max){
+        const ratio=Math.min(max/w,max/h);
+        w=Math.round(w*ratio);
+        h=Math.round(h*ratio);
       }
 
       const canvas=document.createElement("canvas");
-
-      canvas.width=width;
-      canvas.height=height;
+      canvas.width=w;
+      canvas.height=h;
 
       const ctx=canvas.getContext("2d");
 
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        width,
-        height
-      );
+      ctx.drawImage(img,0,0,w,h);
 
-      selectedImageData=
-        canvas.toDataURL(
-          "image/jpeg",
-          .72
-        );
+      selectedProductImage=
+        canvas.toDataURL("image/jpeg",.72);
 
-      showImagePreview(selectedImageData);
-
+      $("imagePreview").innerHTML=
+        `<img src="${selectedProductImage}" alt="Preview">`;
     };
 
     img.src=reader.result;
-
   };
 
   reader.readAsDataURL(file);
 }
 
-
-function showImagePreview(src){
-
-  const box=$("imagePreviewBox");
-
-  box.className="image-preview";
-
-  box.innerHTML="";
-
-  const img=document.createElement("img");
-
-  img.src=src;
-
-  img.style.width="100%";
-  img.style.height="100%";
-  img.style.objectFit="cover";
-  img.style.borderRadius="14px";
-
-  box.appendChild(img);
-
-}
-
-
-function openProductModal(product=null){
-
-  editingProduct=product;
-  selectedImageData=
-    product ?
-    productImage(product) :
-    "";
-
-  $("productModalTitle").textContent=
-    product ? "Edit Product" : "Add Product";
-
-  $("pName").value=product?.name || "";
-  $("pSku").value=product?.sku || "";
-  $("pCategory").value=product?.category || "";
-  $("pUnit").value=product?.unit || "pcs";
-  $("pCost").value=product?.cost_price ?? "";
-  $("pPrice").value=product?.selling_price ?? "";
-  $("pStock").value=product ? product.stock ?? 0 : "";
-  $("pLowStock").value=product?.low_stock ?? 10;
-
-  if(selectedImageData){
-    showImagePreview(selectedImageData);
-  }else{
-
-    $("imagePreviewBox").className=
-      "image-preview empty";
-
-    $("imagePreviewBox").innerHTML="📦";
-
-  }
-
-  $("productImage").value="";
-
-  $("productModal").classList.remove("hidden");
-}
-
-
-function closeProductModal(){
-
-  $("productModal").classList.add("hidden");
-
-  editingProduct=null;
-  selectedImageData="";
-
-}
-
-
-function editProduct(id){
-
-  const product=
-    productsCache.find(
-      p=>String(p.id)===String(id)
-    );
-
-  if(product){
-    openProductModal(product);
-  }
-
-}
-
-
-function changeProductImage(id){
-
-  const product=
-    productsCache.find(
-      p=>String(p.id)===String(id)
-    );
-
-  if(!product)return;
-
-  openProductModal(product);
-
-  setTimeout(()=>{
-    $("productImage").click();
-  },150);
-
-}
-
-
 async function saveProduct(){
 
-  const name=$("pName").value.trim();
-  const sku=$("pSku").value.trim();
-  const category=$("pCategory").value.trim();
-  const unit=$("pUnit").value;
-  const cost=Number($("pCost").value||0);
-  const price=Number($("pPrice").value||0);
-  const stock=Number($("pStock").value||0);
-  const lowStock=Number($("pLowStock").value||0);
+  const name=$("productName").value.trim();
 
   if(!name){
-    showToast("Product name is required");
+    alert("Product Name ထည့်ပါ");
     return;
   }
 
-  if(price<0 || cost<0 || stock<0){
-    showToast("Invalid product values");
+  const productId=$("productId").value;
+
+  /*
+    Current V5 backend has POST /api/products
+    but no product PATCH endpoint yet
+
+    Therefore new products are saved to cloud API
+    Product image remains browser-local for now
+  */
+
+  if(productId){
+    alert(
+      "Product Edit API ကို Backend V5 မှာ မထည့်ရသေးပါ\n"+
+      "အခု Add Product ကို အရင်အသုံးပြုနိုင်ပါတယ်"
+    );
     return;
   }
+
+  const payload={
+    name,
+    sku:$("productSku").value.trim(),
+    category:$("productCategory").value.trim(),
+    unit:$("productUnit").value,
+    cost_price:Number($("productCost").value||0),
+    selling_price:Number($("productPrice").value||0),
+    stock:Number($("productStock").value||0),
+    low_stock:Number($("productLowStock").value||10),
+    active:true
+  };
 
   try{
 
     const data=await api("/api/products",{
       method:"POST",
-      body:JSON.stringify({
-        name,
-        sku:sku || null,
-        category:category || null,
-        unit,
-        cost_price:cost,
-        selling_price:price,
-        opening_stock:editingProduct ? 0 : stock,
-        low_stock:lowStock,
-        active:true
-      })
+      body:JSON.stringify(payload)
     });
 
-    const saved=
-      data.product ||
-      data;
+    const saved=data.product || data;
 
-    const map=getImageMap();
+    if(saved?.id && selectedProductImage){
+      productImages[saved.id]=selectedProductImage;
 
-    if(selectedImageData){
-
-      const key=
-        saved.id ||
-        saved.sku ||
-        editingProduct?.id;
-
-      if(key){
-        map[key]=selectedImageData;
-      }
-
+      localStorage.setItem(
+        PRODUCT_IMAGE_KEY,
+        JSON.stringify(productImages)
+      );
     }
-
-    saveImageMap(map);
 
     closeProductModal();
 
-    showToast(
-      editingProduct
-      ? "Product updated"
-      : "Product saved"
-    );
+    await renderInventory();
 
-    await loadProducts();
+    alert("Product saved successfully");
 
   }catch(error){
-
-    showToast(error.message);
-
+    alert(error.message);
   }
 }
 
+/* =========================================================
+   SALES
+   ========================================================= */
 
-/* OTHER MODULES */
+async function loadSales(){
 
-function renderSales(){
-
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Sales</h1>
-        <div class="page-sub">
-          Sales invoices, payments and customer credit
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Sales Module</div>
-      <div style="color:#6b7280">
-        Sales Invoice + Payment API is ready in ERP V5
-      </div>
-    </div>
-  `;
-
+  try{
+    const data=await api("/api/sales");
+    sales=data.sales || data || [];
+  }catch(error){
+    sales=[];
+  }
 }
 
+async function renderSales(){
 
-async function renderCustomers(){
+  $("content").innerHTML=`
+    <div class="card">
+      <div class="loading">Loading sales...</div>
+    </div>
+  `;
+
+  await loadSales();
 
   $("content").innerHTML=`
 
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">CRM / Customers</h1>
-        <div class="page-sub">
-          Customer management and receivables
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h3>Sales & Invoices</h3>
+          <div class="stat-sub">
+            Invoice, payment and credit sales
+          </div>
         </div>
+
+        <button class="btn btn-primary"
+          onclick="openSaleForm()">
+          + New Sale
+        </button>
       </div>
+
+      ${
+        sales.length ?
+        `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              ${sales.map(s=>`
+                <tr>
+                  <td><strong>${esc(s.invoice_no)}</strong></td>
+                  <td>${esc(s.sale_date)}</td>
+                  <td>${esc(s.customer_name || "Cash Customer")}</td>
+                  <td>${esc(s.product_name || "")}</td>
+                  <td>${money(s.qty)}</td>
+                  <td>${money(s.total)}</td>
+                  <td>
+                    <span class="badge ${
+                      s.payment_status==="Paid"
+                      ? "badge-success"
+                      : "badge-warning"
+                    }">
+                      ${esc(s.payment_status || "Credit")}
+                    </span>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        `:
+        `<div class="empty">No sales yet</div>`
+      }
+
     </div>
+  `;
+}
+
+function openSaleForm(){
+
+  $("content").innerHTML=`
 
     <div class="card">
 
-      <div id="customerTable">
-        Loading customers...
+      <div class="section-head">
+        <div>
+          <h3>New Sale</h3>
+          <div class="stat-sub">
+            Create a new invoice
+          </div>
+        </div>
+
+        <button class="btn btn-secondary"
+          onclick="go('sales')">
+          ← Back
+        </button>
+      </div>
+
+      <div id="saleMsg"></div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Customer</label>
+          <select id="saleCustomer">
+            <option value="">Cash Customer</option>
+            ${
+              customers.map(c=>
+                `<option value="${esc(c.id)}">
+                  ${esc(c.name)}
+                </option>`
+              ).join("")
+            }
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Product *</label>
+          <select id="saleProduct" onchange="updateSalePrice()">
+            <option value="">Select Product</option>
+            ${
+              products.map(p=>
+                `<option
+                  value="${esc(p.id)}"
+                  data-price="${p.selling_price||0}"
+                  data-stock="${p.stock||0}">
+                  ${esc(p.name)} — Stock ${money(p.stock)}
+                </option>`
+              ).join("")
+            }
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Quantity *</label>
+          <input id="saleQty"
+            type="number"
+            min="0.01"
+            step="0.01"
+            value="1"
+            oninput="calculateSaleTotal()">
+        </div>
+
+        <div class="field">
+          <label>Unit Price *</label>
+          <input id="salePrice"
+            type="number"
+            min="0"
+            step="0.01"
+            oninput="calculateSaleTotal()">
+        </div>
+
+        <div class="field">
+          <label>Payment Status</label>
+          <select id="salePayment">
+            <option value="Paid">Paid</option>
+            <option value="Credit">Credit</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Total</label>
+          <input id="saleTotal" readonly>
+        </div>
+
+      </div>
+
+      <div style="margin-top:20px">
+        <button class="btn btn-primary"
+          onclick="createSale()">
+          Create Invoice
+        </button>
       </div>
 
     </div>
   `;
+
+  if(!customers.length) loadCustomers();
+  if(!products.length) loadProducts();
+}
+
+function updateSalePrice(){
+
+  const option=$("saleProduct").selectedOptions[0];
+
+  if(option){
+    $("salePrice").value=
+      option.dataset.price || 0;
+  }
+
+  calculateSaleTotal();
+}
+
+function calculateSaleTotal(){
+
+  const qty=Number($("saleQty")?.value||0);
+  const price=Number($("salePrice")?.value||0);
+
+  if($("saleTotal")){
+    $("saleTotal").value=money(qty*price);
+  }
+}
+
+async function createSale(){
+
+  const product_id=$("saleProduct").value;
+  const customer_id=$("saleCustomer").value || null;
+  const qty=Number($("saleQty").value||0);
+  const price=Number($("salePrice").value||0);
+  const payment_status=$("salePayment").value;
+
+  if(!product_id || qty<=0 || price<0){
+    alert("Product, Quantity နှင့် Price စစ်ပါ");
+    return;
+  }
 
   try{
 
-    const data=await api("/api/customers");
+    await api("/api/sales",{
+      method:"POST",
+      body:JSON.stringify({
+        customer_id,
+        product_id,
+        qty,
+        price,
+        payment_status,
+        paid_amount:
+          payment_status==="Paid"
+          ? qty*price
+          : 0,
+        salesperson:
+          currentUser?.name || ""
+      })
+    });
 
-    const customers=
-      Array.isArray(data)
-      ? data
-      : data.customers || [];
+    alert("Invoice created successfully");
 
-    if(!customers.length){
+    go("sales");
 
-      $("customerTable").innerHTML=
-        "No customers yet";
+  }catch(error){
 
-      return;
-    }
+    $("saleMsg").innerHTML=`
+      <div class="error-box">${esc(error.message)}</div>
+    `;
+  }
+}
 
-    $("customerTable").innerHTML=`
+/* =========================================================
+   PURCHASES
+   ========================================================= */
 
-      <div class="table-wrap">
+async function loadPurchases(){
 
-        <table>
+  try{
+    const data=await api("/api/purchases");
+    purchases=data.purchases || data || [];
+  }catch(error){
+    purchases=[];
+  }
+}
 
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Credit Limit</th>
-              <th>Receivable</th>
-            </tr>
-          </thead>
+async function renderPurchases(){
 
-          <tbody>
+  $("content").innerHTML=`
+    <div class="card">
+      <div class="loading">Loading purchases...</div>
+    </div>
+  `;
 
-            ${customers.map(c=>`
+  await loadPurchases();
 
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+        <h3>Purchases</h3>
+
+        <button class="btn btn-primary"
+          onclick="alert('Purchase creation form ကို နောက်အဆင့်မှာ ထပ်တိုးမယ်')">
+          + New Purchase
+        </button>
+      </div>
+
+      ${
+        purchases.length ?
+        `
+        <div class="table-wrap">
+          <table>
+            <thead>
               <tr>
-
-                <td>
-                  <strong>${escapeHtml(c.name)}</strong>
-                </td>
-
-                <td>${escapeHtml(c.phone||"-")}</td>
-
-                <td>${money(c.credit_limit)} MMK</td>
-
-                <td>${money(c.receivable)} MMK</td>
-
+                <th>Purchase No</th>
+                <th>Date</th>
+                <th>Supplier</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Status</th>
               </tr>
+            </thead>
 
-            `).join("")}
+            <tbody>
+              ${purchases.map(p=>`
+                <tr>
+                  <td><strong>${esc(p.purchase_no)}</strong></td>
+                  <td>${esc(p.purchase_date)}</td>
+                  <td>${esc(p.supplier_name)}</td>
+                  <td>${esc(p.product_name)}</td>
+                  <td>${money(p.qty)}</td>
+                  <td>${money(p.total)}</td>
+                  <td>${esc(p.payment_status)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        `:
+        `<div class="empty">No purchases yet</div>`
+      }
 
-          </tbody>
+    </div>
+  `;
+}
 
-        </table>
+/* =========================================================
+   ACCOUNTING
+   ========================================================= */
+
+async function renderAccounting(){
+
+  await loadDashboard();
+
+  const d=dashboardData||{};
+
+  $("content").innerHTML=`
+
+    <div class="section-head">
+      <div>
+        <h3>Accounting & Finance</h3>
+        <div class="stat-sub">
+          Business financial overview
+        </div>
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="stat-label">Revenue</div>
+        <div class="stat-value">${money(d.revenue)}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">COGS</div>
+        <div class="stat-value">${money(d.cogs)}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Gross Profit</div>
+        <div class="stat-value">${money(d.gross_profit)}</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">Net Profit</div>
+        <div class="stat-value">${money(d.net_profit)}</div>
+      </div>
+
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Accounts Receivable</h3>
+        <div class="stat-value">${money(d.receivable)}</div>
+        <div class="stat-sub">
+          Customer credit balance
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Accounts Payable</h3>
+        <div class="stat-value">${money(d.payable)}</div>
+        <div class="stat-sub">
+          Supplier outstanding
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   EXPENSES
+   ========================================================= */
+
+async function loadExpenses(){
+
+  try{
+    const data=await api("/api/expenses");
+    expenses=data.expenses || data || [];
+  }catch(error){
+    expenses=[];
+  }
+}
+
+async function renderExpenses(){
+
+  $("content").innerHTML=`
+    <div class="card">
+      <div class="loading">Loading expenses...</div>
+    </div>
+  `;
+
+  await loadExpenses();
+
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+        <h3>Expenses</h3>
+
+        <button class="btn btn-primary"
+          onclick="openExpenseForm()">
+          + Add Expense
+        </button>
+      </div>
+
+      ${
+        expenses.length ?
+        `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${expenses.map(e=>`
+                <tr>
+                  <td>${esc(e.expense_date)}</td>
+                  <td>${esc(e.category)}</td>
+                  <td>${esc(e.description)}</td>
+                  <td>${money(e.amount)}</td>
+                  <td>${esc(e.payment_method)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        `:
+        `<div class="empty">No expenses yet</div>`
+      }
+
+    </div>
+  `;
+}
+
+function openExpenseForm(){
+
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+        <h3>Add Expense</h3>
+        <button class="btn btn-secondary" onclick="go('expenses')">
+          ← Back
+        </button>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Category</label>
+          <select id="expenseCategory">
+            <option>Rent</option>
+            <option>Salary</option>
+            <option>Transport</option>
+            <option>Marketing</option>
+            <option>Utilities</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Amount</label>
+          <input id="expenseAmount" type="number" min="0">
+        </div>
+
+        <div class="field">
+          <label>Payment Method</label>
+          <select id="expenseMethod">
+            <option>Cash</option>
+            <option>Bank</option>
+            <option>Mobile Payment</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Date</label>
+          <input id="expenseDate" type="date"
+            value="${new Date().toISOString().slice(0,10)}">
+        </div>
+
+        <div class="field form-full">
+          <label>Description</label>
+          <textarea id="expenseDescription"></textarea>
+        </div>
 
       </div>
 
+      <button class="btn btn-primary"
+        onclick="createExpense()">
+        Save Expense
+      </button>
+
+    </div>
+  `;
+}
+
+async function createExpense(){
+
+  const amount=Number($("expenseAmount").value||0);
+
+  if(amount<=0){
+    alert("Amount ထည့်ပါ");
+    return;
+  }
+
+  try{
+
+    await api("/api/expenses",{
+      method:"POST",
+      body:JSON.stringify({
+        category:$("expenseCategory").value,
+        amount,
+        payment_method:$("expenseMethod").value,
+        expense_date:$("expenseDate").value,
+        description:$("expenseDescription").value.trim()
+      })
+    });
+
+    alert("Expense saved");
+
+    go("expenses");
+
+  }catch(error){
+    alert(error.message);
+  }
+}
+
+/* =========================================================
+   REPORTS
+   ========================================================= */
+
+async function renderReports(){
+
+  await loadDashboard();
+
+  const d=dashboardData||{};
+
+  $("content").innerHTML=`
+
+    <div class="section-head">
+      <div>
+        <h3>Business Reports</h3>
+        <div class="stat-sub">
+          Key management reporting
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card">
+        <div class="tool-icon">📈</div>
+        <h4>Sales Report</h4>
+        <p>Total revenue and invoice activity</p>
+        <div class="stat-value">${money(d.revenue)}</div>
+      </div>
+
+      <div class="card">
+        <div class="tool-icon">💰</div>
+        <h4>Profit Report</h4>
+        <p>Gross and net profit overview</p>
+        <div class="stat-value">${money(d.net_profit)}</div>
+      </div>
+
+      <div class="card">
+        <div class="tool-icon">📦</div>
+        <h4>Inventory Report</h4>
+        <p>Stock quantity and value</p>
+        <div class="stat-value">${money(d.stock_value)}</div>
+      </div>
+
+      <div class="card">
+        <div class="tool-icon">👥</div>
+        <h4>Customer Report</h4>
+        <p>Customer and receivable overview</p>
+        <div class="stat-value">${money(d.customer_count)}</div>
+      </div>
+
+      <div class="card">
+        <div class="tool-icon">💸</div>
+        <h4>Expense Report</h4>
+        <p>Business expense overview</p>
+        <div class="stat-value">${money(d.expenses)}</div>
+      </div>
+
+      <div class="card">
+        <div class="tool-icon">🚚</div>
+        <h4>Purchase Report</h4>
+        <p>Supplier purchasing overview</p>
+        <div class="stat-value">${money(d.purchase_total)}</div>
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   GROWTH 100 → 1000
+   ========================================================= */
+
+async function renderGrowth(){
+
+  await loadDashboard();
+
+  const d=dashboardData||{};
+
+  $("content").innerHTML=`
+
+    <div class="welcome">
+      <h2>100 → 1000 Business Growth System</h2>
+      <p>
+        လုပ်ငန်းကို Revenue Growth, Profitability, Customers,
+        Team နှင့် System တို့နဲ့ တဖြည်းဖြည်း scale လုပ်ရန်
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+
+      <div class="section-head">
+        <h3>Current Business Snapshot</h3>
+      </div>
+
+      <div class="cards" style="margin:0">
+
+        <div>
+          <div class="stat-label">Current Revenue</div>
+          <div class="stat-value">${money(d.revenue)}</div>
+        </div>
+
+        <div>
+          <div class="stat-label">Gross Profit</div>
+          <div class="stat-value">${money(d.gross_profit)}</div>
+        </div>
+
+        <div>
+          <div class="stat-label">Customers</div>
+          <div class="stat-value">${money(d.customer_count)}</div>
+        </div>
+
+        <div>
+          <div class="stat-label">Stock Value</div>
+          <div class="stat-value">${money(d.stock_value)}</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <h3>Growth Calculator</h3>
+
+        <div class="field">
+          <label>Current Monthly Revenue</label>
+          <input id="growthCurrent" type="number" value="${Number(d.revenue||0)}">
+        </div>
+
+        <div class="field">
+          <label>Target Monthly Revenue</label>
+          <input id="growthTarget" type="number" value="100000000">
+        </div>
+
+        <div class="field">
+          <label>Target Growth %</label>
+          <input id="growthPercent" readonly>
+        </div>
+
+        <button class="btn btn-primary"
+          onclick="calculateGrowth()">
+          Calculate
+        </button>
+
+      </div>
+
+      <div class="card">
+        <h3>Growth Roadmap</h3>
+
+        <div class="growth-stage">
+          <strong>Stage 1 — 100 → 200</strong>
+          <span>Foundation, cash flow, pricing, basic KPI</span>
+        </div>
+
+        <div class="growth-stage">
+          <strong>Stage 2 — 200 → 300</strong>
+          <span>Sales system and customer acquisition</span>
+        </div>
+
+        <div class="growth-stage">
+          <strong>Stage 3 — 300 → 500</strong>
+          <span>Team, distribution and customer expansion</span>
+        </div>
+
+        <div class="growth-stage">
+          <strong>Stage 4 — 500 → 700</strong>
+          <span>Scale operations and management systems</span>
+        </div>
+
+        <div class="growth-stage">
+          <strong>Stage 5 — 700 → 900</strong>
+          <span>Market and territory expansion</span>
+        </div>
+
+        <div class="growth-stage">
+          <strong>Stage 6 — 900 → 1000</strong>
+          <span>Systemized and scalable business</span>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+function calculateGrowth(){
+
+  const current=Number($("growthCurrent").value||0);
+  const target=Number($("growthTarget").value||0);
+
+  if(current<=0 || target<=0){
+    $("growthPercent").value="";
+    return;
+  }
+
+  const growth=((target-current)/current)*100;
+
+  $("growthPercent").value=
+    growth.toFixed(1)+"%";
+}
+
+/* =========================================================
+   AI BUSINESS COACH
+   ========================================================= */
+
+async function renderCoach(){
+
+  await loadDashboard();
+
+  const d=dashboardData||{};
+
+  let advice=[];
+
+  if(Number(d.receivable||0)>Number(d.revenue||0)*.3){
+    advice.push({
+      problem:"Customer receivable is relatively high",
+      action:"Credit collection schedule တည်ဆောက်ပြီး overdue customers ကို follow-up လုပ်ပါ",
+      kpi:"Receivable / Revenue"
+    });
+  }
+
+  if(Number(d.low_stock||0)>0){
+    advice.push({
+      problem:"Low stock products ရှိနေပါတယ်",
+      action:"Reorder level သတ်မှတ်ပြီး fast-moving products ကို stock-out မဖြစ်အောင် စီမံပါ",
+      kpi:"Stock-out rate"
+    });
+  }
+
+  if(Number(d.gross_profit||0)<=0 && Number(d.revenue||0)>0){
+    advice.push({
+      problem:"Gross profit မတက်သေးပါ",
+      action:"Cost price, selling price, discount နှင့် product mix ကို ပြန်စစ်ပါ",
+      kpi:"Gross Margin %"
+    });
+  }
+
+  if(!advice.length){
+    advice=[
+      {
+        problem:"Business KPI system တည်ဆောက်ရန်",
+        action:"Daily Sales, Gross Margin, Receivable, Stock နှင့် Expense ကို စောင့်ကြည့်ပါ",
+        kpi:"Daily KPI completion"
+      },
+      {
+        problem:"Sales growth တိုးရန်",
+        action:"Top customers, top products နှင့် salesperson performance ကို အပတ်စဉ် review လုပ်ပါ",
+        kpi:"Weekly sales growth"
+      }
+    ];
+  }
+
+  $("content").innerHTML=`
+
+    <div class="welcome">
+      <h2>✦ AI Business Coach</h2>
+      <p>
+        Problem → Cause → Action → KPI → 7-Day Plan
+      </p>
+    </div>
+
+    ${advice.map((a,i)=>`
+
+      <div class="card" style="margin-bottom:12px">
+
+        <div class="badge badge-warning">
+          Recommendation ${i+1}
+        </div>
+
+        <h3 style="margin:12px 0 8px">
+          ${esc(a.problem)}
+        </h3>
+
+        <p style="font-size:13px">
+          <strong>Action:</strong>
+          ${esc(a.action)}
+        </p>
+
+        <p style="font-size:13px">
+          <strong>KPI:</strong>
+          ${esc(a.kpi)}
+        </p>
+
+        <div class="success-box">
+          7-Day Plan:
+          ဒီ KPI ကို နေ့စဉ်စစ်ပြီး 7 ရက်အတွင်း
+          trend ပြောင်းလဲမှုကို review လုပ်ပါ
+        </div>
+
+      </div>
+
+    `).join("")}
+
+  `;
+}
+
+/* =========================================================
+   BUSINESS TOOLS
+   ========================================================= */
+
+function renderTools(){
+
+  $("content").innerHTML=`
+
+    <div class="section-head">
+      <div>
+        <h3>Business Tools</h3>
+        <div class="stat-sub">
+          Management calculators
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="card tool-card"
+        onclick="openTool('profit')">
+        <div class="tool-icon">💰</div>
+        <h4>Profit Calculator</h4>
+        <p>Revenue, cost and profit</p>
+      </div>
+
+      <div class="card tool-card"
+        onclick="openTool('margin')">
+        <div class="tool-icon">%</div>
+        <h4>Margin Calculator</h4>
+        <p>Gross margin calculation</p>
+      </div>
+
+      <div class="card tool-card"
+        onclick="openTool('breakeven')">
+        <div class="tool-icon">⚖</div>
+        <h4>Break-even</h4>
+        <p>Required sales to break even</p>
+      </div>
+
+      <div class="card tool-card"
+        onclick="openTool('pricing')">
+        <div class="tool-icon">🏷</div>
+        <h4>Pricing Calculator</h4>
+        <p>Cost + target margin pricing</p>
+      </div>
+
+      <div class="card tool-card"
+        onclick="openTool('discount')">
+        <div class="tool-icon">%</div>
+        <h4>Discount Calculator</h4>
+        <p>Discounted selling price</p>
+      </div>
+
+      <div class="card tool-card"
+        onclick="openTool('aov')">
+        <div class="tool-icon">🛍</div>
+        <h4>AOV Calculator</h4>
+        <p>Average order value</p>
+      </div>
+
+    </div>
+
+  `;
+}
+
+function openTool(type){
+
+  const names={
+    profit:"Profit Calculator",
+    margin:"Margin Calculator",
+    breakeven:"Break-even Calculator",
+    pricing:"Pricing Calculator",
+    discount:"Discount Calculator",
+    aov:"AOV Calculator"
+  };
+
+  $("content").innerHTML=`
+
+    <div class="card">
+
+      <div class="section-head">
+        <h3>${names[type]}</h3>
+
+        <button class="btn btn-secondary"
+          onclick="renderTools()">
+          ← Tools
+        </button>
+      </div>
+
+      <div id="toolBody"></div>
+
+    </div>
+  `;
+
+  const body=$("toolBody");
+
+  if(type==="profit"){
+
+    body.innerHTML=`
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Revenue</label>
+          <input id="tRevenue" type="number">
+        </div>
+
+        <div class="field">
+          <label>Total Cost</label>
+          <input id="tCost" type="number">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="
+          const r=Number(tRevenue.value||0);
+          const c=Number(tCost.value||0);
+          toolResult('Profit = '+money(r-c));
+        ">
+        Calculate
+      </button>
+
+      <div id="toolResult" style="margin-top:15px"></div>
     `;
 
-  }catch(error){
+  }
 
-    $("customerTable").innerHTML=
-      `<div class="message error">${escapeHtml(error.message)}</div>`;
+  if(type==="margin"){
 
+    body.innerHTML=`
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Selling Price</label>
+          <input id="tSell" type="number">
+        </div>
+
+        <div class="field">
+          <label>Cost Price</label>
+          <input id="tCost" type="number">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="
+          const s=Number(tSell.value||0);
+          const c=Number(tCost.value||0);
+          const m=s ? ((s-c)/s)*100 : 0;
+          toolResult('Gross Margin = '+m.toFixed(2)+'%');
+        ">
+        Calculate
+      </button>
+
+      <div id="toolResult" style="margin-top:15px"></div>
+    `;
+  }
+
+  if(type==="pricing"){
+
+    body.innerHTML=`
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Cost Price</label>
+          <input id="tCost" type="number">
+        </div>
+
+        <div class="field">
+          <label>Target Margin %</label>
+          <input id="tMargin" type="number" value="30">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="
+          const c=Number(tCost.value||0);
+          const m=Number(tMargin.value||0);
+          const p=m<100 ? c/(1-m/100) : 0;
+          toolResult('Recommended Selling Price = '+money(p));
+        ">
+        Calculate
+      </button>
+
+      <div id="toolResult" style="margin-top:15px"></div>
+    `;
+  }
+
+  if(type==="discount"){
+
+    body.innerHTML=`
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Original Price</label>
+          <input id="tPrice" type="number">
+        </div>
+
+        <div class="field">
+          <label>Discount %</label>
+          <input id="tDiscount" type="number" value="10">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="
+          const p=Number(tPrice.value||0);
+          const d=Number(tDiscount.value||0);
+          const finalPrice=p-(p*d/100);
+          toolResult('Final Price = '+money(finalPrice));
+        ">
+        Calculate
+      </button>
+
+      <div id="toolResult" style="margin-top:15px"></div>
+    `;
+  }
+
+  if(type==="breakeven"){
+
+    body.innerHTML=`
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Fixed Cost</label>
+          <input id="tFixed" type="number">
+        </div>
+
+        <div class="field">
+          <label>Selling Price / Unit</label>
+          <input id="tSell" type="number">
+        </div>
+
+        <div class="field">
+          <label>Variable Cost / Unit</label>
+          <input id="tVariable" type="number">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="
+          const f=Number(tFixed.value||0);
+          const s=Number(tSell.value||0);
+          const v=Number(tVariable.value||0);
+          const q=(s-v)>0 ? f/(s-v) : 0;
+          toolResult('Break-even Units = '+money(q));
+        ">
+        Calculate
+      </button>
+
+      <div id="toolResult" style="margin-top:15px"></div>
+    `;
+  }
+
+  if(type==="aov"){
+
+    body.innerHTML=`
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Total Revenue</label>
+          <input id="tRevenue" type="number">
+        </div>
+
+        <div class="field">
+          <label>Total Orders</label>
+          <input id="tOrders" type="number">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="
+          const r=Number(tRevenue.value||0);
+          const o=Number(tOrders.value||0);
+          toolResult('AOV = '+money(o ? r/o : 0));
+        ">
+        Calculate
+      </button>
+
+      <div id="toolResult" style="margin-top:15px"></div>
+    `;
   }
 }
 
+function toolResult(text){
 
-function renderPurchases(){
-
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Purchases</h1>
-        <div class="page-sub">
-          Purchase orders, supplier payables and stock receiving
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Purchase Module</div>
-      <div style="color:#6b7280">
-        Purchase + Stock Receive API is ready in ERP V5
-      </div>
+  $("toolResult").innerHTML=`
+    <div class="success-box">
+      <strong>${esc(text)}</strong>
     </div>
   `;
-
 }
 
+/* =========================================================
+   EMPLOYEES
+   ========================================================= */
 
-function renderAccounting(){
-
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Accounting</h1>
-        <div class="page-sub">
-          Financial overview
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        Current Accounting Foundation
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
-
-        <div class="stat">
-          <div class="stat-label">Revenue</div>
-          <div class="stat-value" id="accRevenue">-</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">Gross Profit</div>
-          <div class="stat-value" id="accGross">-</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">Net Profit</div>
-          <div class="stat-value" id="accNet">-</div>
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  loadAccounting();
-
-}
-
-
-async function loadAccounting(){
+async function loadEmployees(){
 
   try{
-
-    const data=await api("/api/dashboard");
-
-    $("accRevenue").textContent=
-      money(data.revenue)+" MMK";
-
-    $("accGross").textContent=
-      money(data.gross_profit)+" MMK";
-
-    $("accNet").textContent=
-      money(data.net_profit)+" MMK";
-
-  }catch(error){}
-
+    const data=await api("/api/employees");
+    employees=data.employees || data || [];
+  }catch(error){
+    employees=[];
+  }
 }
 
+async function renderEmployees(){
 
-function renderExpenses(){
+  await loadEmployees();
 
   $("content").innerHTML=`
 
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Expenses</h1>
-        <div class="page-sub">
-          Track operating expenses
-        </div>
-      </div>
-    </div>
-
     <div class="card">
-      <div class="card-title">Expense Management</div>
-      <div style="color:#6b7280">
-        Rent • Salary • Transport • Marketing • Utilities • Other
+
+      <div class="section-head">
+        <h3>Employees</h3>
+
+        <button class="btn btn-primary"
+          onclick="alert('Employee API form ကို နောက် version မှာ ထပ်တိုးမယ်')">
+          + Add Employee
+        </button>
       </div>
+
+      ${
+        employees.length
+        ?
+        `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              ${employees.map(e=>`
+                <tr>
+                  <td><strong>${esc(e.name)}</strong></td>
+                  <td>${esc(e.department)}</td>
+                  <td>${esc(e.position)}</td>
+                  <td>${esc(e.status)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        `
+        :
+        `<div class="empty">No employees found</div>`
+      }
+
     </div>
-
   `;
-
 }
 
+/* =========================================================
+   USERS
+   ========================================================= */
 
-function renderEmployees(){
+async function loadUsers(){
 
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Employees</h1>
-        <div class="page-sub">
-          Employee and team management
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      Employee management foundation
-    </div>
-
-  `;
-
+  try{
+    const data=await api("/api/users");
+    users=data.users || data || [];
+  }catch(error){
+    users=[];
+  }
 }
-
 
 async function renderUsers(){
 
   $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Users & Roles</h1>
-        <div class="page-sub">
-          Control access to your business system
-        </div>
-      </div>
+    <div class="card">
+      <div class="loading">Loading users...</div>
     </div>
+  `;
+
+  await loadUsers();
+
+  $("content").innerHTML=`
 
     <div class="card">
 
-      <div id="usersTable">
-        Loading users...
+      <div class="section-head">
+        <div>
+          <h3>Users & Roles</h3>
+          <div class="stat-sub">
+            Company users and access roles
+          </div>
+        </div>
+
+        <button class="btn btn-primary"
+          onclick="alert('Invite User API ကို နောက်အဆင့်မှာ ထပ်တိုးမယ်')">
+          + Add User
+        </button>
+      </div>
+
+      ${
+        users.length
+        ?
+        `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              ${users.map(u=>`
+                <tr>
+                  <td><strong>${esc(u.name)}</strong></td>
+                  <td>${esc(u.email)}</td>
+                  <td>
+                    <span class="badge badge-info">
+                      ${esc(u.role)}
+                    </span>
+                  </td>
+                  <td>${esc(u.status)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+        `
+        :
+        `<div class="empty">No users found</div>`
+      }
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+async function renderSettings(){
+
+  let company={};
+
+  try{
+    const data=await api("/api/company");
+    company=data.company || data || {};
+  }catch(error){
+    console.error(error);
+  }
+
+  $("content").innerHTML=`
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <div class="section-head">
+          <h3>Company Settings</h3>
+        </div>
+
+        <div class="field">
+          <label>Company Name</label>
+          <input id="setCompany"
+            value="${esc(company.name || company.company || "")}">
+        </div>
+
+        <div class="field">
+          <label>Owner</label>
+          <input id="setOwner"
+            value="${esc(company.owner || currentUser?.name || "")}">
+        </div>
+
+        <div class="field">
+          <label>Currency</label>
+          <select id="setCurrency">
+            <option value="MMK">MMK</option>
+            <option value="USD">USD</option>
+            <option value="THB">THB</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary"
+          onclick="saveCompanySettings()">
+          Save Settings
+        </button>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Account</h3>
+
+        <p style="font-size:13px">
+          <strong>Name:</strong>
+          ${esc(currentUser?.name)}
+        </p>
+
+        <p style="font-size:13px">
+          <strong>Email:</strong>
+          ${esc(currentUser?.email)}
+        </p>
+
+        <p style="font-size:13px">
+          <strong>Role:</strong>
+          ${esc(currentUser?.role)}
+        </p>
+
+        <div class="success-box">
+          Connected to AUNG SMART BUSINESS ERP V5 Cloud API
+        </div>
+
+        <button class="btn btn-danger"
+          onclick="logout()">
+          Logout
+        </button>
+
       </div>
 
     </div>
 
   `;
+}
+
+async function saveCompanySettings(){
 
   try{
 
-    const data=await api("/api/users");
+    await api("/api/company",{
+      method:"PUT",
+      body:JSON.stringify({
+        name:$("setCompany").value.trim(),
+        owner:$("setOwner").value.trim(),
+        currency:$("setCurrency").value
+      })
+    });
 
-    const users=
-      Array.isArray(data)
-      ? data
-      : data.users || [];
-
-    $("usersTable").innerHTML=`
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            ${users.map(u=>`
-
-              <tr>
-                <td>${escapeHtml(u.name)}</td>
-                <td>${escapeHtml(u.email)}</td>
-                <td>${escapeHtml(u.role)}</td>
-                <td>
-                  <span class="badge ${
-                    u.status==="Active"
-                    ? "green"
-                    : "red"
-                  }">
-                    ${escapeHtml(u.status)}
-                  </span>
-                </td>
-              </tr>
-
-            `).join("")}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    `;
+    alert("Company settings saved");
 
   }catch(error){
-
-    $("usersTable").innerHTML=
-      `<div class="message error">${escapeHtml(error.message)}</div>`;
-
+    alert(error.message);
   }
-
 }
 
+/* =========================================================
+   STARTUP
+   ========================================================= */
 
-function renderGrowth(){
+(async function(){
 
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">100 → 1000 Growth</h1>
-        <div class="page-sub">
-          Business growth operating system
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        Growth Roadmap
-      </div>
-
-      <div style="display:grid;gap:12px">
-
-        <div class="stat">
-          <strong>100 → 200</strong>
-          <div class="stat-label">
-            Foundation
-          </div>
-        </div>
-
-        <div class="stat">
-          <strong>200 → 300</strong>
-          <div class="stat-label">
-            Sales System
-          </div>
-        </div>
-
-        <div class="stat">
-          <strong>300 → 500</strong>
-          <div class="stat-label">
-            Customer Growth
-          </div>
-        </div>
-
-        <div class="stat">
-          <strong>500 → 700</strong>
-          <div class="stat-label">
-            Scale
-          </div>
-        </div>
-
-        <div class="stat">
-          <strong>700 → 900</strong>
-          <div class="stat-label">
-            Expansion
-          </div>
-        </div>
-
-        <div class="stat">
-          <strong>900 → 1000</strong>
-          <div class="stat-label">
-            Systemized Business
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function renderCoach(){
-
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">AI Business Coach</h1>
-        <div class="page-sub">
-          Problem → Cause → Action → KPI → 7-Day Plan
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-
-      <div class="field">
-
-        <label>
-          What business problem are you facing?
-        </label>
-
-        <textarea
-          id="coachProblem"
-          rows="5"
-          placeholder="Example: Sales are below target..."
-        ></textarea>
-
-      </div>
-
-      <button class="btn btn-primary" onclick="runCoach()">
-        🤖 Analyze Business Problem
-      </button>
-
-      <div id="coachResult" style="margin-top:20px"></div>
-
-    </div>
-
-  `;
-
-}
-
-
-function runCoach(){
-
-  const problem=$("coachProblem").value.trim();
-
-  if(!problem){
-    showToast("Enter a business problem");
-    return;
-  }
-
-  $("coachResult").innerHTML=`
-
-    <div class="card" style="background:#f8fafc">
-
-      <strong>Business Coach Framework</strong>
-
-      <p>
-        <b>Problem</b><br>
-        ${escapeHtml(problem)}
-      </p>
-
-      <p>
-        <b>Possible Cause</b><br>
-        Review sales volume, conversion, pricing, customer activity and team execution
-      </p>
-
-      <p>
-        <b>Action</b><br>
-        Define one measurable action and assign an owner
-      </p>
-
-      <p>
-        <b>KPI</b><br>
-        Track daily activity, revenue, achievement and conversion
-      </p>
-
-      <p>
-        <b>7-Day Plan</b><br>
-        Set daily target → execute → review → correct → repeat
-      </p>
-
-    </div>
-
-  `;
-
-}
-
-
-function renderSettings(){
-
-  $("content").innerHTML=`
-
-    <div class="page-head">
-      <div>
-        <h1 class="page-title">Settings</h1>
-        <div class="page-sub">
-          ERP configuration
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">
-        Backend API
-      </div>
-
-      <div class="field">
-
-        <label>API Base URL</label>
-
-        <input
-          id="apiSetting"
-          value="${escapeHtml(API_BASE)}"
-        >
-
-      </div>
-
-      <button class="btn btn-primary" onclick="saveApiSetting()">
-        Save API URL
-      </button>
-
-      <div style="margin-top:20px;color:#6b7280;font-size:13px">
-        Current version: AUNG SMART BUSINESS ERP V5
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function saveApiSetting(){
-
-  const url=$("apiSetting").value.trim();
-
-  if(!url){
-    showToast("API URL is required");
-    return;
-  }
-
-  localStorage.setItem(
-    "aung_erp_api",
-    url.replace(/\/$/,"")
-  );
-
-  showToast("API URL saved. Reloading...");
-
-  setTimeout(()=>{
-    location.reload();
-  },700);
-
-}
-
-
-/* MOBILE */
-
-function toggleSidebar(){
-
-  $("sidebar").classList.toggle("open");
-  $("overlay").classList.toggle("show");
-
-}
-
-
-function closeSidebar(){
-
-  $("sidebar").classList.remove("open");
-  $("overlay").classList.remove("show");
-
-}
-
-
-/* STARTUP */
-
-async function boot(){
-
-  const token=
-    localStorage.getItem(TOKEN_KEY);
+  const token=localStorage.getItem(TOKEN_KEY);
 
   if(!token){
+    show("loginScreen");
+    hide("app");
     return;
   }
 
   try{
 
-    await loadUser();
+    const me=await api("/api/auth/me");
 
-    $("loginScreen").classList.add("hidden");
-    $("app").classList.remove("hidden");
+    currentUser=me.user || null;
 
-    navigate("dashboard");
+    if(currentUser){
+      localStorage.setItem(
+        USER_KEY,
+        JSON.stringify(currentUser)
+      );
+    }
+
+    await startApp();
 
   }catch(error){
 
-    logout();
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
 
+    show("loginScreen");
+    hide("app");
   }
 
-}
-
-boot();
-
+})();
 </script>
 
 </body>
