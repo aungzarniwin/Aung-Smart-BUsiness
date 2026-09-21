@@ -1,154 +1,199 @@
-```html
 <!DOCTYPE html>
 <html lang="my">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AUNG SMART BUSINESS 100→1000</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AUNG SMART BUSINESS ERP</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box}
 :root{
-  --bg:#f5f7fb;
+  --bg:#f4f7f9;
   --card:#fff;
+  --dark:#111827;
+  --dark2:#1f2937;
   --text:#172033;
   --muted:#6b7280;
-  --border:#e7eaf0;
-  --dark:#111827;
+  --line:#e5e7eb;
   --green:#16a34a;
+  --green2:#15803d;
   --orange:#f59e0b;
   --red:#dc2626;
   --purple:#7c3aed;
-  --shadow:0 8px 28px rgba(15,23,42,.07);
+  --shadow:0 8px 30px rgba(15,23,42,.07);
 }
 body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  margin:0;
+  font-family:Arial,"Noto Sans Myanmar",sans-serif;
   background:var(--bg);
   color:var(--text);
 }
-button,input,select{font:inherit}
-button{cursor:pointer;border:0}
-.app{display:flex;min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.app{
+  min-height:100vh;
+  display:flex;
+}
 
 /* SIDEBAR */
 .sidebar{
-  width:260px;
+  width:270px;
   background:var(--dark);
-  color:white;
+  color:#fff;
   position:fixed;
-  left:0;top:0;bottom:0;
-  padding:22px 16px;
-  overflow-y:auto;
-  z-index:1000;
+  left:0;
+  top:0;
+  bottom:0;
+  overflow:auto;
+  z-index:100;
 }
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:4px 8px 25px;
+  padding:24px 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
-.brand-icon{
-  width:42px;height:42px;
+.brand h1{
+  margin:0;
+  font-size:20px;
+}
+.brand small{
+  color:#9ca3af;
+  display:block;
+  margin-top:6px;
+}
+.company{
+  margin:15px;
+  padding:14px;
+  background:#1f2937;
   border-radius:12px;
-  background:linear-gradient(135deg,#22c55e,#84cc16);
-  display:grid;
-  place-items:center;
-  font-weight:900;
-  color:white;
 }
-.brand h1{font-size:15px;line-height:1.25}
-.brand span{font-size:11px;color:#9ca3af}
-.nav-title{
+.company strong{display:block}
+.company span{
+  font-size:12px;
+  color:#9ca3af;
+}
+.menu{
+  padding:12px;
+}
+.menu-title{
+  font-size:11px;
   color:#6b7280;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:1px;
-  padding:15px 10px 8px;
+  padding:15px 10px 7px;
+  text-transform:uppercase;
 }
 .nav-btn{
   width:100%;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:#cbd5e1;
+  border:0;
   background:transparent;
-  padding:11px 12px;
-  border-radius:10px;
+  color:#d1d5db;
+  padding:12px 13px;
+  border-radius:9px;
   text-align:left;
   margin-bottom:3px;
-  transition:.2s;
 }
-.nav-btn:hover{background:#1f2937;color:white}
-.nav-btn.active{background:#166534;color:white}
-.nav-icon{width:20px;text-align:center}
-.sidebar-bottom{
-  margin-top:22px;
-  padding:15px 10px;
-  border-top:1px solid #273244;
+.nav-btn:hover,.nav-btn.active{
+  background:#374151;
+  color:#fff;
 }
-.owner{font-size:13px;font-weight:700}
-.role{font-size:11px;color:#9ca3af;margin-top:3px}
+.nav-icon{
+  display:inline-block;
+  width:27px;
+}
 
 /* MAIN */
 .main{
-  margin-left:260px;
-  width:calc(100% - 260px);
+  margin-left:270px;
+  width:calc(100% - 270px);
 }
 .topbar{
-  height:72px;
-  background:white;
-  border-bottom:1px solid var(--border);
+  height:70px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 30px;
+  padding:0 28px;
   position:sticky;
   top:0;
-  z-index:500;
+  z-index:50;
 }
-.page-title{font-size:20px;font-weight:800}
-.page-subtitle{font-size:12px;color:var(--muted);margin-top:3px}
-.top-actions{display:flex;align-items:center;gap:10px}
-.icon-btn{
-  width:38px;height:38px;
-  border:1px solid var(--border);
-  background:white;
-  border-radius:10px;
+.topbar-title{
+  font-weight:700;
 }
-.avatar{
-  width:38px;height:38px;border-radius:50%;
-  background:#111827;color:white;
-  display:grid;place-items:center;font-weight:800;
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-.mobile-menu{
+.menu-toggle{
   display:none;
-  width:40px;height:40px;
-  background:white;border:1px solid var(--border);
-  border-radius:10px;
+  border:0;
+  background:#111827;
+  color:#fff;
+  padding:10px 13px;
+  border-radius:8px;
+}
+.user{
+  padding:9px 13px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#fff;
 }
 
-/* CONTENT */
-.content{padding:28px;max-width:1500px;margin:auto}
-.page{display:none}
-.page.active{display:block}
+.content{
+  padding:25px;
+  max-width:1600px;
+  margin:auto;
+}
 
-/* HERO */
-.hero{
-  background:linear-gradient(135deg,#111827,#1f2937);
-  color:white;
-  border-radius:18px;
-  padding:26px;
-  margin-bottom:22px;
+.page{
+  display:none;
+}
+.page.active{
+  display:block;
+}
+
+.page-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:20px;
+  gap:15px;
+  margin-bottom:22px;
 }
-.hero h2{font-size:24px;margin-bottom:7px}
-.hero p{color:#cbd5e1;font-size:13px}
-.hero-target{text-align:right}
-.hero-target small{color:#9ca3af}
-.hero-target strong{display:block;font-size:30px;color:#86efac}
+.page-head h2{
+  margin:0;
+  font-size:24px;
+}
+.page-head p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:10px 15px;
+  font-weight:600;
+}
+.btn-primary{
+  background:var(--green);
+  color:#fff;
+}
+.btn-primary:hover{background:var(--green2)}
+.btn-light{
+  background:#fff;
+  border:1px solid var(--line);
+}
+.btn-danger{
+  background:#fee2e2;
+  color:#991b1b;
+}
+.btn-warning{
+  background:#fef3c7;
+  color:#92400e;
+}
 
 /* CARDS */
 .grid{
@@ -156,101 +201,120 @@ button{cursor:pointer;border:0}
   gap:16px;
 }
 .stats{
-  grid-template-columns:repeat(5,1fr);
-  margin-bottom:22px;
+  grid-template-columns:repeat(4,1fr);
 }
 .card{
   background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:20px;
+  border:1px solid var(--line);
+  border-radius:14px;
   box-shadow:var(--shadow);
+}
+.stat{
+  padding:19px;
 }
 .stat-label{
   color:var(--muted);
-  font-size:12px;
-  font-weight:700;
+  font-size:13px;
 }
 .stat-value{
   font-size:25px;
-  font-weight:850;
-  margin-top:9px;
-}
-.stat-change{
-  font-size:11px;
+  font-weight:800;
   margin-top:8px;
 }
+.stat-foot{
+  font-size:12px;
+  margin-top:7px;
+}
 .up{color:var(--green)}
-.warn{color:var(--orange)}
 .down{color:var(--red)}
 
-.two-col{
-  grid-template-columns:1.35fr .65fr;
+.two{
+  grid-template-columns:2fr 1fr;
+  margin-top:18px;
 }
-.three-col{
+.three{
   grid-template-columns:repeat(3,1fr);
+  margin-top:18px;
 }
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-}
-.section-head h3{font-size:16px}
-.section-head span{font-size:11px;color:var(--muted)}
 
-.progress-wrap{margin-top:15px}
+.card-head{
+  padding:17px 19px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.card-head h3{
+  margin:0;
+  font-size:16px;
+}
+.card-body{
+  padding:18px;
+}
+
+/* TABLE */
+.table-wrap{
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+}
+th,td{
+  padding:12px 13px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  font-size:13px;
+}
+th{
+  background:#f9fafb;
+  color:#6b7280;
+  font-weight:700;
+}
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+}
+.badge-green{
+  background:#dcfce7;
+  color:#166534;
+}
+.badge-orange{
+  background:#fef3c7;
+  color:#92400e;
+}
+.badge-red{
+  background:#fee2e2;
+  color:#991b1b;
+}
+.badge-purple{
+  background:#ede9fe;
+  color:#5b21b6;
+}
+
+/* PROGRESS */
 .progress{
-  height:11px;
-  background:#edf0f4;
-  border-radius:99px;
+  height:12px;
+  background:#e5e7eb;
+  border-radius:20px;
   overflow:hidden;
 }
 .progress-bar{
   height:100%;
-  width:0%;
-  border-radius:99px;
-  background:linear-gradient(90deg,#16a34a,#84cc16);
-  transition:width .5s;
+  background:var(--green);
+  border-radius:20px;
 }
-.progress-info{
+.progress-text{
   display:flex;
   justify-content:space-between;
   font-size:12px;
-  margin-top:8px;
   color:var(--muted);
+  margin-top:7px;
 }
-
-.metric-row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid var(--border);
-  font-size:13px;
-}
-.metric-row:last-child{border-bottom:0}
-.metric-row strong{font-weight:800}
-
-.action{
-  padding:13px;
-  border-radius:12px;
-  background:#f8fafc;
-  margin-bottom:9px;
-  font-size:12px;
-  border-left:4px solid var(--orange);
-}
-.action strong{display:block;margin-bottom:4px}
-
-.btn{
-  padding:10px 15px;
-  border-radius:9px;
-  font-weight:750;
-  font-size:12px;
-}
-.btn-primary{background:#111827;color:white}
-.btn-green{background:#16a34a;color:white}
-.btn-light{background:#f1f5f9;color:#334155}
-.btn-danger{background:#dc2626;color:white}
 
 /* FORMS */
 .form-grid{
@@ -258,141 +322,191 @@ button{cursor:pointer;border:0}
   grid-template-columns:repeat(2,1fr);
   gap:14px;
 }
-.field label{
+.form-group label{
   display:block;
   font-size:12px;
   font-weight:700;
   margin-bottom:6px;
 }
-.field input,.field select{
+.form-control{
   width:100%;
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:11px 12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  padding:11px;
+  background:#fff;
   outline:none;
-  background:white;
 }
-.field input:focus,.field select:focus{
-  border-color:#16a34a;
+.form-control:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(22,163,74,.1);
 }
-.form-actions{
-  margin-top:18px;
+.full{grid-column:1/-1}
+
+/* MODAL */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
   display:flex;
-  gap:8px;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:500;
+}
+.modal{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:16px;
+}
+.modal-head{
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.modal-head h3{margin:0}
+.close{
+  border:0;
+  background:#f3f4f6;
+  border-radius:8px;
+  width:35px;
+  height:35px;
+}
+.modal-body{padding:20px}
+.modal-foot{
+  padding:15px 20px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
 }
 
-/* TABLE */
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:650px}
-th,td{
+/* KPI */
+.kpi-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:12px 0;
+}
+.kpi-name{font-size:13px}
+.kpi-value{font-weight:800}
+
+/* AI */
+.ai-box{
+  background:#111827;
+  color:#fff;
+  border-radius:14px;
+  padding:20px;
+}
+.ai-input{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+.ai-input input{
+  flex:1;
+  border:0;
+  border-radius:9px;
   padding:12px;
-  border-bottom:1px solid var(--border);
-  text-align:left;
-  font-size:12px;
 }
-th{font-size:11px;color:var(--muted);background:#f8fafc}
+.ai-answer{
+  margin-top:18px;
+  background:#1f2937;
+  border-radius:10px;
+  padding:15px;
+  line-height:1.7;
+}
 
-/* GROWTH */
+/* ROADMAP */
 .stage{
   position:relative;
   padding:18px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  background:white;
-}
-.stage-number{
-  width:34px;height:34px;border-radius:10px;
-  display:grid;place-items:center;
-  background:#111827;color:white;
-  font-weight:800;
-  margin-bottom:12px;
-}
-.stage h4{font-size:15px}
-.stage p{font-size:11px;color:var(--muted);margin-top:5px}
-.stage.current{border:2px solid #16a34a}
-.stage.current .stage-number{background:#16a34a}
-
-/* CALCULATOR */
-.result-box{
-  background:#111827;
-  color:white;
-  padding:20px;
-  border-radius:14px;
-  margin-top:18px;
-}
-.result-big{font-size:30px;font-weight:900;color:#86efac}
-.result-label{font-size:11px;color:#9ca3af}
-
-/* AI */
-.chat{
-  height:360px;
-  overflow-y:auto;
-  padding:15px;
-  background:#f8fafc;
+  border:1px solid var(--line);
   border-radius:12px;
   margin-bottom:12px;
+  background:#fff;
 }
-.msg{
-  max-width:85%;
-  padding:11px 13px;
-  border-radius:12px;
-  margin-bottom:10px;
-  font-size:12px;
-  line-height:1.55;
+.stage.active{
+  border:2px solid var(--green);
 }
-.msg.ai{background:white;border:1px solid var(--border)}
-.msg.user{background:#111827;color:white;margin-left:auto}
-.chat-input{display:flex;gap:8px}
-.chat-input input{
-  flex:1;padding:12px;border:1px solid var(--border);border-radius:9px;
+.stage-top{
+  display:flex;
+  justify-content:space-between;
 }
-
-/* TOAST */
-.toast{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  background:#111827;
-  color:white;
-  padding:13px 17px;
-  border-radius:10px;
-  font-size:12px;
-  opacity:0;
-  transform:translateY(15px);
-  pointer-events:none;
-  transition:.25s;
-  z-index:3000;
+.stage h3{
+  margin:0 0 6px;
 }
-.toast.show{opacity:1;transform:translateY(0)}
+.stage p{
+  color:var(--muted);
+  font-size:13px;
+  margin:0 0 12px;
+}
 
 /* MOBILE */
-@media(max-width:1100px){
-  .stats{grid-template-columns:repeat(3,1fr)}
+.overlay{
+  display:none;
 }
-@media(max-width:800px){
+@media(max-width:900px){
   .sidebar{
     transform:translateX(-100%);
     transition:.25s;
   }
-  .sidebar.open{transform:translateX(0)}
+  .sidebar.open{
+    transform:translateX(0);
+  }
   .main{
     margin-left:0;
     width:100%;
   }
-  .mobile-menu{display:block}
-  .topbar{padding:0 15px}
-  .content{padding:16px}
-  .hero{align-items:flex-start;flex-direction:column}
-  .hero-target{text-align:left}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .two-col,.three-col{grid-template-columns:1fr}
+  .menu-toggle{
+    display:block;
+  }
+  .topbar{
+    padding:0 15px;
+  }
+  .content{
+    padding:15px;
+  }
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .two,.three{
+    grid-template-columns:1fr;
+  }
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    z-index:90;
+  }
+  .overlay.show{
+    display:block;
+  }
 }
-@media(max-width:480px){
-  .stats{grid-template-columns:1fr 1fr;gap:10px}
-  .card{padding:15px}
-  .stat-value{font-size:21px}
-  .form-grid{grid-template-columns:1fr}
-  .page-title{font-size:17px}
+@media(max-width:560px){
+  .stats{
+    grid-template-columns:1fr;
+  }
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+  .page-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .user{
+    display:none;
+  }
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
 }
 </style>
 </head>
@@ -401,94 +515,98 @@ th{font-size:11px;color:var(--muted);background:#f8fafc}
 
 <div class="app">
 
-<!-- SIDEBAR -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
 <aside class="sidebar" id="sidebar">
 
-  <div class="brand">
-    <div class="brand-icon">A</div>
-    <div>
-      <h1>AUNG SMART BUSINESS</h1>
-      <span>100 → 1000 Growth System</span>
-    </div>
-  </div>
+<div class="brand">
+<h1>AUNG SMART BUSINESS</h1>
+<small>ERP • 100 → 1000 Growth System</small>
+</div>
 
-  <div class="nav-title">MAIN</div>
+<div class="company">
+<strong id="companyName">Aung Business</strong>
+<span>Business Owner</span>
+</div>
 
-  <button class="nav-btn active" data-page="dashboard">
-    <span class="nav-icon">⌂</span> Dashboard
-  </button>
+<div class="menu">
 
-  <button class="nav-btn" data-page="sales">
-    <span class="nav-icon">↗</span> Sales
-  </button>
+<div class="menu-title">Overview</div>
 
-  <button class="nav-btn" data-page="customers">
-    <span class="nav-icon">♙</span> Customers
-  </button>
+<button class="nav-btn active" onclick="showPage('dashboard',this)">
+<span class="nav-icon">⌂</span> Dashboard
+</button>
 
-  <button class="nav-btn" data-page="products">
-    <span class="nav-icon">▣</span> Products
-  </button>
+<div class="menu-title">Business</div>
 
-  <button class="nav-btn" data-page="finance">
-    <span class="nav-icon">◉</span> Finance
-  </button>
+<button class="nav-btn" onclick="showPage('sales',this)">
+<span class="nav-icon">₿</span> Sales
+</button>
 
-  <button class="nav-btn" data-page="inventory">
-    <span class="nav-icon">▤</span> Inventory
-  </button>
+<button class="nav-btn" onclick="showPage('crm',this)">
+<span class="nav-icon">♙</span> CRM / Customers
+</button>
 
-  <div class="nav-title">GROWTH</div>
+<button class="nav-btn" onclick="showPage('purchase',this)">
+<span class="nav-icon">🛒</span> Purchases
+</button>
 
-  <button class="nav-btn" data-page="growth">
-    <span class="nav-icon">◆</span> 100 → 1000 Roadmap
-  </button>
+<button class="nav-btn" onclick="showPage('inventory',this)">
+<span class="nav-icon">▣</span> Inventory
+</button>
 
-  <button class="nav-btn" data-page="kpi">
-    <span class="nav-icon">◈</span> KPI Center
-  </button>
+<div class="menu-title">Finance</div>
 
-  <button class="nav-btn" data-page="calculator">
-    <span class="nav-icon">⌗</span> Smart Calculators
-  </button>
+<button class="nav-btn" onclick="showPage('accounting',this)">
+<span class="nav-icon">₿</span> Accounting
+</button>
 
-  <button class="nav-btn" data-page="coach">
-    <span class="nav-icon">✦</span> AI Business Coach
-  </button>
+<button class="nav-btn" onclick="showPage('expenses',this)">
+<span class="nav-icon">−</span> Expenses
+</button>
 
-  <div class="nav-title">SYSTEM</div>
+<div class="menu-title">People</div>
 
-  <button class="nav-btn" data-page="reports">
-    <span class="nav-icon">▥</span> Reports
-  </button>
+<button class="nav-btn" onclick="showPage('employees',this)">
+<span class="nav-icon">♙</span> Employees
+</button>
 
-  <button class="nav-btn" data-page="settings">
-    <span class="nav-icon">⚙</span> Settings
-  </button>
+<div class="menu-title">Management</div>
 
-  <div class="sidebar-bottom">
-    <div class="owner">Aung Zar Ni Win</div>
-    <div class="role">Business Owner</div>
-  </div>
+<button class="nav-btn" onclick="showPage('reports',this)">
+<span class="nav-icon">▤</span> Reports
+</button>
 
+<button class="nav-btn" onclick="showPage('growth',this)">
+<span class="nav-icon">↗</span> 100 → 1000 Growth
+</button>
+
+<button class="nav-btn" onclick="showPage('coach',this)">
+<span class="nav-icon">✦</span> AI Business Coach
+</button>
+
+<button class="nav-btn" onclick="showPage('tools',this)">
+<span class="nav-icon">⌗</span> Business Tools
+</button>
+
+<div class="menu-title">System</div>
+
+<button class="nav-btn" onclick="showPage('settings',this)">
+<span class="nav-icon">⚙</span> Settings
+</button>
+
+</div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
 
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:10px">
-    <button class="mobile-menu" id="mobileMenu">☰</button>
-    <div>
-      <div class="page-title" id="pageTitle">Business Dashboard</div>
-      <div class="page-subtitle">သင့်လုပ်ငန်းကို သိန်း ၁၀၀ → သိန်း ၁,၀၀၀ အထိ စနစ်တကျ တိုးတက်စေရန်</div>
-    </div>
-  </div>
+<div class="top-actions">
+<button class="menu-toggle" onclick="openSidebar()">☰</button>
+<div class="topbar-title" id="pageTitle">Dashboard</div>
+</div>
 
-  <div class="top-actions">
-    <button class="icon-btn" id="resetBtn" title="Reset">↻</button>
-    <div class="avatar">AZ</div>
-  </div>
+<div class="user">Aung Zar Ni Win ▾</div>
 </header>
 
 <div class="content">
@@ -496,895 +614,653 @@ th{font-size:11px;color:var(--muted);background:#f8fafc}
 <!-- DASHBOARD -->
 <section class="page active" id="dashboard">
 
-  <div class="hero">
-    <div>
-      <h2>100 → 1000 Business Growth</h2>
-      <p>Track your business. Control your numbers. Build your growth system.</p>
-    </div>
-    <div class="hero-target">
-      <small>Growth Target</small>
-      <strong>1,000 သိန်း</strong>
-    </div>
-  </div>
+<div class="page-head">
+<div>
+<h2>Business Dashboard</h2>
+<p>Your complete business command center</p>
+</div>
+<button class="btn btn-primary" onclick="openSaleModal()">+ New Sale</button>
+</div>
 
-  <div class="grid stats">
+<div class="grid stats">
 
-    <div class="card">
-      <div class="stat-label">ဒီလ ရောင်းအား</div>
-      <div class="stat-value" id="dashSales">385 သိန်း</div>
-      <div class="stat-change up">▲ 12.5% vs last month</div>
-    </div>
+<div class="card stat">
+<div class="stat-label">Total Sales</div>
+<div class="stat-value" id="dashSales">0</div>
+<div class="stat-foot up">MMK</div>
+</div>
 
-    <div class="card">
-      <div class="stat-label">Gross Profit</div>
-      <div class="stat-value" id="dashGross">96.2 သိန်း</div>
-      <div class="stat-change up">25.0% Margin</div>
-    </div>
+<div class="card stat">
+<div class="stat-label">Gross Profit</div>
+<div class="stat-value" id="dashGross">0</div>
+<div class="stat-foot up">Calculated</div>
+</div>
 
-    <div class="card">
-      <div class="stat-label">Net Profit</div>
-      <div class="stat-value" id="dashNet">61.2 သိန်း</div>
-      <div class="stat-change up">15.9% Margin</div>
-    </div>
+<div class="card stat">
+<div class="stat-label">Net Profit</div>
+<div class="stat-value" id="dashNet">0</div>
+<div class="stat-foot">After expenses</div>
+</div>
 
-    <div class="card">
-      <div class="stat-label">Monthly Target</div>
-      <div class="stat-value">500 သိန်း</div>
-      <div class="stat-change warn">Gap 115 သိန်း</div>
-    </div>
+<div class="card stat">
+<div class="stat-label">Customers</div>
+<div class="stat-value" id="dashCustomers">0</div>
+<div class="stat-foot">Active database</div>
+</div>
 
-    <div class="card">
-      <div class="stat-label">Growth Progress</div>
-      <div class="stat-value" id="growthPercent">38.5%</div>
-      <div class="stat-change up">385 / 1,000 သိန်း</div>
-    </div>
+</div>
 
-  </div>
+<div class="grid two">
 
-  <div class="grid two-col">
+<div class="card">
+<div class="card-head">
+<h3>100 → 1000 Growth Progress</h3>
+<span class="badge badge-green" id="growthStageBadge">Foundation</span>
+</div>
+<div class="card-body">
 
-    <div class="card">
-      <div class="section-head">
-        <h3>100 → 1,000 Growth Progress</h3>
-        <span id="growthText">385 / 1,000 သိန်း</span>
-      </div>
+<div style="font-size:30px;font-weight:800" id="growthRevenue">0 သိန်း</div>
 
-      <div class="progress-wrap">
-        <div class="progress">
-          <div class="progress-bar" id="mainProgress"></div>
-        </div>
-        <div class="progress-info">
-          <span>Start 100 သိန်း</span>
-          <strong id="progressPercent">38.5%</strong>
-          <span>Target 1,000 သိန်း</span>
-        </div>
-      </div>
+<div style="margin-top:20px" class="progress">
+<div class="progress-bar" id="growthBar"></div>
+</div>
 
-      <div style="margin-top:22px" class="grid three-col">
-        <div>
-          <div class="stat-label">Current</div>
-          <strong>385 သိန်း</strong>
-        </div>
-        <div>
-          <div class="stat-label">Remaining</div>
-          <strong>615 သိန်း</strong>
-        </div>
-        <div>
-          <div class="stat-label">Required Growth</div>
-          <strong>159.7%</strong>
-        </div>
-      </div>
-    </div>
+<div class="progress-text">
+<span id="growthFrom">100 သိန်း</span>
+<strong id="growthPercent">0%</strong>
+<span>1,000 သိန်း</span>
+</div>
 
-    <div class="card">
-      <div class="section-head">
-        <h3>CEO Attention</h3>
-        <span>Today</span>
-      </div>
+</div>
+</div>
 
-      <div class="action">
-        <strong>⚠ Sales Gap</strong>
-        Monthly target ထက် 115 သိန်း လိုနေပါသည်
-      </div>
+<div class="card">
+<div class="card-head">
+<h3>Business Health</h3>
+</div>
+<div class="card-body">
 
-      <div class="action">
-        <strong>⚡ Customer Recovery</strong>
-        Inactive customers 15 ယောက်ကို follow-up လုပ်ပါ
-      </div>
+<div class="kpi-row">
+<span class="kpi-name">Sales</span>
+<strong class="kpi-value up" id="healthSales">Good</strong>
+</div>
 
-      <div class="action">
-        <strong>📦 Inventory</strong>
-        Slow-moving stock ကို စစ်ဆေးပါ
-      </div>
-    </div>
+<div class="kpi-row">
+<span class="kpi-name">Profit</span>
+<strong class="kpi-value" id="healthProfit">Good</strong>
+</div>
 
-  </div>
+<div class="kpi-row">
+<span class="kpi-name">Inventory</span>
+<strong class="kpi-value" id="healthStock">Good</strong>
+</div>
 
-  <div class="card" style="margin-top:16px">
-    <div class="section-head">
-      <h3>Business Health</h3>
-      <span>Live calculation</span>
-    </div>
+<div class="kpi-row">
+<span class="kpi-name">Customers</span>
+<strong class="kpi-value" id="healthCustomer">Good</strong>
+</div>
 
-    <div class="grid three-col">
+</div>
+</div>
 
-      <div>
-        <div class="metric-row">
-          <span>Sales Achievement</span>
-          <strong>77%</strong>
-        </div>
-        <div class="progress">
-          <div class="progress-bar" style="width:77%"></div>
-        </div>
-      </div>
+</div>
 
-      <div>
-        <div class="metric-row">
-          <span>Profit Margin</span>
-          <strong>15.9%</strong>
-        </div>
-        <div class="progress">
-          <div class="progress-bar" style="width:64%"></div>
-        </div>
-      </div>
+<div class="grid three">
 
-      <div>
-        <div class="metric-row">
-          <span>Customer Retention</span>
-          <strong>82%</strong>
-        </div>
-        <div class="progress">
-          <div class="progress-bar" style="width:82%"></div>
-        </div>
-      </div>
+<div class="card">
+<div class="card-head"><h3>Recent Sales</h3></div>
+<div class="card-body" id="dashRecentSales"></div>
+</div>
 
-    </div>
-  </div>
+<div class="card">
+<div class="card-head"><h3>Attention</h3></div>
+<div class="card-body" id="dashAttention"></div>
+</div>
+
+<div class="card">
+<div class="card-head"><h3>Today's Action</h3></div>
+<div class="card-body">
+<strong>1</strong> Review today's sales<br><br>
+<strong>2</strong> Follow up customers<br><br>
+<strong>3</strong> Check low stock<br><br>
+<strong>4</strong> Review expenses
+</div>
+</div>
+
+</div>
 
 </section>
-
 
 <!-- SALES -->
 <section class="page" id="sales">
 
-  <div class="card">
-    <div class="section-head">
-      <h3>Sales Management</h3>
-      <button class="btn btn-green" id="addSaleBtn">+ Add Sale</button>
-    </div>
+<div class="page-head">
+<div>
+<h2>Sales Management</h2>
+<p>Sales orders, invoices and payments</p>
+</div>
+<button class="btn btn-primary" onclick="openSaleModal()">+ New Sale</button>
+</div>
 
-    <div class="grid stats">
-      <div class="card">
-        <div class="stat-label">Today</div>
-        <div class="stat-value">18.5 L</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">This Month</div>
-        <div class="stat-value">385 L</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Orders</div>
-        <div class="stat-value">146</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Avg Order</div>
-        <div class="stat-value">2.64 L</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Achievement</div>
-        <div class="stat-value">77%</div>
-      </div>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Product</th>
-            <th>Amount</th>
-            <th>Profit</th>
-          </tr>
-        </thead>
-        <tbody id="salesTable">
-          <tr>
-            <td>21 Sep</td>
-            <td>ABC Distribution</td>
-            <td>Product A</td>
-            <td>5.20 L</td>
-            <td class="up">1.30 L</td>
-          </tr>
-          <tr>
-            <td>21 Sep</td>
-            <td>Golden Store</td>
-            <td>Product B</td>
-            <td>3.80 L</td>
-            <td class="up">0.95 L</td>
-          </tr>
-          <tr>
-            <td>20 Sep</td>
-            <td>City Mart</td>
-            <td>Product C</td>
-            <td>2.60 L</td>
-            <td class="up">0.65 L</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="card">
+<div class="card-head">
+<h3>Sales Transactions</h3>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Customer</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Sales</th>
+<th>Profit</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="salesTable"></tbody>
+</table>
+</div>
+</div>
 
 </section>
 
+<!-- CRM -->
+<section class="page" id="crm">
 
-<!-- CUSTOMERS -->
-<section class="page" id="customers">
+<div class="page-head">
+<div>
+<h2>CRM / Customers</h2>
+<p>Manage customer relationships and sales opportunities</p>
+</div>
+<button class="btn btn-primary" onclick="openCustomerModal()">+ New Customer</button>
+</div>
 
-  <div class="card">
-    <div class="section-head">
-      <h3>Customer Management</h3>
-      <button class="btn btn-green" id="addCustomerBtn">+ Add Customer</button>
-    </div>
-
-    <div class="grid three-col">
-      <div class="card">
-        <div class="stat-label">Total Customers</div>
-        <div class="stat-value">248</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Active</div>
-        <div class="stat-value">198</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Inactive</div>
-        <div class="stat-value">50</div>
-      </div>
-    </div>
-
-    <div style="margin-top:20px" class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Type</th>
-            <th>Total Sales</th>
-            <th>Last Order</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ABC Distribution</td>
-            <td>Distributor</td>
-            <td>85.5 L</td>
-            <td>Today</td>
-            <td class="up">Active</td>
-          </tr>
-          <tr>
-            <td>Golden Store</td>
-            <td>Retail</td>
-            <td>42.8 L</td>
-            <td>Yesterday</td>
-            <td class="up">Active</td>
-          </tr>
-          <tr>
-            <td>City Mart</td>
-            <td>Retail</td>
-            <td>21.4 L</td>
-            <td>15 days ago</td>
-            <td class="warn">Follow-up</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="card">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Customer</th>
+<th>Phone</th>
+<th>Type</th>
+<th>Total Sales</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="customerTable"></tbody>
+</table>
+</div>
+</div>
 
 </section>
 
+<!-- PURCHASE -->
+<section class="page" id="purchase">
 
-<!-- PRODUCTS -->
-<section class="page" id="products">
+<div class="page-head">
+<div>
+<h2>Purchases</h2>
+<p>Supplier and purchase management</p>
+</div>
+<button class="btn btn-primary" onclick="openPurchaseModal()">+ New Purchase</button>
+</div>
 
-  <div class="card">
-    <div class="section-head">
-      <h3>Products</h3>
-      <button class="btn btn-green" id="addProductBtn">+ Add Product</button>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Cost</th>
-            <th>Price</th>
-            <th>Margin</th>
-            <th>Stock</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Product A</td>
-            <td>Main</td>
-            <td>8,000</td>
-            <td>10,000</td>
-            <td class="up">20%</td>
-            <td>420</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>Main</td>
-            <td>12,000</td>
-            <td>15,000</td>
-            <td class="up">20%</td>
-            <td>180</td>
-          </tr>
-          <tr>
-            <td>Product C</td>
-            <td>Premium</td>
-            <td>20,000</td>
-            <td>28,000</td>
-            <td class="up">28.6%</td>
-            <td>75</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="card">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Supplier</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Cost</th>
+<th>Total</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="purchaseTable"></tbody>
+</table>
+</div>
+</div>
 
 </section>
-
-
-<!-- FINANCE -->
-<section class="page" id="finance">
-
-  <div class="grid stats">
-
-    <div class="card">
-      <div class="stat-label">Revenue</div>
-      <div class="stat-value">385 L</div>
-    </div>
-
-    <div class="card">
-      <div class="stat-label">COGS</div>
-      <div class="stat-value">288.8 L</div>
-    </div>
-
-    <div class="card">
-      <div class="stat-label">Gross Profit</div>
-      <div class="stat-value">96.2 L</div>
-    </div>
-
-    <div class="card">
-      <div class="stat-label">Expenses</div>
-      <div class="stat-value">35 L</div>
-    </div>
-
-    <div class="card">
-      <div class="stat-label">Net Profit</div>
-      <div class="stat-value">61.2 L</div>
-    </div>
-
-  </div>
-
-  <div class="grid two-col">
-
-    <div class="card">
-      <div class="section-head">
-        <h3>Profit & Loss</h3>
-        <span>September 2026</span>
-      </div>
-
-      <div class="metric-row">
-        <span>Sales Revenue</span>
-        <strong>385.0 L</strong>
-      </div>
-
-      <div class="metric-row">
-        <span>Cost of Goods Sold</span>
-        <strong>288.8 L</strong>
-      </div>
-
-      <div class="metric-row">
-        <span>Gross Profit</span>
-        <strong class="up">96.2 L</strong>
-      </div>
-
-      <div class="metric-row">
-        <span>Operating Expenses</span>
-        <strong>35.0 L</strong>
-      </div>
-
-      <div class="metric-row">
-        <span>Net Profit</span>
-        <strong class="up">61.2 L</strong>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-head">
-        <h3>Cash Flow</h3>
-        <span>This Month</span>
-      </div>
-
-      <div class="metric-row">
-        <span>Cash In</span>
-        <strong class="up">350 L</strong>
-      </div>
-
-      <div class="metric-row">
-        <span>Cash Out</span>
-        <strong>290 L</strong>
-      </div>
-
-      <div class="metric-row">
-        <span>Net Cash Flow</span>
-        <strong class="up">60 L</strong>
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
 
 <!-- INVENTORY -->
 <section class="page" id="inventory">
 
-  <div class="card">
-    <div class="section-head">
-      <h3>Inventory Control</h3>
-      <button class="btn btn-primary" id="stockBtn">+ Stock In</button>
-    </div>
+<div class="page-head">
+<div>
+<h2>Inventory</h2>
+<p>Products, stock and warehouse control</p>
+</div>
+<button class="btn btn-primary" onclick="openProductModal()">+ New Product</button>
+</div>
 
-    <div class="grid three-col">
-      <div class="card">
-        <div class="stat-label">Stock Value</div>
-        <div class="stat-value">185 L</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Low Stock</div>
-        <div class="stat-value warn">8</div>
-      </div>
-      <div class="card">
-        <div class="stat-label">Dead Stock</div>
-        <div class="stat-value down">14</div>
-      </div>
-    </div>
+<div class="grid stats">
 
-    <div style="margin-top:20px" class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Current Stock</th>
-            <th>Reorder Level</th>
-            <th>Stock Value</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Product A</td>
-            <td>420</td>
-            <td>100</td>
-            <td>33.6 L</td>
-            <td class="up">Healthy</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>45</td>
-            <td>80</td>
-            <td>5.4 L</td>
-            <td class="warn">Reorder</td>
-          </tr>
-          <tr>
-            <td>Product C</td>
-            <td>12</td>
-            <td>30</td>
-            <td>2.4 L</td>
-            <td class="down">Low</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="card stat">
+<div class="stat-label">Products</div>
+<div class="stat-value" id="productCount">0</div>
+</div>
+
+<div class="card stat">
+<div class="stat-label">Stock Units</div>
+<div class="stat-value" id="stockUnits">0</div>
+</div>
+
+<div class="card stat">
+<div class="stat-label">Stock Value</div>
+<div class="stat-value" id="stockValue">0</div>
+</div>
+
+<div class="card stat">
+<div class="stat-label">Low Stock</div>
+<div class="stat-value" id="lowStock">0</div>
+</div>
+
+</div>
+
+<div style="height:18px"></div>
+
+<div class="card">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Category</th>
+<th>Cost</th>
+<th>Selling Price</th>
+<th>Stock</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="productTable"></tbody>
+</table>
+</div>
+</div>
 
 </section>
 
+<!-- ACCOUNTING -->
+<section class="page" id="accounting">
 
-<!-- GROWTH -->
-<section class="page" id="growth">
+<div class="page-head">
+<div>
+<h2>Accounting</h2>
+<p>Business financial overview</p>
+</div>
+</div>
 
-  <div class="card">
-    <div class="section-head">
-      <h3>100 → 1000 Growth Roadmap</h3>
-      <span>Business Scaling System</span>
-    </div>
+<div class="grid stats">
 
-    <div class="grid three-col">
+<div class="card stat">
+<div class="stat-label">Revenue</div>
+<div class="stat-value" id="accRevenue">0</div>
+</div>
 
-      <div class="stage">
-        <div class="stage-number">1</div>
-        <h4>100 → 200 သိန်း</h4>
-        <p>Foundation & Sales Discipline</p>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
-        </div>
-      </div>
+<div class="card stat">
+<div class="stat-label">COGS</div>
+<div class="stat-value" id="accCOGS">0</div>
+</div>
 
-      <div class="stage current">
-        <div class="stage-number">2</div>
-        <h4>200 → 300 သိန်း</h4>
-        <p>Sales System & Customer Growth</p>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:80%"></div></div>
-        </div>
-      </div>
+<div class="card stat">
+<div class="stat-label">Gross Profit</div>
+<div class="stat-value" id="accGross">0</div>
+</div>
 
-      <div class="stage">
-        <div class="stage-number">3</div>
-        <h4>300 → 500 သိန်း</h4>
-        <p>Team & Distribution</p>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:45%"></div></div>
-        </div>
-      </div>
+<div class="card stat">
+<div class="stat-label">Net Profit</div>
+<div class="stat-value" id="accNet">0</div>
+</div>
 
-      <div class="stage">
-        <div class="stage-number">4</div>
-        <h4>500 → 700 သိန်း</h4>
-        <p>Scale Operations</p>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:20%"></div></div>
-        </div>
-      </div>
+</div>
 
-      <div class="stage">
-        <div class="stage-number">5</div>
-        <h4>700 → 900 သိန်း</h4>
-        <p>Expansion</p>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:8%"></div></div>
-        </div>
-      </div>
+<div class="grid two">
 
-      <div class="stage">
-        <div class="stage-number">6</div>
-        <h4>900 → 1,000 သိန်း</h4>
-        <p>Systemized Business</p>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:2%"></div></div>
-        </div>
-      </div>
+<div class="card">
+<div class="card-head"><h3>Profit & Loss</h3></div>
+<div class="card-body">
+<div class="kpi-row">
+<span>Revenue</span>
+<strong id="plRevenue">0</strong>
+</div>
+<div class="kpi-row">
+<span>Cost of Goods Sold</span>
+<strong id="plCOGS">0</strong>
+</div>
+<div class="kpi-row">
+<span>Gross Profit</span>
+<strong id="plGross">0</strong>
+</div>
+<div class="kpi-row">
+<span>Operating Expenses</span>
+<strong id="plExpense">0</strong>
+</div>
+<hr>
+<div class="kpi-row">
+<strong>Net Profit</strong>
+<strong id="plNet">0</strong>
+</div>
+</div>
+</div>
 
-    </div>
-  </div>
+<div class="card">
+<div class="card-head"><h3>Financial Ratios</h3></div>
+<div class="card-body">
+<div class="kpi-row">
+<span>Gross Margin</span>
+<strong id="grossMargin">0%</strong>
+</div>
+<div class="kpi-row">
+<span>Net Margin</span>
+<strong id="netMargin">0%</strong>
+</div>
+<div class="kpi-row">
+<span>Expense Ratio</span>
+<strong id="expenseRatio">0%</strong>
+</div>
+</div>
+</div>
 
-  <div class="card" style="margin-top:16px">
-    <div class="section-head">
-      <h3>90-Day Growth Plan</h3>
-      <button class="btn btn-green" id="planBtn">Generate Plan</button>
-    </div>
-
-    <div id="planOutput">
-      <div class="grid three-col">
-
-        <div class="action">
-          <strong>Days 1–30</strong>
-          Customer + Sales Foundation
-        </div>
-
-        <div class="action">
-          <strong>Days 31–60</strong>
-          Sales Growth + Profit Improvement
-        </div>
-
-        <div class="action">
-          <strong>Days 61–90</strong>
-          Team + Scale System
-        </div>
-
-      </div>
-    </div>
-  </div>
+</div>
 
 </section>
 
+<!-- EXPENSE -->
+<section class="page" id="expenses">
 
-<!-- KPI -->
-<section class="page" id="kpi">
+<div class="page-head">
+<div>
+<h2>Expenses</h2>
+<p>Track operating and business expenses</p>
+</div>
+<button class="btn btn-primary" onclick="openExpenseModal()">+ New Expense</button>
+</div>
 
-  <div class="card">
-    <div class="section-head">
-      <h3>KPI Center</h3>
-      <span>Key Business Numbers</span>
-    </div>
-
-    <div class="grid three-col">
-
-      <div class="card">
-        <div class="stat-label">Sales Achievement</div>
-        <div class="stat-value">77%</div>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:77%"></div></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Gross Margin</div>
-        <div class="stat-value">25%</div>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Net Margin</div>
-        <div class="stat-value">15.9%</div>
-        <div class="progress-wrap">
-          <div class="progress"><div class="progress-bar" style="width:64%"></div></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Customer Retention</div>
-        <div class="stat-value">82%</div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Average Order Value</div>
-        <div class="stat-value">2.64 L</div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">Repeat Customer</div>
-        <div class="stat-value">68%</div>
-      </div>
-
-    </div>
-  </div>
+<div class="card">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Category</th>
+<th>Description</th>
+<th>Amount</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="expenseTable"></tbody>
+</table>
+</div>
+</div>
 
 </section>
 
+<!-- EMPLOYEES -->
+<section class="page" id="employees">
 
-<!-- CALCULATOR -->
-<section class="page" id="calculator">
+<div class="page-head">
+<div>
+<h2>Employees</h2>
+<p>Employee and team management</p>
+</div>
+<button class="btn btn-primary" onclick="openEmployeeModal()">+ New Employee</button>
+</div>
 
-  <div class="grid two-col">
-
-    <div class="card">
-      <div class="section-head">
-        <h3>100 → 1000 Target Calculator</h3>
-        <span>Smart Planning</span>
-      </div>
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Current Sales (သိန်း)</label>
-          <input id="currentSales" type="number" value="100">
-        </div>
-
-        <div class="field">
-          <label>Target Sales (သိန်း)</label>
-          <input id="targetSales" type="number" value="1000">
-        </div>
-
-        <div class="field">
-          <label>Target Period (Months)</label>
-          <input id="targetMonths" type="number" value="12">
-        </div>
-
-        <div class="field">
-          <label>Gross Margin %</label>
-          <input id="margin" type="number" value="25">
-        </div>
-
-      </div>
-
-      <div class="form-actions">
-        <button class="btn btn-green" id="calculateBtn">Calculate Growth Plan</button>
-      </div>
-
-      <div class="result-box">
-        <div class="result-label">Required Monthly Average</div>
-        <div class="result-big" id="monthlyRequired">75 သိန်း</div>
-
-        <div style="margin-top:15px" class="grid three-col">
-          <div>
-            <div class="result-label">Revenue Gap</div>
-            <strong id="revenueGap">900 L</strong>
-          </div>
-
-          <div>
-            <div class="result-label">Monthly Growth</div>
-            <strong id="monthlyGrowth">21.15%</strong>
-          </div>
-
-          <div>
-            <div class="result-label">Potential Gross Profit</div>
-            <strong id="potentialProfit">225 L</strong>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="card">
-      <div class="section-head">
-        <h3>Profit Calculator</h3>
-        <span>Margin Control</span>
-      </div>
-
-      <div class="form-grid">
-
-        <div class="field">
-          <label>Selling Price</label>
-          <input id="sellPrice" type="number" value="10000">
-        </div>
-
-        <div class="field">
-          <label>Cost</label>
-          <input id="costPrice" type="number" value="7500">
-        </div>
-
-        <div class="field">
-          <label>Quantity</label>
-          <input id="quantity" type="number" value="100">
-        </div>
-
-      </div>
-
-      <div class="form-actions">
-        <button class="btn btn-primary" id="profitBtn">Calculate Profit</button>
-      </div>
-
-      <div class="result-box">
-        <div class="result-label">Total Profit</div>
-        <div class="result-big" id="profitResult">250,000 Ks</div>
-        <div style="margin-top:10px">
-          <span class="result-label">Margin: </span>
-          <strong id="profitMargin">25%</strong>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
+<div class="card">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Department</th>
+<th>Position</th>
+<th>Salary</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="employeeTable"></tbody>
+</table>
+</div>
+</div>
 
 </section>
-
-
-<!-- AI COACH -->
-<section class="page" id="coach">
-
-  <div class="card">
-
-    <div class="section-head">
-      <div>
-        <h3>✦ AI Business Coach</h3>
-        <span>Ask about your business</span>
-      </div>
-    </div>
-
-    <div class="chat" id="chat">
-
-      <div class="msg ai">
-        မင်္ဂလာပါ 👋<br><br>
-        ကျွန်တော်က သင့် Business Growth Coach ပါ<br><br>
-        Sales, Profit, Customer, Team, Cash Flow နဲ့
-        100 → 1000 Growth အကြောင်း မေးနိုင်ပါတယ်
-      </div>
-
-    </div>
-
-    <div class="chat-input">
-      <input id="chatInput" placeholder="ဥပမာ — ရောင်းအားတိုးဖို့ ဘာလုပ်ရမလဲ">
-      <button class="btn btn-primary" id="sendChat">Send</button>
-    </div>
-
-  </div>
-
-</section>
-
 
 <!-- REPORTS -->
 <section class="page" id="reports">
 
-  <div class="card">
-    <div class="section-head">
-      <h3>Business Reports</h3>
-      <button class="btn btn-primary" id="exportBtn">Export Report</button>
-    </div>
+<div class="page-head">
+<div>
+<h2>Reports</h2>
+<p>Business performance reports</p>
+</div>
+<button class="btn btn-primary" onclick="exportReport()">Export Report</button>
+</div>
 
-    <div class="grid three-col">
+<div class="grid three">
 
-      <div class="card">
-        <div class="stat-label">Monthly Sales</div>
-        <div class="stat-value">385 L</div>
-      </div>
+<div class="card">
+<div class="card-head"><h3>Sales Report</h3></div>
+<div class="card-body">
+Revenue<br>
+<strong id="reportSales">0 MMK</strong>
+</div>
+</div>
 
-      <div class="card">
-        <div class="stat-label">Monthly Profit</div>
-        <div class="stat-value">61.2 L</div>
-      </div>
+<div class="card">
+<div class="card-head"><h3>Profit Report</h3></div>
+<div class="card-body">
+Net Profit<br>
+<strong id="reportProfit">0 MMK</strong>
+</div>
+</div>
 
-      <div class="card">
-        <div class="stat-label">Growth</div>
-        <div class="stat-value">12.5%</div>
-      </div>
+<div class="card">
+<div class="card-head"><h3>Expense Report</h3></div>
+<div class="card-body">
+Expenses<br>
+<strong id="reportExpense">0 MMK</strong>
+</div>
+</div>
 
-    </div>
-
-    <div style="margin-top:20px">
-      <div class="metric-row">
-        <span>Sales Report</span>
-        <button class="btn btn-light" onclick="showToast('Sales Report opened')">Open</button>
-      </div>
-
-      <div class="metric-row">
-        <span>Profit Report</span>
-        <button class="btn btn-light" onclick="showToast('Profit Report opened')">Open</button>
-      </div>
-
-      <div class="metric-row">
-        <span>Customer Report</span>
-        <button class="btn btn-light" onclick="showToast('Customer Report opened')">Open</button>
-      </div>
-
-      <div class="metric-row">
-        <span>Inventory Report</span>
-        <button class="btn btn-light" onclick="showToast('Inventory Report opened')">Open</button>
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
+<!-- GROWTH -->
+<section class="page" id="growth">
+
+<div class="page-head">
+<div>
+<h2>100 → 1000 Growth System</h2>
+<p>Systematic business growth roadmap</p>
+</div>
+<button class="btn btn-primary" onclick="generatePlan()">Generate 90-Day Plan</button>
+</div>
+
+<div class="card">
+<div class="card-body">
+
+<h3>Current Revenue</h3>
+
+<div style="font-size:34px;font-weight:800" id="growthPageRevenue">0 သိန်း</div>
+
+<div style="margin:20px 0" class="progress">
+<div class="progress-bar" id="growthPageBar"></div>
+</div>
+
+<div id="roadmap"></div>
+
+</div>
+</div>
+
+</section>
+
+<!-- COACH -->
+<section class="page" id="coach">
+
+<div class="page-head">
+<div>
+<h2>AI Business Coach</h2>
+<p>Business decision support based on your data</p>
+</div>
+</div>
+
+<div class="ai-box">
+
+<h2>✦ AUNG AI BUSINESS COACH</h2>
+
+<div>
+Ask about sales, profit, customers, inventory or growth
+</div>
+
+<div class="ai-input">
+<input id="aiQuestion" placeholder="ဥပမာ Sales တိုးအောင် ဘာလုပ်သင့်လဲ">
+<button class="btn btn-primary" onclick="askAI()">Ask</button>
+</div>
+
+<div class="ai-answer" id="aiAnswer">
+Business data ကိုကြည့်ပြီး အကြံပြုချက်ရယူနိုင်ပါတယ်
+</div>
+
+</div>
+
+</section>
+
+<!-- TOOLS -->
+<section class="page" id="tools">
+
+<div class="page-head">
+<div>
+<h2>Business Tools</h2>
+<p>Quick calculators for business decisions</p>
+</div>
+</div>
+
+<div class="grid two">
+
+<div class="card">
+<div class="card-head"><h3>Profit Calculator</h3></div>
+<div class="card-body">
+
+<div class="form-group">
+<label>Selling Price</label>
+<input class="form-control" id="calcSell" type="number">
+</div>
+
+<br>
+
+<div class="form-group">
+<label>Cost Price</label>
+<input class="form-control" id="calcCost" type="number">
+</div>
+
+<br>
+
+<div class="form-group">
+<label>Quantity</label>
+<input class="form-control" id="calcQty" type="number" value="1">
+</div>
+
+<br>
+
+<button class="btn btn-primary" onclick="calculateProfit()">Calculate</button>
+
+<div style="margin-top:18px" id="profitResult"></div>
+
+</div>
+</div>
+
+<div class="card">
+<div class="card-head"><h3>100 → 1000 Calculator</h3></div>
+<div class="card-body">
+
+<div class="form-group">
+<label>Current Revenue (သိန်း)</label>
+<input class="form-control" id="growthCurrent" type="number" value="100">
+</div>
+
+<br>
+
+<div class="form-group">
+<label>Target Revenue (သိန်း)</label>
+<input class="form-control" id="growthTarget" type="number" value="1000">
+</div>
+
+<br>
+
+<div class="form-group">
+<label>Months</label>
+<input class="form-control" id="growthMonths" type="number" value="24">
+</div>
+
+<br>
+
+<button class="btn btn-primary" onclick="calculateGrowth()">Calculate</button>
+
+<div style="margin-top:18px" id="growthResult"></div>
+
+</div>
+</div>
+
+</div>
+
+</section>
 
 <!-- SETTINGS -->
 <section class="page" id="settings">
 
-  <div class="card">
+<div class="page-head">
+<div>
+<h2>Settings</h2>
+<p>Business configuration</p>
+</div>
+</div>
 
-    <div class="section-head">
-      <h3>Business Settings</h3>
-      <span>Configuration</span>
-    </div>
+<div class="card">
+<div class="card-body">
 
-    <div class="form-grid">
+<div class="form-grid">
 
-      <div class="field">
-        <label>Business Name</label>
-        <input id="businessName" value="My Business">
-      </div>
+<div class="form-group">
+<label>Business Name</label>
+<input class="form-control" id="settingCompany">
+</div>
 
-      <div class="field">
-        <label>Owner Name</label>
-        <input id="ownerName" value="Business Owner">
-      </div>
+<div class="form-group">
+<label>Owner Name</label>
+<input class="form-control" id="settingOwner">
+</div>
 
-      <div class="field">
-        <label>Starting Capital (သိန်း)</label>
-        <input id="startingCapital" type="number" value="100">
-      </div>
+<div class="form-group">
+<label>Monthly Target (သိန်း)</label>
+<input class="form-control" id="settingTarget" type="number">
+</div>
 
-      <div class="field">
-        <label>Growth Target (သိန်း)</label>
-        <input id="growthTarget" type="number" value="1000">
-      </div>
+<div class="form-group">
+<label>Currency</label>
+<select class="form-control" id="settingCurrency">
+<option>MMK</option>
+<option>USD</option>
+</select>
+</div>
 
-    </div>
+</div>
 
-    <div class="form-actions">
-      <button class="btn btn-green" id="saveSettings">Save Settings</button>
-    </div>
+<br>
 
-  </div>
+<button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+<button class="btn btn-danger" onclick="resetData()">Reset All Data</button>
+
+</div>
+</div>
 
 </section>
 
@@ -1392,529 +1268,1268 @@ th{font-size:11px;color:var(--muted);background:#f8fafc}
 </main>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- MODAL -->
+<div class="modal-backdrop hidden" id="modalBackdrop">
+<div class="modal" id="modal"></div>
+</div>
 
 <script>
-"use strict";
 
 /* =========================
-   BASIC HELPERS
+   DATABASE
 ========================= */
 
-const $ = id => document.getElementById(id);
+const DB_KEY="aung_smart_business_erp_v2";
 
-function showToast(message){
-  const toast=$("toast");
-  toast.textContent=message;
-  toast.classList.add("show");
+let db=JSON.parse(localStorage.getItem(DB_KEY)||"null");
 
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>{
-    toast.classList.remove("show");
-  },2200);
+if(!db){
+  db={
+    settings:{
+      company:"Aung Business",
+      owner:"Aung Zar Ni Win",
+      target:500,
+      currency:"MMK"
+    },
+    sales:[],
+    customers:[],
+    products:[],
+    purchases:[],
+    expenses:[],
+    employees:[]
+  };
+  saveDB();
+}
+
+function saveDB(){
+  localStorage.setItem(DB_KEY,JSON.stringify(db));
+}
+
+function money(n){
+  return Number(n||0).toLocaleString()+" "+db.settings.currency;
+}
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+function uid(){
+  return Date.now().toString(36)+Math.random().toString(36).slice(2);
+}
+
+function escapeHTML(str){
+  return String(str??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 }
 
 /* =========================
-   PAGE NAVIGATION
+   NAVIGATION
 ========================= */
 
-const pageTitles={
-  dashboard:"Business Dashboard",
-  sales:"Sales Management",
-  customers:"Customer Management",
-  products:"Products",
-  finance:"Finance & Profit",
-  inventory:"Inventory Control",
-  growth:"100 → 1000 Growth Roadmap",
-  kpi:"KPI Center",
-  calculator:"Smart Calculators",
-  coach:"AI Business Coach",
-  reports:"Business Reports",
-  settings:"Business Settings"
+const titles={
+ dashboard:"Dashboard",
+ sales:"Sales",
+ crm:"CRM / Customers",
+ purchase:"Purchases",
+ inventory:"Inventory",
+ accounting:"Accounting",
+ expenses:"Expenses",
+ employees:"Employees",
+ reports:"Reports",
+ growth:"100 → 1000 Growth",
+ coach:"AI Business Coach",
+ tools:"Business Tools",
+ settings:"Settings"
 };
 
-document.querySelectorAll(".nav-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const page=btn.dataset.page;
+function showPage(id,btn){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+  const page=document.getElementById(id);
+  if(page)page.classList.add("active");
 
-    document.querySelectorAll(".nav-btn").forEach(b=>{
-      b.classList.remove("active");
-    });
+  document.querySelectorAll(".nav-btn").forEach(x=>x.classList.remove("active"));
+  if(btn)btn.classList.add("active");
 
-    btn.classList.add("active");
+  document.getElementById("pageTitle").textContent=titles[id]||"ERP";
 
-    document.querySelectorAll(".page").forEach(p=>{
-      p.classList.remove("active");
-    });
-
-    const target=$(page);
-    if(target) target.classList.add("active");
-
-    $("pageTitle").textContent=pageTitles[page] || "AUNG SMART BUSINESS";
-
-    $("sidebar").classList.remove("open");
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-  });
-});
-
-/* =========================
-   MOBILE MENU
-========================= */
-
-$("mobileMenu").addEventListener("click",()=>{
-  $("sidebar").classList.toggle("open");
-});
-
-/* =========================
-   GROWTH CALCULATOR
-========================= */
-
-function calculateGrowth(){
-
-  const current=Math.max(0,Number($("currentSales").value)||0);
-  const target=Math.max(current,Number($("targetSales").value)||0);
-  const months=Math.max(1,Number($("targetMonths").value)||1);
-  const margin=Math.max(0,Number($("margin").value)||0);
-
-  const gap=target-current;
-  const monthly=target/months;
-
-  let monthlyGrowth=0;
-
-  if(current>0){
-    monthlyGrowth=(Math.pow(target/current,1/months)-1)*100;
-  }
-
-  const profit=target*(margin/100);
-
-  $("monthlyRequired").textContent=monthly.toFixed(1)+" သိန်း";
-  $("revenueGap").textContent=gap.toFixed(1)+" သိန်း";
-  $("monthlyGrowth").textContent=monthlyGrowth.toFixed(2)+"%";
-  $("potentialProfit").textContent=profit.toFixed(1)+" သိန်း";
-
-  showToast("Growth Plan calculated");
+  closeSidebar();
 }
 
-$("calculateBtn").addEventListener("click",calculateGrowth);
-
-/* =========================
-   PROFIT CALCULATOR
-========================= */
-
-function calculateProfit(){
-
-  const sell=Math.max(0,Number($("sellPrice").value)||0);
-  const cost=Math.max(0,Number($("costPrice").value)||0);
-  const qty=Math.max(0,Number($("quantity").value)||0);
-
-  const profitPerUnit=sell-cost;
-  const totalProfit=profitPerUnit*qty;
-
-  let margin=0;
-
-  if(sell>0){
-    margin=(profitPerUnit/sell)*100;
-  }
-
-  $("profitResult").textContent=
-    totalProfit.toLocaleString()+" Ks";
-
-  $("profitMargin").textContent=
-    margin.toFixed(2)+"%";
-
-  showToast("Profit calculated");
+function openSidebar(){
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
 }
 
-$("profitBtn").addEventListener("click",calculateProfit);
+function closeSidebar(){
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+}
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(html){
+  document.getElementById("modal").innerHTML=html;
+  document.getElementById("modalBackdrop").classList.remove("hidden");
+}
+
+function closeModal(){
+  document.getElementById("modalBackdrop").classList.add("hidden");
+}
+
+document.getElementById("modalBackdrop").addEventListener("click",e=>{
+  if(e.target.id==="modalBackdrop")closeModal();
+});
 
 /* =========================
    SALES
 ========================= */
 
-$("addSaleBtn").addEventListener("click",()=>{
+function openSaleModal(){
 
-  const amount=prompt("Sale Amount (သိန်း) ထည့်ပါ");
+let customerOptions=db.customers.map(c=>
+`<option value="${escapeHTML(c.id)}">${escapeHTML(c.name)}</option>`
+).join("");
 
-  if(amount===null) return;
+let productOptions=db.products.map(p=>
+`<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`
+).join("");
 
-  const value=Number(amount);
+openModal(`
+<div class="modal-head">
+<h3>New Sale</h3>
+<button class="close" onclick="closeModal()">×</button>
+</div>
 
-  if(!Number.isFinite(value) || value<=0){
-    showToast("မှန်ကန်သော amount ထည့်ပါ");
-    return;
-  }
+<div class="modal-body">
+<div class="form-grid">
 
-  const row=document.createElement("tr");
+<div class="form-group">
+<label>Date</label>
+<input class="form-control" id="saleDate" type="date" value="${today()}">
+</div>
 
-  row.innerHTML=`
-    <td>21 Sep</td>
-    <td>New Customer</td>
-    <td>New Sale</td>
-    <td>${value.toFixed(2)} L</td>
-    <td class="up">${(value*.25).toFixed(2)} L</td>
-  `;
+<div class="form-group">
+<label>Customer</label>
+<select class="form-control" id="saleCustomer">
+<option value="">Walk-in Customer</option>
+${customerOptions}
+</select>
+</div>
 
-  $("salesTable").prepend(row);
+<div class="form-group full">
+<label>Product</label>
+<select class="form-control" id="saleProduct">
+<option value="">Select Product</option>
+${productOptions}
+</select>
+</div>
 
-  showToast("Sale added successfully");
+<div class="form-group">
+<label>Quantity</label>
+<input class="form-control" id="saleQty" type="number" min="1" value="1">
+</div>
+
+<div class="form-group">
+<label>Selling Price</label>
+<input class="form-control" id="salePrice" type="number" min="0">
+</div>
+
+</div>
+</div>
+
+<div class="modal-foot">
+<button class="btn btn-light" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="saveSale()">Save Sale</button>
+</div>
+`);
+
+document.getElementById("saleProduct").addEventListener("change",function(){
+ let p=db.products.find(x=>x.id===this.value);
+ if(p)document.getElementById("salePrice").value=p.price;
 });
+
+}
+
+function saveSale(){
+
+let product=db.products.find(x=>x.id===document.getElementById("saleProduct").value);
+
+if(!product){
+  alert("Product ရွေးပါ");
+  return;
+}
+
+let qty=Number(document.getElementById("saleQty").value);
+let price=Number(document.getElementById("salePrice").value);
+
+if(qty<=0||price<0){
+  alert("Quantity / Price စစ်ပါ");
+  return;
+}
+
+if(product.stock<qty){
+  if(!confirm("Stock မလုံလောက်ပါ။ ဆက်ရောင်းမလား"))return;
+}
+
+let customerId=document.getElementById("saleCustomer").value;
+
+db.sales.unshift({
+ id:uid(),
+ date:document.getElementById("saleDate").value,
+ customerId,
+ productId:product.id,
+ qty,
+ price,
+ cost:product.cost,
+ total:qty*price,
+ profit:qty*(price-product.cost)
+});
+
+product.stock-=qty;
+
+saveDB();
+closeModal();
+renderAll();
+
+}
 
 /* =========================
    CUSTOMER
 ========================= */
 
-$("addCustomerBtn").addEventListener("click",()=>{
-  const name=prompt("Customer Name ထည့်ပါ");
+function openCustomerModal(){
 
-  if(!name || !name.trim()){
-    showToast("Customer name မရှိပါ");
-    return;
-  }
+openModal(`
+<div class="modal-head">
+<h3>New Customer</h3>
+<button class="close" onclick="closeModal()">×</button>
+</div>
 
-  showToast(name.trim()+" added successfully");
+<div class="modal-body">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Customer Name</label>
+<input class="form-control" id="customerName">
+</div>
+
+<div class="form-group">
+<label>Phone</label>
+<input class="form-control" id="customerPhone">
+</div>
+
+<div class="form-group">
+<label>Type</label>
+<select class="form-control" id="customerType">
+<option>Retail</option>
+<option>Wholesale</option>
+<option>Distributor</option>
+<option>Corporate</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="modal-foot">
+<button class="btn btn-light" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
+</div>
+`);
+}
+
+function saveCustomer(){
+
+let name=document.getElementById("customerName").value.trim();
+
+if(!name){
+  alert("Customer name ထည့်ပါ");
+  return;
+}
+
+db.customers.push({
+ id:uid(),
+ name,
+ phone:document.getElementById("customerPhone").value,
+ type:document.getElementById("customerType").value
 });
+
+saveDB();
+closeModal();
+renderAll();
+}
 
 /* =========================
    PRODUCT
 ========================= */
 
-$("addProductBtn").addEventListener("click",()=>{
-  const name=prompt("Product Name ထည့်ပါ");
+function openProductModal(){
 
-  if(!name || !name.trim()){
-    showToast("Product name မရှိပါ");
-    return;
-  }
+openModal(`
+<div class="modal-head">
+<h3>New Product</h3>
+<button class="close" onclick="closeModal()">×</button>
+</div>
 
-  showToast(name.trim()+" added successfully");
+<div class="modal-body">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Product Name</label>
+<input class="form-control" id="productName">
+</div>
+
+<div class="form-group">
+<label>Category</label>
+<input class="form-control" id="productCategory">
+</div>
+
+<div class="form-group">
+<label>Cost Price</label>
+<input class="form-control" id="productCost" type="number">
+</div>
+
+<div class="form-group">
+<label>Selling Price</label>
+<input class="form-control" id="productPrice" type="number">
+</div>
+
+<div class="form-group">
+<label>Opening Stock</label>
+<input class="form-control" id="productStock" type="number">
+</div>
+
+<div class="form-group">
+<label>Low Stock Alert</label>
+<input class="form-control" id="productMin" type="number" value="10">
+</div>
+
+</div>
+
+</div>
+
+<div class="modal-foot">
+<button class="btn btn-light" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+</div>
+`);
+}
+
+function saveProduct(){
+
+let name=document.getElementById("productName").value.trim();
+let cost=Number(document.getElementById("productCost").value);
+let price=Number(document.getElementById("productPrice").value);
+let stock=Number(document.getElementById("productStock").value);
+let min=Number(document.getElementById("productMin").value);
+
+if(!name){
+  alert("Product name ထည့်ပါ");
+  return;
+}
+
+db.products.push({
+ id:uid(),
+ name,
+ category:document.getElementById("productCategory").value||"General",
+ cost,
+ price,
+ stock,
+ min
 });
+
+saveDB();
+closeModal();
+renderAll();
+}
+
+/* =========================
+   PURCHASE
+========================= */
+
+function openPurchaseModal(){
+
+let productOptions=db.products.map(p=>
+`<option value="${p.id}">${escapeHTML(p.name)}</option>`
+).join("");
+
+openModal(`
+<div class="modal-head">
+<h3>New Purchase</h3>
+<button class="close" onclick="closeModal()">×</button>
+</div>
+
+<div class="modal-body">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Date</label>
+<input class="form-control" id="purchaseDate" type="date" value="${today()}">
+</div>
+
+<div class="form-group">
+<label>Supplier</label>
+<input class="form-control" id="purchaseSupplier">
+</div>
+
+<div class="form-group full">
+<label>Product</label>
+<select class="form-control" id="purchaseProduct">
+${productOptions}
+</select>
+</div>
+
+<div class="form-group">
+<label>Quantity</label>
+<input class="form-control" id="purchaseQty" type="number" value="1">
+</div>
+
+<div class="form-group">
+<label>Unit Cost</label>
+<input class="form-control" id="purchaseCost" type="number">
+</div>
+
+</div>
+
+</div>
+
+<div class="modal-foot">
+<button class="btn btn-light" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="savePurchase()">Save Purchase</button>
+</div>
+`);
+}
+
+function savePurchase(){
+
+let product=db.products.find(x=>x.id===document.getElementById("purchaseProduct").value);
+
+if(!product){
+  alert("Product ရွေးပါ");
+  return;
+}
+
+let qty=Number(document.getElementById("purchaseQty").value);
+let cost=Number(document.getElementById("purchaseCost").value);
+
+if(qty<=0||cost<0){
+  alert("Purchase data စစ်ပါ");
+  return;
+}
+
+product.stock+=qty;
+
+db.purchases.unshift({
+ id:uid(),
+ date:document.getElementById("purchaseDate").value,
+ supplier:document.getElementById("purchaseSupplier").value||"Unknown",
+ productId:product.id,
+ qty,
+ cost,
+ total:qty*cost
+});
+
+saveDB();
+closeModal();
+renderAll();
+}
+
+/* =========================
+   EXPENSE
+========================= */
+
+function openExpenseModal(){
+
+openModal(`
+<div class="modal-head">
+<h3>New Expense</h3>
+<button class="close" onclick="closeModal()">×</button>
+</div>
+
+<div class="modal-body">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Date</label>
+<input class="form-control" id="expenseDate" type="date" value="${today()}">
+</div>
+
+<div class="form-group">
+<label>Category</label>
+<select class="form-control" id="expenseCategory">
+<option>Rent</option>
+<option>Salary</option>
+<option>Transport</option>
+<option>Marketing</option>
+<option>Utilities</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="form-group full">
+<label>Description</label>
+<input class="form-control" id="expenseDescription">
+</div>
+
+<div class="form-group">
+<label>Amount</label>
+<input class="form-control" id="expenseAmount" type="number">
+</div>
+
+</div>
+
+</div>
+
+<div class="modal-foot">
+<button class="btn btn-light" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
+</div>
+`);
+}
+
+function saveExpense(){
+
+let amount=Number(document.getElementById("expenseAmount").value);
+
+if(amount<=0){
+  alert("Amount ထည့်ပါ");
+  return;
+}
+
+db.expenses.unshift({
+ id:uid(),
+ date:document.getElementById("expenseDate").value,
+ category:document.getElementById("expenseCategory").value,
+ description:document.getElementById("expenseDescription").value,
+ amount
+});
+
+saveDB();
+closeModal();
+renderAll();
+}
+
+/* =========================
+   EMPLOYEE
+========================= */
+
+function openEmployeeModal(){
+
+openModal(`
+<div class="modal-head">
+<h3>New Employee</h3>
+<button class="close" onclick="closeModal()">×</button>
+</div>
+
+<div class="modal-body">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Name</label>
+<input class="form-control" id="employeeName">
+</div>
+
+<div class="form-group">
+<label>Department</label>
+<input class="form-control" id="employeeDepartment">
+</div>
+
+<div class="form-group">
+<label>Position</label>
+<input class="form-control" id="employeePosition">
+</div>
+
+<div class="form-group">
+<label>Monthly Salary</label>
+<input class="form-control" id="employeeSalary" type="number">
+</div>
+
+</div>
+
+</div>
+
+<div class="modal-foot">
+<button class="btn btn-light" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="saveEmployee()">Save Employee</button>
+</div>
+`);
+}
+
+function saveEmployee(){
+
+let name=document.getElementById("employeeName").value.trim();
+
+if(!name){
+  alert("Employee name ထည့်ပါ");
+  return;
+}
+
+db.employees.push({
+ id:uid(),
+ name,
+ department:document.getElementById("employeeDepartment").value,
+ position:document.getElementById("employeePosition").value,
+ salary:Number(document.getElementById("employeeSalary").value)||0,
+ status:"Active"
+});
+
+saveDB();
+closeModal();
+renderAll();
+}
+
+/* =========================
+   DELETE
+========================= */
+
+function deleteItem(type,id){
+
+if(!confirm("ဒီ record ကို ဖျက်မလား"))return;
+
+db[type]=db[type].filter(x=>x.id!==id);
+
+saveDB();
+renderAll();
+}
+
+/* =========================
+   RENDER SALES
+========================= */
+
+function renderSales(){
+
+let el=document.getElementById("salesTable");
+
+if(!db.sales.length){
+  el.innerHTML=`<tr><td colspan="7" class="empty">Sales data မရှိသေးပါ</td></tr>`;
+  return;
+}
+
+el.innerHTML=db.sales.map(s=>{
+
+let customer=db.customers.find(c=>c.id===s.customerId);
+let product=db.products.find(p=>p.id===s.productId);
+
+return `
+<tr>
+<td>${s.date}</td>
+<td>${escapeHTML(customer?.name||"Walk-in")}</td>
+<td>${escapeHTML(product?.name||"Deleted Product")}</td>
+<td>${s.qty}</td>
+<td>${money(s.total)}</td>
+<td class="up">${money(s.profit)}</td>
+<td>
+<button class="btn btn-danger" onclick="deleteItem('sales','${s.id}')">Delete</button>
+</td>
+</tr>
+`;
+}).join("");
+}
+
+/* =========================
+   RENDER CUSTOMER
+========================= */
+
+function renderCustomers(){
+
+let el=document.getElementById("customerTable");
+
+if(!db.customers.length){
+  el.innerHTML=`<tr><td colspan="6" class="empty">Customer မရှိသေးပါ</td></tr>`;
+  return;
+}
+
+el.innerHTML=db.customers.map(c=>{
+
+let total=db.sales
+.filter(s=>s.customerId===c.id)
+.reduce((a,b)=>a+b.total,0);
+
+return `
+<tr>
+<td><strong>${escapeHTML(c.name)}</strong></td>
+<td>${escapeHTML(c.phone)}</td>
+<td>${escapeHTML(c.type)}</td>
+<td>${money(total)}</td>
+<td><span class="badge badge-green">Active</span></td>
+<td>
+<button class="btn btn-danger" onclick="deleteItem('customers','${c.id}')">Delete</button>
+</td>
+</tr>
+`;
+}).join("");
+}
+
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
+function renderProducts(){
+
+let el=document.getElementById("productTable");
+
+if(!db.products.length){
+  el.innerHTML=`<tr><td colspan="7" class="empty">Product မရှိသေးပါ</td></tr>`;
+  return;
+}
+
+el.innerHTML=db.products.map(p=>{
+
+let low=p.stock<=p.min;
+
+return `
+<tr>
+<td><strong>${escapeHTML(p.name)}</strong></td>
+<td>${escapeHTML(p.category)}</td>
+<td>${money(p.cost)}</td>
+<td>${money(p.price)}</td>
+<td>${p.stock}</td>
+<td>
+<span class="badge ${low?"badge-red":"badge-green"}">
+${low?"Low Stock":"Healthy"}
+</span>
+</td>
+<td>
+<button class="btn btn-danger" onclick="deleteItem('products','${p.id}')">Delete</button>
+</td>
+</tr>
+`;
+}).join("");
+
+}
+
+/* =========================
+   PURCHASE
+========================= */
+
+function renderPurchases(){
+
+let el=document.getElementById("purchaseTable");
+
+if(!db.purchases.length){
+  el.innerHTML=`<tr><td colspan="7" class="empty">Purchase မရှိသေးပါ</td></tr>`;
+  return;
+}
+
+el.innerHTML=db.purchases.map(p=>{
+
+let product=db.products.find(x=>x.id===p.productId);
+
+return `
+<tr>
+<td>${p.date}</td>
+<td>${escapeHTML(p.supplier)}</td>
+<td>${escapeHTML(product?.name||"Deleted")}</td>
+<td>${p.qty}</td>
+<td>${money(p.cost)}</td>
+<td>${money(p.total)}</td>
+<td>
+<button class="btn btn-danger" onclick="deleteItem('purchases','${p.id}')">Delete</button>
+</td>
+</tr>
+`;
+}).join("");
+}
+
+/* =========================
+   EXPENSE
+========================= */
+
+function renderExpenses(){
+
+let el=document.getElementById("expenseTable");
+
+if(!db.expenses.length){
+  el.innerHTML=`<tr><td colspan="5" class="empty">Expense မရှိသေးပါ</td></tr>`;
+  return;
+}
+
+el.innerHTML=db.expenses.map(e=>`
+<tr>
+<td>${e.date}</td>
+<td>${escapeHTML(e.category)}</td>
+<td>${escapeHTML(e.description)}</td>
+<td>${money(e.amount)}</td>
+<td>
+<button class="btn btn-danger" onclick="deleteItem('expenses','${e.id}')">Delete</button>
+</td>
+</tr>
+`).join("");
+}
+
+/* =========================
+   EMPLOYEE
+========================= */
+
+function renderEmployees(){
+
+let el=document.getElementById("employeeTable");
+
+if(!db.employees.length){
+  el.innerHTML=`<tr><td colspan="6" class="empty">Employee မရှိသေးပါ</td></tr>`;
+  return;
+}
+
+el.innerHTML=db.employees.map(e=>`
+<tr>
+<td><strong>${escapeHTML(e.name)}</strong></td>
+<td>${escapeHTML(e.department)}</td>
+<td>${escapeHTML(e.position)}</td>
+<td>${money(e.salary)}</td>
+<td><span class="badge badge-green">${e.status}</span></td>
+<td>
+<button class="btn btn-danger" onclick="deleteItem('employees','${e.id}')">Delete</button>
+</td>
+</tr>
+`).join("");
+}
+
+/* =========================
+   FINANCE
+========================= */
+
+function financials(){
+
+let revenue=db.sales.reduce((a,b)=>a+b.total,0);
+let cogs=db.sales.reduce((a,b)=>a+(b.cost*b.qty),0);
+let gross=revenue-cogs;
+let expense=db.expenses.reduce((a,b)=>a+b.amount,0);
+let net=gross-expense;
+
+return {revenue,cogs,gross,expense,net};
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+let f=financials();
+
+document.getElementById("dashSales").textContent=money(f.revenue);
+document.getElementById("dashGross").textContent=money(f.gross);
+document.getElementById("dashNet").textContent=money(f.net);
+document.getElementById("dashCustomers").textContent=db.customers.length;
+
+let revenueLakhs=f.revenue/100000;
+let progress=Math.min(100,Math.max(0,(revenueLakhs/1000)*100));
+
+document.getElementById("growthRevenue").textContent=
+revenueLakhs.toFixed(1)+" သိန်း";
+
+document.getElementById("growthBar").style.width=progress+"%";
+document.getElementById("growthPercent").textContent=
+progress.toFixed(1)+"%";
+
+let stage=
+revenueLakhs<200?"100 → 200 Foundation":
+revenueLakhs<300?"200 → 300 Sales System":
+revenueLakhs<500?"300 → 500 Customer Growth":
+revenueLakhs<700?"500 → 700 Scale":
+revenueLakhs<900?"700 → 900 Expansion":
+"900 → 1000 Systemized Business";
+
+document.getElementById("growthStageBadge").textContent=stage;
+
+let recent=document.getElementById("dashRecentSales");
+
+if(!db.sales.length){
+  recent.innerHTML=`<div class="empty">Sales မရှိသေးပါ</div>`;
+}else{
+  recent.innerHTML=db.sales.slice(0,5).map(s=>{
+    let p=db.products.find(x=>x.id===s.productId);
+    return `
+    <div style="padding:10px 0;border-bottom:1px solid var(--line)">
+      <strong>${escapeHTML(p?.name||"Product")}</strong><br>
+      <small>${s.qty} × ${money(s.price)}</small>
+      <strong style="float:right">${money(s.total)}</strong>
+    </div>`;
+  }).join("");
+}
+
+let low=db.products.filter(p=>p.stock<=p.min).length;
+
+document.getElementById("dashAttention").innerHTML=`
+<div class="kpi-row">
+<span>Low Stock</span>
+<strong class="${low?'down':'up'}">${low}</strong>
+</div>
+<div class="kpi-row">
+<span>Outstanding Sales</span>
+<strong>${db.sales.length}</strong>
+</div>
+<div class="kpi-row">
+<span>Expenses</span>
+<strong>${money(f.expense)}</strong>
+</div>
+`;
+
+document.getElementById("healthSales").textContent=
+f.revenue>0?"Good":"Needs Data";
+
+document.getElementById("healthProfit").textContent=
+f.net>0?"Good":f.revenue?"Review":"Needs Data";
+
+document.getElementById("healthStock").textContent=
+low?"Attention":"Good";
+
+document.getElementById("healthCustomer").textContent=
+db.customers.length?"Good":"Build CRM";
+
+}
+
+/* =========================
+   ACCOUNTING
+========================= */
+
+function renderAccounting(){
+
+let f=financials();
+
+document.getElementById("accRevenue").textContent=money(f.revenue);
+document.getElementById("accCOGS").textContent=money(f.cogs);
+document.getElementById("accGross").textContent=money(f.gross);
+document.getElementById("accNet").textContent=money(f.net);
+
+document.getElementById("plRevenue").textContent=money(f.revenue);
+document.getElementById("plCOGS").textContent=money(f.cogs);
+document.getElementById("plGross").textContent=money(f.gross);
+document.getElementById("plExpense").textContent=money(f.expense);
+document.getElementById("plNet").textContent=money(f.net);
+
+let gm=f.revenue?f.gross/f.revenue*100:0;
+let nm=f.revenue?f.net/f.revenue*100:0;
+let er=f.revenue?f.expense/f.revenue*100:0;
+
+document.getElementById("grossMargin").textContent=gm.toFixed(1)+"%";
+document.getElementById("netMargin").textContent=nm.toFixed(1)+"%";
+document.getElementById("expenseRatio").textContent=er.toFixed(1)+"%";
+
+document.getElementById("reportSales").textContent=money(f.revenue);
+document.getElementById("reportProfit").textContent=money(f.net);
+document.getElementById("reportExpense").textContent=money(f.expense);
+}
 
 /* =========================
    INVENTORY
 ========================= */
 
-$("stockBtn").addEventListener("click",()=>{
-  const qty=prompt("Stock Quantity ထည့်ပါ");
+function renderInventory(){
 
-  if(qty===null) return;
+let stockUnits=db.products.reduce((a,b)=>a+Number(b.stock),0);
+let stockValue=db.products.reduce((a,b)=>a+(b.stock*b.cost),0);
+let low=db.products.filter(p=>p.stock<=p.min).length;
 
-  if(!Number.isFinite(Number(qty)) || Number(qty)<=0){
-    showToast("မှန်ကန်သော quantity ထည့်ပါ");
-    return;
-  }
-
-  showToast("Stock added successfully");
-});
-
-/* =========================
-   90 DAY PLAN
-========================= */
-
-$("planBtn").addEventListener("click",()=>{
-
-  $("planOutput").innerHTML=`
-
-    <div class="grid three-col">
-
-      <div class="action">
-        <strong>Days 1–30 — Foundation</strong>
-        <br>
-        • Top 20 Customers identify လုပ်ပါ<br>
-        • Inactive customers recover လုပ်ပါ<br>
-        • Daily sales target သတ်မှတ်ပါ<br>
-        • Product margin စစ်ပါ
-      </div>
-
-      <div class="action">
-        <strong>Days 31–60 — Growth</strong>
-        <br>
-        • Average Order Value တိုးပါ<br>
-        • Repeat purchase တိုးပါ<br>
-        • Best-selling products scale လုပ်ပါ<br>
-        • Salesperson KPI စတင်ပါ
-      </div>
-
-      <div class="action">
-        <strong>Days 61–90 — Scale</strong>
-        <br>
-        • Team system တည်ဆောက်ပါ<br>
-        • Distribution တိုးပါ<br>
-        • Cash flow control လုပ်ပါ<br>
-        • SOP တည်ဆောက်ပါ
-      </div>
-
-    </div>
-  `;
-
-  showToast("90-Day Growth Plan generated");
-});
-
-/* =========================
-   AI BUSINESS COACH
-========================= */
-
-function addMessage(text,type){
-
-  const msg=document.createElement("div");
-
-  msg.className="msg "+type;
-
-  msg.innerHTML=text;
-
-  $("chat").appendChild(msg);
-
-  $("chat").scrollTop=$("chat").scrollHeight;
+document.getElementById("productCount").textContent=db.products.length;
+document.getElementById("stockUnits").textContent=stockUnits.toLocaleString();
+document.getElementById("stockValue").textContent=money(stockValue);
+document.getElementById("lowStock").textContent=low;
 }
 
-function coachReply(question){
-
-  const q=question.toLowerCase();
-
-  if(
-    q.includes("sales") ||
-    q.includes("ရောင်း") ||
-    q.includes("ရောင်းအား")
-  ){
-    return `
-      <strong>Sales Growth Plan</strong><br><br>
-      1. Top customers 20 ယောက်ကို identify လုပ်ပါ<br>
-      2. Inactive customers ကို follow-up လုပ်ပါ<br>
-      3. Salesperson တစ်ယောက်ချင်း Daily KPI ထားပါ<br>
-      4. Average Order Value တိုးဖို့ bundle/upsell သုံးပါ<br>
-      5. Daily target vs actual ကို စစ်ပါ
-    `;
-  }
-
-  if(
-    q.includes("profit") ||
-    q.includes("အမြတ်")
-  ){
-    return `
-      <strong>Profit Improvement</strong><br><br>
-      အမြတ်တိုးဖို့ Sales တိုးရုံနဲ့မလုံလောက်ပါ<br><br>
-      • Product Margin စစ်ပါ<br>
-      • Discount control လုပ်ပါ<br>
-      • COGS လျှော့ပါ<br>
-      • Unnecessary expenses ဖြတ်ပါ<br>
-      • High-margin products ကို scale လုပ်ပါ
-    `;
-  }
-
-  if(
-    q.includes("customer") ||
-    q.includes("ဖောက်သည်")
-  ){
-    return `
-      <strong>Customer Growth</strong><br><br>
-      Customer ကို New / Active / Inactive / VIP ခွဲပြီး စီမံပါ<br><br>
-      အရင်ဆုံး Inactive customer 15 ယောက်ကို ပြန်ဆက်သွယ်ပြီး
-      repeat purchase ပြန်ရအောင်လုပ်ပါ
-    `;
-  }
-
-  if(
-    q.includes("1000") ||
-    q.includes("100 → 1000") ||
-    q.includes("သိန်း")
-  ){
-    return `
-      <strong>100 → 1,000 Growth Strategy</strong><br><br>
-      Target ကို တစ်ခါတည်း 1,000 လို့မကြည့်ဘဲ<br><br>
-      100 → 200 → 300 → 500 → 700 → 1,000<br><br>
-      ဆိုပြီး stage ခွဲပြီး KPI သတ်မှတ်ပါ
-    `;
-  }
-
-  return `
-    <strong>Business Coach Recommendation</strong><br><br>
-    လက်ရှိ Dashboard data အရ<br>
-    Sales Achievement, Profit Margin, Customer Retention
-    သုံးခုကို အဓိကစောင့်ကြည့်ပါ<br><br>
-    သင့်လုပ်ငန်းရဲ့ problem ကို
-    Sales / Profit / Customer / Team / Cash Flow
-    ထဲက ဘယ်ဟာလဲဆိုတာ သတ်မှတ်ပြီး action plan ဆွဲပါ
-  `;
-}
-
-$("sendChat").addEventListener("click",()=>{
-
-  const input=$("chatInput");
-  const question=input.value.trim();
-
-  if(!question){
-    showToast("မေးခွန်းထည့်ပါ");
-    return;
-  }
-
-  addMessage(question,"user");
-
-  input.value="";
-
-  setTimeout(()=>{
-    addMessage(coachReply(question),"ai");
-  },350);
-});
-
-$("chatInput").addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-    $("sendChat").click();
-  }
-});
-
 /* =========================
-   REPORT
+   GROWTH
 ========================= */
 
-$("exportBtn").addEventListener("click",()=>{
+function renderGrowth(){
 
-  const report=
-`AUNG SMART BUSINESS 100→1000
-Business Report
+let revenue=financials().revenue/100000;
 
-Sales: 385 သိန်း
-Gross Profit: 96.2 သိန်း
-Net Profit: 61.2 သိန်း
-Monthly Target: 500 သိန်း
-Achievement: 77%
-Growth Target: 1,000 သိန်း
+let progress=Math.min(100,revenue/1000*100);
+
+document.getElementById("growthPageRevenue").textContent=
+revenue.toFixed(1)+" သိန်း";
+
+document.getElementById("growthPageBar").style.width=
+progress+"%";
+
+let stages=[
+["100 → 200","Foundation","Cash flow, product, pricing, basic process"],
+["200 → 300","Sales System","Sales target, customer pipeline, salesperson KPI"],
+["300 → 500","Customer Growth","Retention, repeat sales, distribution"],
+["500 → 700","Scale","Team, territory and operational systems"],
+["700 → 900","Expansion","New products, new channels, new markets"],
+["900 → 1000","Systemized Business","Management system, delegation and controls"]
+];
+
+document.getElementById("roadmap").innerHTML=stages.map((s,i)=>{
+
+let min=[100,200,300,500,700,900][i];
+let max=[200,300,500,700,900,1000][i];
+
+let active=revenue>=min&&revenue<max;
+
+return `
+<div class="stage ${active?'active':''}">
+<div class="stage-top">
+<h3>${s[0]} — ${s[1]}</h3>
+${active?'<span class="badge badge-green">CURRENT</span>':''}
+</div>
+<p>${s[2]}</p>
+<div class="progress">
+<div class="progress-bar" style="width:${active?'45':'0'}%"></div>
+</div>
+</div>
 `;
+}).join("");
 
-  const blob=new Blob([report],{
-    type:"text/plain;charset=utf-8"
-  });
+}
 
-  const url=URL.createObjectURL(blob);
+function generatePlan(){
 
-  const a=document.createElement("a");
+let f=financials();
+let revenue=f.revenue/100000;
+let target=1000;
 
-  a.href=url;
-  a.download="business-report.txt";
+let gap=Math.max(0,target-revenue);
 
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+alert(
+"90-DAY BUSINESS GROWTH PLAN\n\n"+
+"Current Revenue: "+revenue.toFixed(1)+" သိန်း\n"+
+"Target: 1,000 သိန်း\n"+
+"Gap: "+gap.toFixed(1)+" သိန်း\n\n"+
+"Day 1–30\n"+
+"• Sales process တည်ဆောက်ပါ\n"+
+"• Top customers ခွဲပါ\n"+
+"• Product margin စစ်ပါ\n\n"+
+"Day 31–60\n"+
+"• Sales target သတ်မှတ်ပါ\n"+
+"• Customer follow-up system လုပ်ပါ\n"+
+"• Low-margin products ပြန်စစ်ပါ\n\n"+
+"Day 61–90\n"+
+"• Best-selling products တိုးချဲ့ပါ\n"+
+"• Territory / channel expansion လုပ်ပါ\n"+
+"• KPI review weekly လုပ်ပါ"
+);
 
-  URL.revokeObjectURL(url);
+}
 
-  showToast("Report exported");
-});
+/* =========================
+   AI COACH
+========================= */
+
+function askAI(){
+
+let q=document.getElementById("aiQuestion").value.toLowerCase().trim();
+let f=financials();
+let answer="";
+
+if(!q){
+  answer="မေးခွန်းတစ်ခု ထည့်ပါ";
+}
+else if(q.includes("sales")||q.includes("ရောင်း")){
+  answer=
+  "Sales တိုးဖို့ အရင်ဆုံး Top Customers နဲ့ Best-selling Products ကိုခွဲပါ\n\n"+
+  "1. Top customers ကို repeat order follow-up လုပ်ပါ\n"+
+  "2. Salesperson တစ်ဦးချင်း target သတ်မှတ်ပါ\n"+
+  "3. Average Order Value တိုးအောင် bundle / cross-sell လုပ်ပါ\n"+
+  "4. Weekly sales KPI review လုပ်ပါ\n\n"+
+  "လက်ရှိ Revenue = "+money(f.revenue);
+}
+else if(q.includes("profit")||q.includes("အမြတ်")){
+  answer=
+  "Profit ကိုတိုးဖို့ Revenue တစ်ခုတည်းမကြည့်ဘဲ Gross Margin ကိုစစ်ပါ\n\n"+
+  "Revenue = "+money(f.revenue)+"\n"+
+  "Gross Profit = "+money(f.gross)+"\n"+
+  "Net Profit = "+money(f.net)+"\n\n"+
+  "Low-margin products တွေကို identify လုပ်ပြီး pricing / cost ပြန်စစ်ပါ";
+}
+else if(q.includes("stock")||q.includes("inventory")||q.includes("ကုန်")){
+  let low=db.products.filter(p=>p.stock<=p.min);
+  answer=
+  "Inventory Review\n\n"+
+  "Total Products = "+db.products.length+"\n"+
+  "Low Stock = "+low.length+"\n\n"+
+  (low.length?
+   "Low stock products:\n"+low.map(x=>"• "+x.name).join("\n"):
+   "လက်ရှိ Low Stock product မတွေ့ပါ");
+}
+else if(q.includes("1000")||q.includes("growth")||q.includes("တိုး")){
+  let r=f.revenue/100000;
+  answer=
+  "100 → 1000 Growth Analysis\n\n"+
+  "Current = "+r.toFixed(1)+" သိန်း\n"+
+  "Target = 1,000 သိန်း\n"+
+  "Gap = "+Math.max(0,1000-r).toFixed(1)+" သိန်း\n\n"+
+  "အဓိက focus 4 ခု\n"+
+  "• Sales Growth\n"+
+  "• Customer Growth\n"+
+  "• Gross Margin\n"+
+  "• Operational Efficiency";
+}
+else{
+  answer=
+  "Business Coach က Sales, Profit, Customers, Inventory နဲ့ 100→1000 Growth အတွက် အကြံပြုချက်ပေးနိုင်ပါတယ်\n\n"+
+  "ဥပမာ — “Sales တိုးအောင် ဘာလုပ်ရမလဲ”";
+}
+
+document.getElementById("aiAnswer").innerText=answer;
+}
+
+/* =========================
+   TOOLS
+========================= */
+
+function calculateProfit(){
+
+let sell=Number(document.getElementById("calcSell").value);
+let cost=Number(document.getElementById("calcCost").value);
+let qty=Number(document.getElementById("calcQty").value);
+
+let profit=(sell-cost)*qty;
+let margin=sell?((sell-cost)/sell*100):0;
+
+document.getElementById("profitResult").innerHTML=
+`<strong>Total Profit:</strong> ${money(profit)}
+<br><br>
+<strong>Margin:</strong> ${margin.toFixed(1)}%`;
+}
+
+function calculateGrowth(){
+
+let current=Number(document.getElementById("growthCurrent").value);
+let target=Number(document.getElementById("growthTarget").value);
+let months=Number(document.getElementById("growthMonths").value);
+
+if(current<=0||target<=0||months<=0){
+  alert("Values စစ်ပါ");
+  return;
+}
+
+let monthlyGrowth=
+(Math.pow(target/current,1/months)-1)*100;
+
+let gap=target-current;
+
+document.getElementById("growthResult").innerHTML=
+`<strong>Revenue Gap:</strong> ${gap.toFixed(1)} သိန်း
+<br><br>
+<strong>Required Monthly Growth:</strong> ${monthlyGrowth.toFixed(2)}%
+<br><br>
+<strong>Target:</strong> ${target.toFixed(1)} သိန်း`;
+}
 
 /* =========================
    SETTINGS
 ========================= */
 
-$("saveSettings").addEventListener("click",()=>{
-
-  const data={
-    businessName:$("businessName").value.trim(),
-    ownerName:$("ownerName").value.trim(),
-    startingCapital:Number($("startingCapital").value)||0,
-    growthTarget:Number($("growthTarget").value)||0
-  };
-
-  localStorage.setItem(
-    "aung_smart_business_settings",
-    JSON.stringify(data)
-  );
-
-  showToast("Settings saved");
-});
-
 function loadSettings(){
 
-  try{
+document.getElementById("companyName").textContent=
+db.settings.company;
 
-    const raw=
-      localStorage.getItem(
-        "aung_smart_business_settings"
-      );
+document.getElementById("settingCompany").value=
+db.settings.company;
 
-    if(!raw) return;
+document.getElementById("settingOwner").value=
+db.settings.owner;
 
-    const data=JSON.parse(raw);
+document.getElementById("settingTarget").value=
+db.settings.target;
 
-    if(typeof data.businessName==="string"){
-      $("businessName").value=data.businessName;
-    }
+document.getElementById("settingCurrency").value=
+db.settings.currency;
+}
 
-    if(typeof data.ownerName==="string"){
-      $("ownerName").value=data.ownerName;
-    }
+function saveSettings(){
 
-    if(Number.isFinite(data.startingCapital)){
-      $("startingCapital").value=data.startingCapital;
-    }
+db.settings.company=
+document.getElementById("settingCompany").value||"Aung Business";
 
-    if(Number.isFinite(data.growthTarget)){
-      $("growthTarget").value=data.growthTarget;
-    }
+db.settings.owner=
+document.getElementById("settingOwner").value||"Aung Zar Ni Win";
 
-  }catch(error){
+db.settings.target=
+Number(document.getElementById("settingTarget").value)||500;
 
-    console.warn("Settings load failed",error);
+db.settings.currency=
+document.getElementById("settingCurrency").value;
 
-  }
+saveDB();
+loadSettings();
+renderAll();
+
+alert("Settings saved");
+}
+
+/* =========================
+   EXPORT
+========================= */
+
+function exportReport(){
+
+let f=financials();
+
+let report=
+"AUNG SMART BUSINESS ERP\n"+
+"Business: "+db.settings.company+"\n"+
+"Date: "+today()+"\n\n"+
+"REVENUE: "+money(f.revenue)+"\n"+
+"COGS: "+money(f.cogs)+"\n"+
+"GROSS PROFIT: "+money(f.gross)+"\n"+
+"EXPENSE: "+money(f.expense)+"\n"+
+"NET PROFIT: "+money(f.net)+"\n"+
+"CUSTOMERS: "+db.customers.length+"\n"+
+"PRODUCTS: "+db.products.length+"\n";
+
+let blob=new Blob([report],{type:"text/plain"});
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+a.href=url;
+a.download="Aung-Smart-Business-Report.txt";
+a.click();
+
+URL.revokeObjectURL(url);
 }
 
 /* =========================
    RESET
 ========================= */
 
-$("resetBtn").addEventListener("click",()=>{
+function resetData(){
 
-  const ok=confirm(
-    "Demo data ကို reset လုပ်မလား?"
-  );
+if(!confirm("Data အားလုံးဖျက်ပြီး ပြန်စမလား"))return;
 
-  if(!ok) return;
-
-  localStorage.removeItem(
-    "aung_smart_business_settings"
-  );
-
-  location.reload();
-});
-
-/* =========================
-   INITIALIZE
-========================= */
-
-function init(){
-
-  loadSettings();
-
-  const current=385;
-  const target=1000;
-
-  const percent=Math.min(
-    100,
-    (current/target)*100
-  );
-
-  $("mainProgress").style.width=
-    percent+"%";
-
-  $("growthPercent").textContent=
-    percent.toFixed(1)+"%";
-
-  $("progressPercent").textContent=
-    percent.toFixed(1)+"%";
-
-  $("growthText").textContent=
-    current+" / "+target+" သိန်း";
-
-  calculateGrowth();
-  calculateProfit();
+localStorage.removeItem(DB_KEY);
+location.reload();
 }
 
-init();
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+renderDashboard();
+renderSales();
+renderCustomers();
+renderPurchases();
+renderProducts();
+renderExpenses();
+renderEmployees();
+renderAccounting();
+renderInventory();
+renderGrowth();
+loadSettings();
+
+}
+
+renderAll();
 
 </script>
 
 </body>
 </html>
-```
