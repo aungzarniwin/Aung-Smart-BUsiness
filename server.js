@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { Pool } = require("pg");
@@ -9,39 +10,44 @@ const { Pool } = require("pg");
 const app = express();
 
 const PORT = process.env.PORT || 10000;
-const JWT_SECRET = process.env.JWT_SECRET || "change-this-secret-in-production";
+const JWT_SECRET =
+  process.env.JWT_SECRET ||
+  "CHANGE_THIS_SECRET_IN_PRODUCTION";
 
-app.use(cors({
-  origin: true,
-  credentials: true
-}));
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl:
+        process.env.NODE_ENV === "production"
+          ? { rejectUnauthorized: false }
+          : false
+    })
+  : null;
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false
+  })
+);
+
+app.use(
+  cors({
+    origin: true,
+    credentials: true
+  })
+);
 
 app.use(express.json({ limit: "2mb" }));
 
-let pool = null;
-
-if (process.env.DATABASE_URL) {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : false
-  });
-
-  pool.on("error", (err) => {
-    console.error("PostgreSQL pool error:", err.message);
-  });
-}
-
-async function db(query, params = []) {
+async function query(sql, params = []) {
   if (!pool) {
     throw new Error("DATABASE_URL is not configured");
   }
 
-  return pool.query(query, params);
+  return pool.query(sql, params);
 }
 
-function createToken(user) {
+function tokenFor(user) {
   return jwt.sign(
     {
       userId: user.id,
@@ -49,41 +55,38 @@ function createToken(user) {
       role: user.role
     },
     JWT_SECRET,
-    {
-      expiresIn: "7d"
-    }
+    { expiresIn: "7d" }
   );
 }
 
 function auth(req, res, next) {
-  try {
-    const header = req.headers.authorization || "";
+  const header = req.headers.authorization || "";
 
-    if (!header.startsWith("Bearer ")) {
-      return res.status(401).json({
-        ok: false,
-        message: "Authentication required"
-      });
-    }
-
-    const token = header.substring(7);
-
-    const decoded = jwt.verify(token, JWT_SECRET);
-
-    req.user = decoded;
-
-    next();
-  } catch (error) {
+  if (!header.startsWith("Bearer ")) {
     return res.status(401).json({
       ok: false,
-      message: "Invalid or expired token"
+      message: "Authentication required"
+    });
+  }
+
+  try {
+    req.user = jwt.verify(
+      header.substring(7),
+      JWT_SECRET
+    );
+
+    next();
+  } catch {
+    return res.status(401).json({
+      ok: false,
+      message: "Invalid or expired session"
     });
   }
 }
 
-function requireRole(...roles) {
+function roles(...allowed) {
   return (req, res, next) => {
-    if (!req.user || !roles.includes(req.user.role)) {
+    if (!allowed.includes(req.user.role)) {
       return res.status(403).json({
         ok: false,
         message: "Permission denied"
@@ -94,16 +97,69 @@ function requireRole(...roles) {
   };
 }
 
-function cleanUser(row) {
+function userView(user) {
   return {
-    id: row.id,
-    name: row.name,
-    email: row.email,
-    role: row.role,
-    status: row.status,
-    company_id: row.company_id,
-    created_at: row.created_at
+    id: user.id,
+    company_id: user.company_id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    status: user.status,
+    created_at: user.created_at
   };
+}
+
+function number(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function invoiceNumber(prefix = "INV") {
+  const date = new Date();
+  const stamp =
+    date.getFullYear().toString() +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    String(date.getDate()).padStart(2, "0") +
+    "-" +
+    String(Date.now()).slice(-6);
+
+  return `${prefix}-${stamp}`;
+}
+
+async function audit(
+  companyId,
+  userId,
+  action,
+  entityType,
+  entityId,
+  details = {}
+) {
+  try {
+    await query(
+      `
+      INSERT INTO audit_logs
+      (
+        company_id,
+        user_id,
+        action,
+        entity_type,
+        entity_id,
+        details
+      )
+      VALUES ($1,$2,$3,$4,$5,$6)
+      `,
+      [
+        companyId,
+        userId || null,
+        action,
+        entityType || null,
+        entityId || null,
+        JSON.stringify(details)
+      ]
+    );
+  } catch (e) {
+    console.error("AUDIT ERROR:", e.message);
+  }
 }
 
 /* =========================
@@ -114,8 +170,8 @@ app.get("/", (req, res) => {
   res.json({
     ok: true,
     app: "AUNG SMART BUSINESS ERP",
-    version: "4.0.0",
-    mode: "Cloud SaaS",
+    version: "5.0.0",
+    mode: "Commercial ERP Core",
     database: pool ? "configured" : "not-configured"
   });
 });
@@ -130,7 +186,7 @@ app.get("/api/health", async (req, res) => {
       });
     }
 
-    await db("SELECT 1");
+    await query("SELECT 1");
 
     res.json({
       ok: true,
@@ -141,14 +197,13 @@ app.get("/api/health", async (req, res) => {
     res.status(500).json({
       ok: false,
       server: "online",
-      database: "error",
-      message: error.message
+      database: "error"
     });
   }
 });
 
 /* =========================
-   REGISTER
+   AUTH
 ========================= */
 
 app.post("/api/auth/register", async (req, res) => {
@@ -160,24 +215,32 @@ app.post("/api/auth/register", async (req, res) => {
       password
     } = req.body;
 
-    if (!companyName || !ownerName || !email || !password) {
+    if (
+      !companyName ||
+      !ownerName ||
+      !email ||
+      !password
+    ) {
       return res.status(400).json({
         ok: false,
-        message: "Company name, owner name, email and password are required"
+        message:
+          "Company name, owner name, email and password are required"
       });
     }
 
     if (password.length < 6) {
       return res.status(400).json({
         ok: false,
-        message: "Password must be at least 6 characters"
+        message:
+          "Password must contain at least 6 characters"
       });
     }
 
-    const normalizedEmail = String(email).trim().toLowerCase();
+    const normalizedEmail =
+      String(email).trim().toLowerCase();
 
-    const existing = await db(
-      "SELECT id FROM users WHERE email = $1",
+    const existing = await query(
+      "SELECT id FROM users WHERE email=$1",
       [normalizedEmail]
     );
 
@@ -188,54 +251,83 @@ app.post("/api/auth/register", async (req, res) => {
       });
     }
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    const client = await pool.connect();
 
-    const companyResult = await db(
-      `
-      INSERT INTO companies
-      (name, owner_name, currency, monthly_target)
-      VALUES ($1, $2, 'MMK', 100000000)
-      RETURNING *
-      `,
-      [companyName.trim(), ownerName.trim()]
-    );
+    try {
+      await client.query("BEGIN");
 
-    const company = companyResult.rows[0];
+      const companyResult = await client.query(
+        `
+        INSERT INTO companies
+        (
+          name,
+          owner_name,
+          currency,
+          monthly_target
+        )
+        VALUES ($1,$2,'MMK',100000000)
+        RETURNING *
+        `,
+        [
+          String(companyName).trim(),
+          String(ownerName).trim()
+        ]
+      );
 
-    const userResult = await db(
-      `
-      INSERT INTO users
-      (company_id, name, email, password_hash, role, status)
-      VALUES ($1, $2, $3, $4, 'Owner', 'Active')
-      RETURNING id, company_id, name, email, role, status, created_at
-      `,
-      [
-        company.id,
-        ownerName.trim(),
-        normalizedEmail,
-        passwordHash
-      ]
-    );
+      const company = companyResult.rows[0];
 
-    const user = userResult.rows[0];
+      const hash = await bcrypt.hash(
+        password,
+        12
+      );
 
-    const token = createToken(user);
+      const userResult = await client.query(
+        `
+        INSERT INTO users
+        (
+          company_id,
+          name,
+          email,
+          password_hash,
+          role,
+          status
+        )
+        VALUES ($1,$2,$3,$4,'Owner','Active')
+        RETURNING
+          id,
+          company_id,
+          name,
+          email,
+          role,
+          status,
+          created_at
+        `,
+        [
+          company.id,
+          String(ownerName).trim(),
+          normalizedEmail,
+          hash
+        ]
+      );
 
-    res.status(201).json({
-      ok: true,
-      token,
-      user: cleanUser(user),
-      company: {
-        id: company.id,
-        name: company.name,
-        owner_name: company.owner_name,
-        currency: company.currency,
-        monthly_target: company.monthly_target
-      }
-    });
+      const user = userResult.rows[0];
 
+      await client.query("COMMIT");
+
+      res.status(201).json({
+        ok: true,
+        token: tokenFor(user),
+        user: userView(user),
+        company
+      });
+    } catch (error) {
+      await client.query("ROLLBACK");
+      throw error;
+    } finally {
+      client.release();
+    }
   } catch (error) {
-    console.error("REGISTER ERROR:", error);
+    console.error("REGISTER:", error);
 
     res.status(500).json({
       ok: false,
@@ -244,36 +336,23 @@ app.post("/api/auth/register", async (req, res) => {
   }
 });
 
-/* =========================
-   LOGIN
-========================= */
-
 app.post("/api/auth/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const {
+      email,
+      password
+    } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({
-        ok: false,
-        message: "Email and password are required"
-      });
-    }
+    const normalizedEmail =
+      String(email || "")
+        .trim()
+        .toLowerCase();
 
-    const normalizedEmail = String(email).trim().toLowerCase();
-
-    const result = await db(
+    const result = await query(
       `
-      SELECT
-        id,
-        company_id,
-        name,
-        email,
-        password_hash,
-        role,
-        status,
-        created_at
+      SELECT *
       FROM users
-      WHERE email = $1
+      WHERE email=$1
       LIMIT 1
       `,
       [normalizedEmail]
@@ -291,49 +370,39 @@ app.post("/api/auth/login", async (req, res) => {
     if (user.status !== "Active") {
       return res.status(403).json({
         ok: false,
-        message: "This user account is inactive"
+        message: "User account is inactive"
       });
     }
 
-    const validPassword = await bcrypt.compare(
-      password,
+    const valid = await bcrypt.compare(
+      password || "",
       user.password_hash
     );
 
-    if (!validPassword) {
+    if (!valid) {
       return res.status(401).json({
         ok: false,
         message: "Invalid email or password"
       });
     }
 
-    const companyResult = await db(
+    const company = await query(
       `
-      SELECT
-        id,
-        name,
-        owner_name,
-        currency,
-        monthly_target
+      SELECT *
       FROM companies
-      WHERE id = $1
+      WHERE id=$1
       `,
       [user.company_id]
     );
 
-    const company = companyResult.rows[0];
-
-    const token = createToken(user);
-
     res.json({
       ok: true,
-      token,
-      user: cleanUser(user),
-      company
+      token: tokenFor(user),
+      user: userView(user),
+      company: company.rows[0]
     });
-
   } catch (error) {
-    console.error("LOGIN ERROR:", error);
+    console.error("LOGIN:", error);
 
     res.status(500).json({
       ok: false,
@@ -342,13 +411,9 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-/* =========================
-   CURRENT USER
-========================= */
-
 app.get("/api/auth/me", auth, async (req, res) => {
   try {
-    const result = await db(
+    const result = await query(
       `
       SELECT
         id,
@@ -359,10 +424,13 @@ app.get("/api/auth/me", auth, async (req, res) => {
         status,
         created_at
       FROM users
-      WHERE id = $1
-      AND company_id = $2
+      WHERE id=$1
+      AND company_id=$2
       `,
-      [req.user.userId, req.user.companyId]
+      [
+        req.user.userId,
+        req.user.companyId
+      ]
     );
 
     if (!result.rows.length) {
@@ -374,308 +442,15 @@ app.get("/api/auth/me", auth, async (req, res) => {
 
     res.json({
       ok: true,
-      user: cleanUser(result.rows[0])
+      user: userView(result.rows[0])
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
-      message: "Unable to load user"
+      message: "Unable to load account"
     });
   }
 });
-
-/* =========================
-   COMPANY
-========================= */
-
-app.get("/api/company", auth, async (req, res) => {
-  try {
-    const result = await db(
-      `
-      SELECT
-        id,
-        name,
-        owner_name,
-        currency,
-        monthly_target,
-        created_at
-      FROM companies
-      WHERE id = $1
-      `,
-      [req.user.companyId]
-    );
-
-    if (!result.rows.length) {
-      return res.status(404).json({
-        ok: false,
-        message: "Company not found"
-      });
-    }
-
-    res.json({
-      ok: true,
-      company: result.rows[0]
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      ok: false,
-      message: "Unable to load company"
-    });
-  }
-});
-
-app.put(
-  "/api/company",
-  auth,
-  requireRole("Owner", "Admin"),
-  async (req, res) => {
-    try {
-      const {
-        name,
-        owner_name,
-        currency,
-        monthly_target
-      } = req.body;
-
-      const result = await db(
-        `
-        UPDATE companies
-        SET
-          name = COALESCE($1, name),
-          owner_name = COALESCE($2, owner_name),
-          currency = COALESCE($3, currency),
-          monthly_target = COALESCE($4, monthly_target),
-          updated_at = NOW()
-        WHERE id = $5
-        RETURNING
-          id,
-          name,
-          owner_name,
-          currency,
-          monthly_target,
-          created_at,
-          updated_at
-        `,
-        [
-          name || null,
-          owner_name || null,
-          currency || null,
-          monthly_target ?? null,
-          req.user.companyId
-        ]
-      );
-
-      res.json({
-        ok: true,
-        company: result.rows[0]
-      });
-
-    } catch (error) {
-      res.status(500).json({
-        ok: false,
-        message: "Unable to update company"
-      });
-    }
-  }
-);
-
-/* =========================
-   USERS
-========================= */
-
-app.get(
-  "/api/users",
-  auth,
-  requireRole("Owner", "Admin"),
-  async (req, res) => {
-    try {
-      const result = await db(
-        `
-        SELECT
-          id,
-          company_id,
-          name,
-          email,
-          role,
-          status,
-          created_at
-        FROM users
-        WHERE company_id = $1
-        ORDER BY created_at DESC
-        `,
-        [req.user.companyId]
-      );
-
-      res.json({
-        ok: true,
-        users: result.rows.map(cleanUser)
-      });
-
-    } catch (error) {
-      res.status(500).json({
-        ok: false,
-        message: "Unable to load users"
-      });
-    }
-  }
-);
-
-app.post(
-  "/api/users",
-  auth,
-  requireRole("Owner", "Admin"),
-  async (req, res) => {
-    try {
-      const {
-        name,
-        email,
-        password,
-        role
-      } = req.body;
-
-      const allowedRoles = [
-        "Admin",
-        "Sales Manager",
-        "Salesperson",
-        "Accountant",
-        "Warehouse",
-        "HR"
-      ];
-
-      if (!name || !email || !password || !role) {
-        return res.status(400).json({
-          ok: false,
-          message: "Name, email, password and role are required"
-        });
-      }
-
-      if (!allowedRoles.includes(role)) {
-        return res.status(400).json({
-          ok: false,
-          message: "Invalid role"
-        });
-      }
-
-      const normalizedEmail = String(email).trim().toLowerCase();
-
-      const existing = await db(
-        "SELECT id FROM users WHERE email = $1",
-        [normalizedEmail]
-      );
-
-      if (existing.rows.length) {
-        return res.status(409).json({
-          ok: false,
-          message: "Email already exists"
-        });
-      }
-
-      const hash = await bcrypt.hash(password, 12);
-
-      const result = await db(
-        `
-        INSERT INTO users
-        (company_id, name, email, password_hash, role, status)
-        VALUES ($1, $2, $3, $4, $5, 'Active')
-        RETURNING
-          id,
-          company_id,
-          name,
-          email,
-          role,
-          status,
-          created_at
-        `,
-        [
-          req.user.companyId,
-          name.trim(),
-          normalizedEmail,
-          hash,
-          role
-        ]
-      );
-
-      res.status(201).json({
-        ok: true,
-        user: cleanUser(result.rows[0])
-      });
-
-    } catch (error) {
-      res.status(500).json({
-        ok: false,
-        message: "Unable to create user"
-      });
-    }
-  }
-);
-
-app.patch(
-  "/api/users/:id/status",
-  auth,
-  requireRole("Owner", "Admin"),
-  async (req, res) => {
-    try {
-      const { status } = req.body;
-
-      if (!["Active", "Inactive"].includes(status)) {
-        return res.status(400).json({
-          ok: false,
-          message: "Invalid status"
-        });
-      }
-
-      if (String(req.params.id) === String(req.user.userId)) {
-        return res.status(400).json({
-          ok: false,
-          message: "You cannot change your own status"
-        });
-      }
-
-      const result = await db(
-        `
-        UPDATE users
-        SET status = $1
-        WHERE id = $2
-        AND company_id = $3
-        AND role <> 'Owner'
-        RETURNING
-          id,
-          company_id,
-          name,
-          email,
-          role,
-          status,
-          created_at
-        `,
-        [
-          status,
-          req.params.id,
-          req.user.companyId
-        ]
-      );
-
-      if (!result.rows.length) {
-        return res.status(404).json({
-          ok: false,
-          message: "User not found"
-        });
-      }
-
-      res.json({
-        ok: true,
-        user: cleanUser(result.rows[0])
-      });
-
-    } catch (error) {
-      res.status(500).json({
-        ok: false,
-        message: "Unable to update user"
-      });
-    }
-  }
-);
 
 /* =========================
    CUSTOMERS
@@ -683,12 +458,21 @@ app.patch(
 
 app.get("/api/customers", auth, async (req, res) => {
   try {
-    const result = await db(
+    const result = await query(
       `
-      SELECT *
-      FROM customers
-      WHERE company_id = $1
-      ORDER BY created_at DESC
+      SELECT
+        c.*,
+        COALESCE(
+          (
+            SELECT SUM(s.balance_due)
+            FROM sales s
+            WHERE s.customer_id=c.id
+            AND s.company_id=c.company_id
+          ),0
+        ) AS receivable
+      FROM customers c
+      WHERE c.company_id=$1
+      ORDER BY c.created_at DESC
       `,
       [req.user.companyId]
     );
@@ -697,8 +481,7 @@ app.get("/api/customers", auth, async (req, res) => {
       ok: true,
       customers: result.rows
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to load customers"
@@ -713,7 +496,9 @@ app.post("/api/customers", auth, async (req, res) => {
       phone,
       email,
       customer_type,
-      address
+      address,
+      credit_limit,
+      opening_balance
     } = req.body;
 
     if (!name) {
@@ -723,7 +508,7 @@ app.post("/api/customers", auth, async (req, res) => {
       });
     }
 
-    const result = await db(
+    const result = await query(
       `
       INSERT INTO customers
       (
@@ -732,30 +517,135 @@ app.post("/api/customers", auth, async (req, res) => {
         phone,
         email,
         customer_type,
-        address
+        address,
+        credit_limit,
+        opening_balance
       )
-      VALUES ($1,$2,$3,$4,$5,$6)
+      VALUES
+      ($1,$2,$3,$4,$5,$6,$7,$8)
       RETURNING *
       `,
       [
         req.user.companyId,
-        name.trim(),
+        String(name).trim(),
         phone || null,
         email || null,
         customer_type || "Retail",
-        address || null
+        address || null,
+        number(credit_limit),
+        number(opening_balance)
       ]
+    );
+
+    await audit(
+      req.user.companyId,
+      req.user.userId,
+      "CREATE",
+      "customer",
+      result.rows[0].id
     );
 
     res.status(201).json({
       ok: true,
       customer: result.rows[0]
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to create customer"
+    });
+  }
+});
+
+/* =========================
+   SUPPLIERS
+========================= */
+
+app.get("/api/suppliers", auth, async (req, res) => {
+  try {
+    const result = await query(
+      `
+      SELECT
+        s.*,
+        COALESCE(
+          (
+            SELECT SUM(p.balance_due)
+            FROM purchases p
+            WHERE p.supplier_id=s.id
+            AND p.company_id=s.company_id
+          ),0
+        ) AS payable
+      FROM suppliers s
+      WHERE s.company_id=$1
+      ORDER BY s.created_at DESC
+      `,
+      [req.user.companyId]
+    );
+
+    res.json({
+      ok: true,
+      suppliers: result.rows
+    });
+  } catch {
+    res.status(500).json({
+      ok: false,
+      message: "Unable to load suppliers"
+    });
+  }
+});
+
+app.post("/api/suppliers", auth, async (req, res) => {
+  try {
+    const {
+      name,
+      phone,
+      email,
+      address,
+      credit_limit,
+      opening_balance
+    } = req.body;
+
+    if (!name) {
+      return res.status(400).json({
+        ok: false,
+        message: "Supplier name is required"
+      });
+    }
+
+    const result = await query(
+      `
+      INSERT INTO suppliers
+      (
+        company_id,
+        name,
+        phone,
+        email,
+        address,
+        credit_limit,
+        opening_balance
+      )
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
+      RETURNING *
+      `,
+      [
+        req.user.companyId,
+        String(name).trim(),
+        phone || null,
+        email || null,
+        address || null,
+        number(credit_limit),
+        number(opening_balance)
+      ]
+    );
+
+    res.status(201).json({
+      ok: true,
+      supplier: result.rows[0]
+    });
+  } catch {
+    res.status(500).json({
+      ok: false,
+      message: "Unable to create supplier"
     });
   }
 });
@@ -766,11 +656,12 @@ app.post("/api/customers", auth, async (req, res) => {
 
 app.get("/api/products", auth, async (req, res) => {
   try {
-    const result = await db(
+    const result = await query(
       `
       SELECT *
       FROM products
-      WHERE company_id = $1
+      WHERE company_id=$1
+      AND active=true
       ORDER BY created_at DESC
       `,
       [req.user.companyId]
@@ -780,8 +671,7 @@ app.get("/api/products", auth, async (req, res) => {
       ok: true,
       products: result.rows
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to load products"
@@ -792,6 +682,7 @@ app.get("/api/products", auth, async (req, res) => {
 app.post("/api/products", auth, async (req, res) => {
   try {
     const {
+      sku,
       name,
       category,
       unit,
@@ -808,11 +699,12 @@ app.post("/api/products", auth, async (req, res) => {
       });
     }
 
-    const result = await db(
+    const result = await query(
       `
       INSERT INTO products
       (
         company_id,
+        sku,
         name,
         category,
         unit,
@@ -821,27 +713,57 @@ app.post("/api/products", auth, async (req, res) => {
         stock,
         low_stock
       )
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+      VALUES
+      ($1,$2,$3,$4,$5,$6,$7,$8,$9)
       RETURNING *
       `,
       [
         req.user.companyId,
-        name.trim(),
+        sku || null,
+        String(name).trim(),
         category || "General",
         unit || "pcs",
-        Number(cost_price || 0),
-        Number(selling_price || 0),
-        Number(stock || 0),
-        Number(low_stock || 0)
+        number(cost_price),
+        number(selling_price),
+        number(stock),
+        number(low_stock)
       ]
     );
 
+    const product = result.rows[0];
+
+    if (number(stock) !== 0) {
+      await query(
+        `
+        INSERT INTO stock_movements
+        (
+          company_id,
+          product_id,
+          movement_type,
+          qty,
+          reference_type,
+          note,
+          created_by
+        )
+        VALUES
+        ($1,$2,'OPENING',$3,'PRODUCT','Opening stock',$4)
+        `,
+        [
+          req.user.companyId,
+          product.id,
+          number(stock),
+          req.user.userId
+        ]
+      );
+    }
+
     res.status(201).json({
       ok: true,
-      product: result.rows[0]
+      product
     });
-
   } catch (error) {
+    console.error("PRODUCT:", error);
+
     res.status(500).json({
       ok: false,
       message: "Unable to create product"
@@ -855,19 +777,22 @@ app.post("/api/products", auth, async (req, res) => {
 
 app.get("/api/sales", auth, async (req, res) => {
   try {
-    const result = await db(
+    const result = await query(
       `
       SELECT
         s.*,
         c.name AS customer_name,
-        p.name AS product_name
+        p.name AS product_name,
+        u.name AS salesperson_name
       FROM sales s
       LEFT JOIN customers c
-        ON c.id = s.customer_id
+        ON c.id=s.customer_id
       LEFT JOIN products p
-        ON p.id = s.product_id
-      WHERE s.company_id = $1
-      ORDER BY s.sale_date DESC, s.created_at DESC
+        ON p.id=s.product_id
+      LEFT JOIN users u
+        ON u.id=s.salesperson_id
+      WHERE s.company_id=$1
+      ORDER BY s.sale_date DESC
       `,
       [req.user.companyId]
     );
@@ -876,8 +801,7 @@ app.get("/api/sales", auth, async (req, res) => {
       ok: true,
       sales: result.rows
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to load sales"
@@ -886,6 +810,13 @@ app.get("/api/sales", auth, async (req, res) => {
 });
 
 app.post("/api/sales", auth, async (req, res) => {
+  if (!pool) {
+    return res.status(500).json({
+      ok: false,
+      message: "Database is not configured"
+    });
+  }
+
   const client = await pool.connect();
 
   try {
@@ -898,27 +829,24 @@ app.post("/api/sales", auth, async (req, res) => {
       qty,
       selling_price,
       payment_status,
+      paid_amount,
       invoice_no
     } = req.body;
 
-    const quantity = Number(qty || 0);
-    const price = Number(selling_price || 0);
+    const quantity = number(qty);
+    const price = number(selling_price);
 
-    if (!product_id || quantity <= 0 || price < 0) {
-      await client.query("ROLLBACK");
-
-      return res.status(400).json({
-        ok: false,
-        message: "Invalid sale data"
-      });
+    if (!product_id || quantity <= 0) {
+      throw new Error("Invalid sale quantity");
     }
 
     const productResult = await client.query(
       `
       SELECT *
       FROM products
-      WHERE id = $1
-      AND company_id = $2
+      WHERE id=$1
+      AND company_id=$2
+      AND active=true
       FOR UPDATE
       `,
       [
@@ -928,33 +856,42 @@ app.post("/api/sales", auth, async (req, res) => {
     );
 
     if (!productResult.rows.length) {
-      await client.query("ROLLBACK");
-
-      return res.status(404).json({
-        ok: false,
-        message: "Product not found"
-      });
+      throw new Error("Product not found");
     }
 
     const product = productResult.rows[0];
 
-    if (Number(product.stock) < quantity) {
-      await client.query("ROLLBACK");
-
-      return res.status(400).json({
-        ok: false,
-        message: `Insufficient stock. Available: ${product.stock}`
-      });
+    if (number(product.stock) < quantity) {
+      throw new Error(
+        `Insufficient stock. Available: ${product.stock}`
+      );
     }
 
     const total = quantity * price;
-    const costTotal = quantity * Number(product.cost_price || 0);
+    const costTotal =
+      quantity * number(product.cost_price);
+
+    let paid = number(paid_amount);
+
+    if (payment_status === "Paid") {
+      paid = total;
+    }
+
+    if (paid > total) {
+      paid = total;
+    }
+
+    const balance = total - paid;
+
+    const invoice =
+      invoice_no || invoiceNumber("INV");
 
     const saleResult = await client.query(
       `
       INSERT INTO sales
       (
         company_id,
+        invoice_no,
         sale_date,
         customer_id,
         product_id,
@@ -963,15 +900,17 @@ app.post("/api/sales", auth, async (req, res) => {
         total,
         cost_total,
         payment_status,
-        invoice_no,
+        paid_amount,
+        balance_due,
         salesperson_id
       )
       VALUES
-      ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+      ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
       RETURNING *
       `,
       [
         req.user.companyId,
+        invoice,
         sale_date || new Date(),
         customer_id || null,
         product_id,
@@ -979,20 +918,46 @@ app.post("/api/sales", auth, async (req, res) => {
         price,
         total,
         costTotal,
-        payment_status || "Paid",
-        invoice_no || null,
+        balance === 0 ? "Paid" : "Credit",
+        paid,
+        balance,
         req.user.userId
       ]
     );
+
+    const sale = saleResult.rows[0];
+
+    if (paid > 0) {
+      await client.query(
+        `
+        INSERT INTO sales_payments
+        (
+          company_id,
+          sale_id,
+          amount,
+          payment_method,
+          received_by
+        )
+        VALUES
+        ($1,$2,$3,'Cash',$4)
+        `,
+        [
+          req.user.companyId,
+          sale.id,
+          paid,
+          req.user.userId
+        ]
+      );
+    }
 
     await client.query(
       `
       UPDATE products
       SET
-        stock = stock - $1,
-        updated_at = NOW()
-      WHERE id = $2
-      AND company_id = $3
+        stock=stock-$1,
+        updated_at=NOW()
+      WHERE id=$2
+      AND company_id=$3
       `,
       [
         quantity,
@@ -1001,27 +966,195 @@ app.post("/api/sales", auth, async (req, res) => {
       ]
     );
 
+    await client.query(
+      `
+      INSERT INTO stock_movements
+      (
+        company_id,
+        product_id,
+        movement_type,
+        qty,
+        reference_type,
+        reference_id,
+        note,
+        created_by
+      )
+      VALUES
+      ($1,$2,'SALE',$3,'SALE',$4,$5,$6)
+      `,
+      [
+        req.user.companyId,
+        product_id,
+        -quantity,
+        sale.id,
+        invoice,
+        req.user.userId
+      ]
+    );
+
     await client.query("COMMIT");
+
+    await audit(
+      req.user.companyId,
+      req.user.userId,
+      "CREATE",
+      "sale",
+      sale.id,
+      {
+        invoice_no: invoice,
+        total
+      }
+    );
 
     res.status(201).json({
       ok: true,
-      sale: saleResult.rows[0]
+      sale
     });
-
   } catch (error) {
     await client.query("ROLLBACK");
 
-    console.error("SALE ERROR:", error);
-
-    res.status(500).json({
+    res.status(400).json({
       ok: false,
-      message: "Unable to create sale"
+      message: error.message
     });
-
   } finally {
     client.release();
   }
 });
+
+/* =========================
+   SALES PAYMENT
+========================= */
+
+app.post(
+  "/api/sales/:id/payment",
+  auth,
+  async (req, res) => {
+    if (!pool) {
+      return res.status(500).json({
+        ok: false,
+        message: "Database is not configured"
+      });
+    }
+
+    const client = await pool.connect();
+
+    try {
+      await client.query("BEGIN");
+
+      const amount = number(req.body.amount);
+
+      if (amount <= 0) {
+        throw new Error(
+          "Payment amount must be greater than zero"
+        );
+      }
+
+      const saleResult = await client.query(
+        `
+        SELECT *
+        FROM sales
+        WHERE id=$1
+        AND company_id=$2
+        FOR UPDATE
+        `,
+        [
+          req.params.id,
+          req.user.companyId
+        ]
+      );
+
+      if (!saleResult.rows.length) {
+        throw new Error("Invoice not found");
+      }
+
+      const sale = saleResult.rows[0];
+
+      const actual =
+        Math.min(amount, number(sale.balance_due));
+
+      if (actual <= 0) {
+        throw new Error(
+          "This invoice has no outstanding balance"
+        );
+      }
+
+      const newPaid =
+        number(sale.paid_amount) + actual;
+
+      const newBalance =
+        Math.max(
+          0,
+          number(sale.total) - newPaid
+        );
+
+      await client.query(
+        `
+        INSERT INTO sales_payments
+        (
+          company_id,
+          sale_id,
+          amount,
+          payment_method,
+          reference_no,
+          note,
+          received_by
+        )
+        VALUES
+        ($1,$2,$3,$4,$5,$6,$7)
+        `,
+        [
+          req.user.companyId,
+          sale.id,
+          actual,
+          req.body.payment_method || "Cash",
+          req.body.reference_no || null,
+          req.body.note || null,
+          req.user.userId
+        ]
+      );
+
+      const updated = await client.query(
+        `
+        UPDATE sales
+        SET
+          paid_amount=$1,
+          balance_due=$2,
+          payment_status=$3
+        WHERE id=$4
+        AND company_id=$5
+        RETURNING *
+        `,
+        [
+          newPaid,
+          newBalance,
+          newBalance === 0
+            ? "Paid"
+            : "Credit",
+          sale.id,
+          req.user.companyId
+        ]
+      );
+
+      await client.query("COMMIT");
+
+      res.json({
+        ok: true,
+        sale: updated.rows[0],
+        payment: actual
+      });
+    } catch (error) {
+      await client.query("ROLLBACK");
+
+      res.status(400).json({
+        ok: false,
+        message: error.message
+      });
+    } finally {
+      client.release();
+    }
+  }
+);
 
 /* =========================
    PURCHASES
@@ -1029,16 +1162,19 @@ app.post("/api/sales", auth, async (req, res) => {
 
 app.get("/api/purchases", auth, async (req, res) => {
   try {
-    const result = await db(
+    const result = await query(
       `
       SELECT
-        pu.*,
-        p.name AS product_name
-      FROM purchases pu
-      LEFT JOIN products p
-        ON p.id = pu.product_id
-      WHERE pu.company_id = $1
-      ORDER BY pu.purchase_date DESC
+        p.*,
+        s.name AS supplier_name,
+        pr.name AS product_name
+      FROM purchases p
+      LEFT JOIN suppliers s
+        ON s.id=p.supplier_id
+      LEFT JOIN products pr
+        ON pr.id=p.product_id
+      WHERE p.company_id=$1
+      ORDER BY p.purchase_date DESC
       `,
       [req.user.companyId]
     );
@@ -1047,8 +1183,7 @@ app.get("/api/purchases", auth, async (req, res) => {
       ok: true,
       purchases: result.rows
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to load purchases"
@@ -1056,123 +1191,199 @@ app.get("/api/purchases", auth, async (req, res) => {
   }
 });
 
-app.post("/api/purchases", auth, async (req, res) => {
-  const client = await pool.connect();
-
-  try {
-    await client.query("BEGIN");
-
-    const {
-      purchase_date,
-      supplier_name,
-      product_id,
-      qty,
-      cost_price,
-      invoice_no
-    } = req.body;
-
-    const quantity = Number(qty || 0);
-    const cost = Number(cost_price || 0);
-
-    if (!product_id || quantity <= 0 || cost < 0) {
-      await client.query("ROLLBACK");
-
-      return res.status(400).json({
+app.post(
+  "/api/purchases",
+  auth,
+  async (req, res) => {
+    if (!pool) {
+      return res.status(500).json({
         ok: false,
-        message: "Invalid purchase data"
+        message: "Database is not configured"
       });
     }
 
-    const product = await client.query(
-      `
-      SELECT id
-      FROM products
-      WHERE id = $1
-      AND company_id = $2
-      FOR UPDATE
-      `,
-      [
-        product_id,
-        req.user.companyId
-      ]
-    );
+    const client = await pool.connect();
 
-    if (!product.rows.length) {
-      await client.query("ROLLBACK");
+    try {
+      await client.query("BEGIN");
 
-      return res.status(404).json({
-        ok: false,
-        message: "Product not found"
-      });
-    }
-
-    const total = quantity * cost;
-
-    const result = await client.query(
-      `
-      INSERT INTO purchases
-      (
-        company_id,
+      const {
         purchase_date,
-        supplier_name,
+        supplier_id,
         product_id,
         qty,
         cost_price,
-        total,
-        invoice_no
-      )
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
-      RETURNING *
-      `,
-      [
-        req.user.companyId,
-        purchase_date || new Date(),
-        supplier_name || null,
-        product_id,
-        quantity,
-        cost,
-        total,
-        invoice_no || null
-      ]
-    );
+        payment_status,
+        paid_amount,
+        purchase_no
+      } = req.body;
 
-    await client.query(
-      `
-      UPDATE products
-      SET
-        stock = stock + $1,
-        cost_price = $2,
-        updated_at = NOW()
-      WHERE id = $3
-      AND company_id = $4
-      `,
-      [
-        quantity,
-        cost,
-        product_id,
-        req.user.companyId
-      ]
-    );
+      const quantity = number(qty);
+      const cost = number(cost_price);
 
-    await client.query("COMMIT");
+      if (!product_id || quantity <= 0) {
+        throw new Error(
+          "Invalid purchase quantity"
+        );
+      }
 
-    res.status(201).json({
-      ok: true,
-      purchase: result.rows[0]
-    });
+      const productResult = await client.query(
+        `
+        SELECT *
+        FROM products
+        WHERE id=$1
+        AND company_id=$2
+        FOR UPDATE
+        `,
+        [
+          product_id,
+          req.user.companyId
+        ]
+      );
 
-  } catch (error) {
-    await client.query("ROLLBACK");
+      if (!productResult.rows.length) {
+        throw new Error("Product not found");
+      }
 
-    res.status(500).json({
-      ok: false,
-      message: "Unable to create purchase"
-    });
+      const total = quantity * cost;
 
-  } finally {
-    client.release();
+      let paid = number(paid_amount);
+
+      if (payment_status === "Paid") {
+        paid = total;
+      }
+
+      paid = Math.min(paid, total);
+
+      const balance = total - paid;
+
+      const purchase =
+        purchase_no || invoiceNumber("PUR");
+
+      const result = await client.query(
+        `
+        INSERT INTO purchases
+        (
+          company_id,
+          purchase_no,
+          purchase_date,
+          supplier_id,
+          product_id,
+          qty,
+          cost_price,
+          total,
+          payment_status,
+          paid_amount,
+          balance_due
+        )
+        VALUES
+        ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+        RETURNING *
+        `,
+        [
+          req.user.companyId,
+          purchase,
+          purchase_date || new Date(),
+          supplier_id || null,
+          product_id,
+          quantity,
+          cost,
+          total,
+          balance === 0
+            ? "Paid"
+            : "Credit",
+          paid,
+          balance
+        ]
+      );
+
+      const row = result.rows[0];
+
+      if (paid > 0) {
+        await client.query(
+          `
+          INSERT INTO purchase_payments
+          (
+            company_id,
+            purchase_id,
+            amount,
+            payment_method,
+            paid_by
+          )
+          VALUES
+          ($1,$2,$3,'Cash',$4)
+          `,
+          [
+            req.user.companyId,
+            row.id,
+            paid,
+            req.user.userId
+          ]
+        );
+      }
+
+      await client.query(
+        `
+        UPDATE products
+        SET
+          stock=stock+$1,
+          cost_price=$2,
+          updated_at=NOW()
+        WHERE id=$3
+        AND company_id=$4
+        `,
+        [
+          quantity,
+          cost,
+          product_id,
+          req.user.companyId
+        ]
+      );
+
+      await client.query(
+        `
+        INSERT INTO stock_movements
+        (
+          company_id,
+          product_id,
+          movement_type,
+          qty,
+          reference_type,
+          reference_id,
+          note,
+          created_by
+        )
+        VALUES
+        ($1,$2,'PURCHASE',$3,'PURCHASE',$4,$5,$6)
+        `,
+        [
+          req.user.companyId,
+          product_id,
+          quantity,
+          row.id,
+          purchase,
+          req.user.userId
+        ]
+      );
+
+      await client.query("COMMIT");
+
+      res.status(201).json({
+        ok: true,
+        purchase: row
+      });
+    } catch (error) {
+      await client.query("ROLLBACK");
+
+      res.status(400).json({
+        ok: false,
+        message: error.message
+      });
+    } finally {
+      client.release();
+    }
   }
-});
+);
 
 /* =========================
    EXPENSES
@@ -1180,11 +1391,11 @@ app.post("/api/purchases", auth, async (req, res) => {
 
 app.get("/api/expenses", auth, async (req, res) => {
   try {
-    const result = await db(
+    const result = await query(
       `
       SELECT *
       FROM expenses
-      WHERE company_id = $1
+      WHERE company_id=$1
       ORDER BY expense_date DESC
       `,
       [req.user.companyId]
@@ -1194,8 +1405,7 @@ app.get("/api/expenses", auth, async (req, res) => {
       ok: true,
       expenses: result.rows
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to load expenses"
@@ -1205,23 +1415,16 @@ app.get("/api/expenses", auth, async (req, res) => {
 
 app.post("/api/expenses", auth, async (req, res) => {
   try {
-    const {
-      expense_date,
-      category,
-      description,
-      amount
-    } = req.body;
+    const amount = number(req.body.amount);
 
-    const value = Number(amount || 0);
-
-    if (value <= 0) {
+    if (amount <= 0) {
       return res.status(400).json({
         ok: false,
-        message: "Expense amount must be greater than zero"
+        message: "Amount must be greater than zero"
       });
     }
 
-    const result = await db(
+    const result = await query(
       `
       INSERT INTO expenses
       (
@@ -1229,17 +1432,20 @@ app.post("/api/expenses", auth, async (req, res) => {
         expense_date,
         category,
         description,
-        amount
+        amount,
+        payment_method
       )
-      VALUES ($1,$2,$3,$4,$5)
+      VALUES
+      ($1,$2,$3,$4,$5,$6)
       RETURNING *
       `,
       [
         req.user.companyId,
-        expense_date || new Date(),
-        category || "Other",
-        description || null,
-        value
+        req.body.expense_date || new Date(),
+        req.body.category || "Other",
+        req.body.description || null,
+        amount,
+        req.body.payment_method || "Cash"
       ]
     );
 
@@ -1247,8 +1453,7 @@ app.post("/api/expenses", auth, async (req, res) => {
       ok: true,
       expense: result.rows[0]
     });
-
-  } catch (error) {
+  } catch {
     res.status(500).json({
       ok: false,
       message: "Unable to create expense"
@@ -1257,111 +1462,396 @@ app.post("/api/expenses", auth, async (req, res) => {
 });
 
 /* =========================
+   STOCK MOVEMENTS
+========================= */
+
+app.get(
+  "/api/stock-movements",
+  auth,
+  async (req, res) => {
+    try {
+      const result = await query(
+        `
+        SELECT
+          sm.*,
+          p.name AS product_name,
+          u.name AS created_by_name
+        FROM stock_movements sm
+        JOIN products p
+          ON p.id=sm.product_id
+        LEFT JOIN users u
+          ON u.id=sm.created_by
+        WHERE sm.company_id=$1
+        ORDER BY sm.created_at DESC
+        LIMIT 500
+        `,
+        [req.user.companyId]
+      );
+
+      res.json({
+        ok: true,
+        movements: result.rows
+      });
+    } catch {
+      res.status(500).json({
+        ok: false,
+        message: "Unable to load stock movements"
+      });
+    }
+  }
+);
+
+/* =========================
    DASHBOARD
 ========================= */
 
-app.get("/api/dashboard", auth, async (req, res) => {
-  try {
-    const sales = await db(
-      `
-      SELECT
-        COALESCE(SUM(total),0) AS revenue,
-        COALESCE(SUM(cost_total),0) AS cogs,
-        COUNT(*) AS invoice_count,
-        COALESCE(
-          SUM(
-            CASE
-              WHEN payment_status = 'Paid'
-              THEN total
-              ELSE 0
-            END
-          ),0
-        ) AS paid_amount,
-        COALESCE(
-          SUM(
-            CASE
-              WHEN payment_status = 'Credit'
-              THEN total
-              ELSE 0
-            END
-          ),0
-        ) AS credit_amount
-      FROM sales
-      WHERE company_id = $1
-      `,
-      [req.user.companyId]
-    );
+app.get(
+  "/api/dashboard",
+  auth,
+  async (req, res) => {
+    try {
+      const sales = await query(
+        `
+        SELECT
+          COALESCE(SUM(total),0) revenue,
+          COALESCE(SUM(cost_total),0) cogs,
+          COALESCE(SUM(paid_amount),0) collected,
+          COALESCE(SUM(balance_due),0) receivable,
+          COUNT(*) invoice_count
+        FROM sales
+        WHERE company_id=$1
+        `,
+        [req.user.companyId]
+      );
 
-    const expenses = await db(
-      `
-      SELECT COALESCE(SUM(amount),0) AS expenses
-      FROM expenses
-      WHERE company_id = $1
-      `,
-      [req.user.companyId]
-    );
+      const purchases = await query(
+        `
+        SELECT
+          COALESCE(SUM(total),0) purchase_total,
+          COALESCE(SUM(balance_due),0) payable
+        FROM purchases
+        WHERE company_id=$1
+        `,
+        [req.user.companyId]
+      );
 
-    const customers = await db(
-      `
-      SELECT COUNT(*) AS count
-      FROM customers
-      WHERE company_id = $1
-      `,
-      [req.user.companyId]
-    );
+      const expenses = await query(
+        `
+        SELECT
+          COALESCE(SUM(amount),0) total
+        FROM expenses
+        WHERE company_id=$1
+        `,
+        [req.user.companyId]
+      );
 
-    const products = await db(
-      `
-      SELECT
-        COUNT(*) AS product_count,
-        COALESCE(SUM(stock),0) AS stock_units,
-        COALESCE(
-          SUM(stock * cost_price),0
-        ) AS stock_value,
-        COUNT(*) FILTER (
-          WHERE stock <= low_stock
-        ) AS low_stock
-      FROM products
-      WHERE company_id = $1
-      `,
-      [req.user.companyId]
-    );
+      const stock = await query(
+        `
+        SELECT
+          COUNT(*) product_count,
+          COALESCE(SUM(stock),0) stock_units,
+          COALESCE(
+            SUM(stock*cost_price),0
+          ) stock_value,
+          COUNT(*) FILTER(
+            WHERE stock<=low_stock
+          ) low_stock
+        FROM products
+        WHERE company_id=$1
+        AND active=true
+        `,
+        [req.user.companyId]
+      );
 
-    const revenue = Number(sales.rows[0].revenue);
-    const cogs = Number(sales.rows[0].cogs);
-    const expense = Number(expenses.rows[0].expenses);
+      const customers = await query(
+        `
+        SELECT COUNT(*) count
+        FROM customers
+        WHERE company_id=$1
+        `,
+        [req.user.companyId]
+      );
 
-    const grossProfit = revenue - cogs;
-    const netProfit = grossProfit - expense;
+      const revenue =
+        number(sales.rows[0].revenue);
 
-    res.json({
-      ok: true,
-      dashboard: {
-        revenue,
-        cogs,
-        gross_profit: grossProfit,
-        expenses: expense,
-        net_profit: netProfit,
-        invoice_count: Number(sales.rows[0].invoice_count),
-        paid_amount: Number(sales.rows[0].paid_amount),
-        credit_amount: Number(sales.rows[0].credit_amount),
-        customer_count: Number(customers.rows[0].count),
-        product_count: Number(products.rows[0].product_count),
-        stock_units: Number(products.rows[0].stock_units),
-        stock_value: Number(products.rows[0].stock_value),
-        low_stock: Number(products.rows[0].low_stock)
-      }
-    });
+      const cogs =
+        number(sales.rows[0].cogs);
 
-  } catch (error) {
-    console.error("DASHBOARD ERROR:", error);
+      const expense =
+        number(expenses.rows[0].total);
 
-    res.status(500).json({
-      ok: false,
-      message: "Unable to load dashboard"
-    });
+      const gross =
+        revenue - cogs;
+
+      const net =
+        gross - expense;
+
+      res.json({
+        ok: true,
+        dashboard: {
+          revenue,
+          cogs,
+          gross_profit: gross,
+          expenses: expense,
+          net_profit: net,
+
+          collected:
+            number(sales.rows[0].collected),
+
+          receivable:
+            number(sales.rows[0].receivable),
+
+          invoice_count:
+            number(sales.rows[0].invoice_count),
+
+          purchase_total:
+            number(
+              purchases.rows[0].purchase_total
+            ),
+
+          payable:
+            number(purchases.rows[0].payable),
+
+          customer_count:
+            number(customers.rows[0].count),
+
+          product_count:
+            number(stock.rows[0].product_count),
+
+          stock_units:
+            number(stock.rows[0].stock_units),
+
+          stock_value:
+            number(stock.rows[0].stock_value),
+
+          low_stock:
+            number(stock.rows[0].low_stock)
+        }
+      });
+    } catch (error) {
+      console.error("DASHBOARD:", error);
+
+      res.status(500).json({
+        ok: false,
+        message: "Unable to load dashboard"
+      });
+    }
   }
-});
+);
+
+/* =========================
+   COMPANY
+========================= */
+
+app.get(
+  "/api/company",
+  auth,
+  async (req, res) => {
+    try {
+      const result = await query(
+        `
+        SELECT *
+        FROM companies
+        WHERE id=$1
+        `,
+        [req.user.companyId]
+      );
+
+      if (!result.rows.length) {
+        return res.status(404).json({
+          ok: false,
+          message: "Company not found"
+        });
+      }
+
+      res.json({
+        ok: true,
+        company: result.rows[0]
+      });
+    } catch {
+      res.status(500).json({
+        ok: false,
+        message: "Unable to load company"
+      });
+    }
+  }
+);
+
+app.put(
+  "/api/company",
+  auth,
+  roles("Owner", "Admin"),
+  async (req, res) => {
+    try {
+      const result = await query(
+        `
+        UPDATE companies
+        SET
+          name=COALESCE($1,name),
+          owner_name=COALESCE($2,owner_name),
+          currency=COALESCE($3,currency),
+          monthly_target=COALESCE($4,monthly_target),
+          updated_at=NOW()
+        WHERE id=$5
+        RETURNING *
+        `,
+        [
+          req.body.name || null,
+          req.body.owner_name || null,
+          req.body.currency || null,
+          req.body.monthly_target == null
+            ? null
+            : number(req.body.monthly_target),
+          req.user.companyId
+        ]
+      );
+
+      res.json({
+        ok: true,
+        company: result.rows[0]
+      });
+    } catch {
+      res.status(500).json({
+        ok: false,
+        message: "Unable to update company"
+      });
+    }
+  }
+);
+
+/* =========================
+   USERS
+========================= */
+
+app.get(
+  "/api/users",
+  auth,
+  roles("Owner", "Admin"),
+  async (req, res) => {
+    try {
+      const result = await query(
+        `
+        SELECT
+          id,
+          company_id,
+          name,
+          email,
+          role,
+          status,
+          created_at
+        FROM users
+        WHERE company_id=$1
+        ORDER BY created_at DESC
+        `,
+        [req.user.companyId]
+      );
+
+      res.json({
+        ok: true,
+        users: result.rows.map(userView)
+      });
+    } catch {
+      res.status(500).json({
+        ok: false,
+        message: "Unable to load users"
+      });
+    }
+  }
+);
+
+app.post(
+  "/api/users",
+  auth,
+  roles("Owner", "Admin"),
+  async (req, res) => {
+    try {
+      const allowed = [
+        "Admin",
+        "Sales Manager",
+        "Salesperson",
+        "Accountant",
+        "Warehouse",
+        "HR"
+      ];
+
+      if (
+        !req.body.name ||
+        !req.body.email ||
+        !req.body.password ||
+        !allowed.includes(req.body.role)
+      ) {
+        return res.status(400).json({
+          ok: false,
+          message: "Invalid user data"
+        });
+      }
+
+      const email =
+        String(req.body.email)
+          .trim()
+          .toLowerCase();
+
+      const exists = await query(
+        "SELECT id FROM users WHERE email=$1",
+        [email]
+      );
+
+      if (exists.rows.length) {
+        return res.status(409).json({
+          ok: false,
+          message: "Email already exists"
+        });
+      }
+
+      const hash = await bcrypt.hash(
+        req.body.password,
+        12
+      );
+
+      const result = await query(
+        `
+        INSERT INTO users
+        (
+          company_id,
+          name,
+          email,
+          password_hash,
+          role,
+          status
+        )
+        VALUES
+        ($1,$2,$3,$4,$5,'Active')
+        RETURNING
+          id,
+          company_id,
+          name,
+          email,
+          role,
+          status,
+          created_at
+        `,
+        [
+          req.user.companyId,
+          String(req.body.name).trim(),
+          email,
+          hash,
+          req.body.role
+        ]
+      );
+
+      res.status(201).json({
+        ok: true,
+        user: userView(result.rows[0])
+      });
+    } catch {
+      res.status(500).json({
+        ok: false,
+        message: "Unable to create user"
+      });
+    }
+  }
+);
 
 /* =========================
    404
@@ -1370,17 +1860,17 @@ app.get("/api/dashboard", auth, async (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     ok: false,
-    message: "API route not found",
+    message: "Route not found",
     path: req.path
   });
 });
 
 /* =========================
-   ERROR HANDLER
+   ERROR
 ========================= */
 
 app.use((err, req, res, next) => {
-  console.error("SERVER ERROR:", err);
+  console.error(err);
 
   res.status(500).json({
     ok: false,
@@ -1393,10 +1883,12 @@ app.use((err, req, res, next) => {
 ========================= */
 
 app.listen(PORT, () => {
-  console.log("======================================");
+  console.log("--------------------------------------");
   console.log("AUNG SMART BUSINESS ERP");
-  console.log("Version: 4.0.0");
-  console.log(`Server: http://localhost:${PORT}`);
-  console.log(`Database: ${pool ? "configured" : "not configured"}`);
-  console.log("======================================");
+  console.log("Version 5.0.0");
+  console.log(`Port: ${PORT}`);
+  console.log(
+    `Database: ${pool ? "configured" : "not configured"}`
+  );
+  console.log("--------------------------------------");
 });
